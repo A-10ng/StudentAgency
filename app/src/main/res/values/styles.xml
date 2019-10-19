@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/bulebutton</item>   //EditText的竖线和下划线没有获取焦点，也就是默认的颜色
+        <item name="colorControlActivated">@color/bulebutton</item>  //点击EditText时竖线和下划线的颜色
+    </style>
+
+</resources>
