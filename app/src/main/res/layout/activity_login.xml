@@ -32,8 +32,10 @@
         android:layout_marginTop="50dp">
 
         <TextView
+            android:id="@+id/tv_description"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="left|bottom"
             android:layout_weight="0.75"
             android:text="请使用教务系统账号密码登录~"/>
 
@@ -64,6 +66,24 @@
             android:layout_height="wrap_content"
             android:weightSum="1"
             android:gravity="center"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:id="@+id/tv_studentIdLength"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="5/6"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:gravity="center"
             android:layout_marginTop="40dp">
 
             <EditText
@@ -73,8 +93,27 @@
                 android:layout_weight="0.75"
                 android:background="@drawable/shape_login_edittext"
                 android:hint="请输入密码"
+                android:inputType="numberPassword"
                 android:maxLength="6"
                 android:paddingLeft="6dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:gravity="center"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:id="@+id/tv_passwordLength"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="5/6"/>
 
         </LinearLayout>
 
