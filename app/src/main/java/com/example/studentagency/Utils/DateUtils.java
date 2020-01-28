@@ -1,8 +1,15 @@
 package com.example.studentagency.Utils;
 
+import android.util.Log;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * author：LongSh1z
@@ -11,9 +18,25 @@ import java.util.Locale;
  * desc:
  */
 public class DateUtils {
-    public static String getNowDateFormat(String format){
+    private static final String TAG = "DateUtils";
+    public static String getCurrentDateByFormat(String format) {
         Date currentTime = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CHINA);
         return dateFormat.format(currentTime);
+    }
+
+    public static String addDaysToMonAndDate(int num) {
+        Date currentTime = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM月dd日", Locale.CHINA);
+
+        String currentMonAndDate = dateFormat.format(currentTime);
+        Log.i(TAG, "现在的日期是：" + currentMonAndDate);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, num);// num为增加的天数，可以改变的
+        currentTime = calendar.getTime();
+        String enddate = dateFormat.format(currentTime);
+        Log.i(TAG, "增加天数以后的日期：" + enddate);
+        return enddate;
     }
 }

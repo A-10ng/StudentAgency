@@ -25,12 +25,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitHelper {
 
-    public static String BASE_URL = "http://120.78.219.119:8080/MyCatServer/";
+//    public static String BASE_URL = "http://120.78.219.119:8080/StudentAgency/";
+//    public static String BASE_URL = "http://192.168.1.104:8080/LongSh1z/";
+    public static String BASE_URL = "http://192.168.43.73:8080/LongSh1z/";
+//    public static String BASE_URL = "http://120.78.219.119:8080/LongSh1z/";
 
     private static final String TAG = "RetrofitHelper";
-    private long CONNECT_TIMEOUT = 60L;
-    private long READ_TIMEOUT = 30L;
-    private long WRITE_TIMEOUT = 30l;
+    private long CONNECT_TIMEOUT = 3L;
+    private long READ_TIMEOUT = 3L;
+    private long WRITE_TIMEOUT = 3L;
     private static volatile RetrofitHelper mInstance = null;
     private Retrofit mRetrofit = null;
 
@@ -45,6 +48,7 @@ public class RetrofitHelper {
         return mInstance;
     }
 
+    //防止外部实例化
     private RetrofitHelper(){
         init();
     }
@@ -108,7 +112,7 @@ public class RetrofitHelper {
             String params = requestBodyToString(request.body());
             Response response = chain.proceed(request);
             String responseString = response.body().string();//JsonHandleUtils.jsonHandle(response)
-            String time = DateUtils.getNowDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
             String log =
                     "\n\n*****请求时间*****:\n" + time +
                     "\n*******路径*******:\n" + url +

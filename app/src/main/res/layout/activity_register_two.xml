@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:lsz="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.activity.RegisterOneActivity"
+    android:orientation="vertical">
+
+    <com.example.studentagency.ui.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lsz:title_name="注册"
+        lsz:iv_return_visibility="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/shape_regis_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.86"
+                android:background="@drawable/shape_login_round_bg"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="30dp"
+                    android:src="@drawable/icon_phone"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/lightgray"/>
+
+                <EditText
+                    android:id="@+id/et_phoneNum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:textColorHint="@color/white"
+                    android:maxLength="11"
+                    android:inputType="phone"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_no_line"
+                    android:hint="手机号"/>
+
+                <ImageView
+                    android:id="@+id/iv_phoneNumState"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_success"
+                    android:layout_marginRight="20dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/root_verifyCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.86"
+                android:background="@drawable/shape_login_round_bg"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="30dp"
+                    android:src="@drawable/icon_verifycode"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/lightgray"/>
+
+                <EditText
+                    android:id="@+id/et_verifyCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="@color/white"
+                    android:inputType="number"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_no_line"
+                    android:hint="验证码"/>
+
+                <TextView
+                    android:id="@+id/tv_getVerifyCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="获取验证码"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/btn_lastStep"
+                    android:layout_width="0dp"
+                    android:layout_height="53dp"
+                    android:layout_weight="0.86"
+                    android:background="@drawable/shape_regis_two_laststep_bg"
+                    android:text="上一步"
+                    android:textColor="@color/white"
+                    android:stateListAnimator="@null"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/btn_finishRegis"
+                    android:layout_width="0dp"
+                    android:layout_height="53dp"
+                    android:layout_weight="0.86"
+                    android:background="@drawable/shape_login_btn_bg"
+                    android:text="完成"
+                    android:textColor="@color/white"
+                    android:stateListAnimator="@null"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/btn_goToLogin"
+                    android:layout_width="0dp"
+                    android:layout_height="53dp"
+                    android:layout_weight="0.86"
+                    android:background="@drawable/shape_login_gotoregis_bg"
+                    android:text="已有账号，前往登录"
+                    android:textColor="@color/white"
+                    android:stateListAnimator="@null"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

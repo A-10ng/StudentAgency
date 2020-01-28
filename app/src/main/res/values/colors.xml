@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="bohelv">#7FFFD4</color>
+    <color name="themeColor">#1296db</color>
     <color name="bulebutton">#ead19a</color><!--备用主题颜色：#ead19a(黄) #0783FD(蓝) -->
     <color name="darkYellow">#ddc38b</color>
     <color name="shaonvfen">#FEC8D6</color>
@@ -39,7 +40,6 @@
     <color name="deeppink">#FF1493</color><!--深粉红色 -->
     <color name="fuchsia">#FF00FF</color><!--紫红色 -->
     <color name="red">#FF0000</color><!--红色 -->
-    <color name="oldlace">#FDF5E6</color><!--老花色 -->
     <color name="lightgoldenrodyellow">#FAFAD2</color><!--亮金黄色 -->
     <color name="linen">#FAF0E6</color><!--亚麻色 -->
     <color name="antiquewhite">#FAEBD7</color><!--古董白 -->
@@ -68,7 +68,7 @@
     <color name="goldenrod">#DAA520</color><!--金麒麟色 -->
     <color name="orchid">#DA70D6</color><!--淡紫色 -->
     <color name="thistle">#D8BFD8</color><!--蓟色 -->
-    <color name="lightgray">#D3D3D3</color><!--亮灰色 -->
+    <color name="lightgray">#f2f2f2</color><!--亮灰色 -->
     <color name="tan">#D2B48C</color><!--茶色 -->
     <color name="chocolate">#D2691E</color><!--巧可力色 -->
     <color name="peru">#CD853F</color><!--秘鲁色 -->
