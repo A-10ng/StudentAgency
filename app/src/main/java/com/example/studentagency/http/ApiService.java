@@ -57,6 +57,10 @@ public interface ApiService {
                                       @Query("description") String description,@Query("address") String address,@Query("publishTime") String publishTime,
                                       @Query("planTime") String planTime);
 
-    @POST("GiveACommentSuccess")
+    @POST("GiveACommentFail")
     Observable<Integer> getVerifyCode(@Query("phoneNum") String phoneNum);
+
+    @POST("GiveACommentFail")
+    Observable<Integer> register(@Query("username") String username,@Query("gender") int gender,@Query("password") String password,
+                                 @Query("school") String school,@Query("phoneNum") String phoneNum);
 }

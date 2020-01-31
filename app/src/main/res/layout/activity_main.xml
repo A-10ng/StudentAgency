@@ -7,8 +7,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.example.studentagency.ui.widget.TitleBar
+        android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title_name="首页"
         app:iv_return_visibility="false"/>
 
     <androidx.viewpager.widget.ViewPager

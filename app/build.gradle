@@ -73,5 +73,6 @@ dependencies {
     implementation project(path: ':lemonhello')
     implementation project(path: ':lemonbubble')
 
-    //毛玻璃效果
+    //搜索框
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 }

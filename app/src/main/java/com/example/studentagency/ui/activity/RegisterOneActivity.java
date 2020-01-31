@@ -17,11 +17,14 @@ import com.example.studentagency.R;
 
 import java.lang.ref.WeakReference;
 
+import androidx.annotation.Nullable;
+
 public class RegisterOneActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "RegisterOneActivity";
     private static final int LISTEN_EDIT = 1;
     private static final int PICK_SCHOOL = 2;
+    private static final int PICK_SCHOOL_Activity = 3;
     private MyHandler myHandler = new MyHandler(this);
 
     //学校
@@ -158,6 +161,18 @@ public class RegisterOneActivity extends BaseActivity implements View.OnClickLis
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_SCHOOL && resultCode == PICK_SCHOOL_Activity){
+            String schoolName = data.getStringExtra("schoolName");
+            tv_school.setText(schoolName);
+            school = schoolName;
+            Log.i(TAG, "onActivityResult: school>>>>>"+school);
+        }
     }
 
     private class MyHandler extends Handler{

@@ -191,6 +191,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
             tv_getVerifyCode.setClickable(false);
         } else {
             LemonBubble.showError(this, "发送失败，请重试！", 1200);
+
+            hasGetCode = false;
         }
     }
 
@@ -199,6 +201,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
         Log.i(TAG, "getVerifyCodeFail");
 
         LemonBubble.showError(this, "网络开了小差，请重试！", 1200);
+
+        hasGetCode = false;
     }
 
     @Override

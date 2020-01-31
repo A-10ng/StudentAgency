@@ -14,6 +14,7 @@ import com.example.studentagency.ui.fragment.HomeFragment;
 import com.example.studentagency.ui.fragment.MarketFragment;
 import com.example.studentagency.ui.fragment.MessageFragment;
 import com.example.studentagency.ui.fragment.PersonFragment;
+import com.example.studentagency.ui.widget.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
+    private TitleBar titleBar;
     private static final String TAG = "MainActivity";
     private List<Fragment> fragments;
     private ViewPager viewPager;
@@ -48,6 +50,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initViews() {
+        titleBar = findViewById(R.id.titleBar);
+
         //底部导航栏linearlayout初始化
         llayout_home = findViewById(R.id.llayout_home);
         llayout_market = findViewById(R.id.llayout_market);
@@ -119,6 +123,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //首页
             case R.id.llayout_home:
             case 0:
+                titleBar.setTitle_name("首页");
+
                 iv_home.setSelected(true);
                 tv_home.setSelected(true);
                 iv_current = iv_home;
@@ -128,6 +134,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //市场
             case R.id.llayout_market:
             case 1:
+                titleBar.setTitle_name("市场");
+
                 iv_market.setSelected(true);
                 tv_market.setSelected(true);
                 iv_current = iv_market;
@@ -137,6 +145,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //消息
             case R.id.llayout_message:
             case 2:
+                titleBar.setTitle_name("消息");
+
                 iv_message.setSelected(true);
                 tv_message.setSelected(true);
                 iv_current = iv_message;
@@ -146,6 +156,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //个人
             case R.id.llayout_person:
             case 3:
+                titleBar.setTitle_name("个人");
+
                 iv_person.setSelected(true);
                 tv_person.setSelected(true);
                 iv_current = iv_person;

@@ -15,15 +15,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lemonbubble.LemonBubble;
+import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
+import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
+import com.example.studentagency.mvp.presenter.RegisterActivityBasePresenter;
+import com.example.studentagency.mvp.view.RegisterActivityBaseView;
 
 import java.lang.ref.WeakReference;
 
-public class RegisterTwoActivity extends BaseActivity implements View.OnClickListener {
+public class RegisterTwoActivity extends BaseActivity implements View.OnClickListener, RegisterActivityBaseView {
 
     private static final String TAG = "RegisterTwoActivity";
     private static final int LISTEN_EDIT = 1;
     private MyHandler myHandler = new MyHandler(this);
+    private RegisterActivityBasePresenter presenter = new RegisterActivityBasePresenter(this);
 
     //上一步填写的信息
     private String username;
@@ -141,6 +147,21 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                     "school >>>>> "+school+"\n"+
                     "phoneNum >>>>> "+phoneNum+"\n"+
                     "verifyCode >>>>> "+verifyCode);
+
+                LemonBubble.getRoundProgressBubbleInfo()
+                        .setLocationStyle(LemonBubbleLocationStyle.BOTTOM)
+                        .setLayoutStyle(LemonBubbleLayoutStyle.ICON_LEFT_TITLE_RIGHT)
+                        .setBubbleSize(200, 50)
+                        .setProportionOfDeviation(0.1f)
+                        .setTitle("注册中...")
+                        .show(RegisterTwoActivity.this);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.register(username,genderType,password,school,phoneNum);
+                    }
+                }, 1500);
                 break;
             case R.id.btn_goToLogin:
                 startActivity(new Intent(this,LoginActivity.class));
@@ -149,9 +170,71 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
             case R.id.tv_getVerifyCode:
                 hasGetCode = true;
 
-                countTime.start();
+                LemonBubble.getRoundProgressBubbleInfo()
+                        .setLocationStyle(LemonBubbleLocationStyle.BOTTOM)
+                        .setLayoutStyle(LemonBubbleLayoutStyle.ICON_LEFT_TITLE_RIGHT)
+                        .setBubbleSize(200, 50)
+                        .setProportionOfDeviation(0.1f)
+                        .setTitle("获取中...")
+                        .show(RegisterTwoActivity.this);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.getVerifyCode(phoneNum);
+                    }
+                }, 1500);
                 break;
         }
+    }
+
+    @Override
+    public void getVerifyCodeSuccess(Integer result) {
+        Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + result);
+
+        if (result == 1) {
+            LemonBubble.showRight(this, "发送成功！", 1000);
+
+            countTime.start();
+            tv_getVerifyCode.setClickable(false);
+        } else {
+            LemonBubble.showError(this, "发送失败，请重试！", 1200);
+
+            hasGetCode = false;
+        }
+    }
+
+    @Override
+    public void getVerifyCodeFail() {
+        Log.i(TAG, "getVerifyCodeFail");
+
+        LemonBubble.showError(this, "网络开了小差，请重试！", 1200);
+
+        hasGetCode = false;
+    }
+
+    @Override
+    public void registerSuccess(Integer result) {
+        Log.i(TAG, "registerSuccess: result>>>>>" + result);
+        if (result == 1) {
+            LemonBubble.showRight(this, "注册成功！", 1000);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(RegisterTwoActivity.this, MainActivity.class));
+                }
+            }, 1100);
+        } else {
+            LemonBubble.showError(this, "注册失败，请重试！", 1200);
+        }
+    }
+
+    @Override
+    public void registerFail() {
+        Log.i(TAG, "registerFail");
+
+        LemonBubble.showError(this, "网络开了小差，请重试！", 1200);
     }
 
     private class CountTime extends CountDownTimer{
