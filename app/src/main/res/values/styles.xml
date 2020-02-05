@@ -38,4 +38,9 @@
         <item name="colorControlActivated">@color/transparent</item>  //点击EditText时竖线和下划线的颜色
     </style>
 
+    <style name="choosePicAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>   //EditText的竖线和下划线没有获取焦点，也就是默认的颜色
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>  //点击EditText时竖线和下划线的颜色
+    </style>
+
 </resources>

@@ -5,6 +5,13 @@
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!--获取SD卡读写权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".ui.activity.MyApp"
         android:allowBackup="true"
@@ -16,6 +23,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".ui.activity.ModifyPwdActivity">
+        </activity>
+        <activity android:name=".ui.activity.PersonalInfoActivity">
+        </activity>
+        <activity android:name=".ui.activity.CreditScoreRecordActivity">
+        </activity>
+        <activity android:name=".ui.activity.PersonIndentActivity">
+        </activity>
         <activity android:name=".ui.activity.PickSchoolActivity">
         </activity>
         <activity android:name=".ui.activity.RegisterTwoActivity">
@@ -29,7 +44,6 @@
         <activity android:name=".ui.activity.WebviewActivity">
         </activity>
         <activity android:name=".ui.activity.RegisterOneActivity">
-
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"

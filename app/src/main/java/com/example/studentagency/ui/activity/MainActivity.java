@@ -1,6 +1,8 @@
 package com.example.studentagency.ui.activity;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lemonbubble.LemonBubble;
 import com.example.studentagency.R;
+import com.example.studentagency.Utils.ActivityCollector;
 import com.example.studentagency.ui.adapter.MyFragmentPagerAdapter;
 import com.example.studentagency.ui.fragment.HomeFragment;
 import com.example.studentagency.ui.fragment.MarketFragment;
@@ -19,6 +23,7 @@ import com.example.studentagency.ui.widget.TitleBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -26,6 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private TitleBar titleBar;
     private static final String TAG = "MainActivity";
+    private static final int WRITE_EXTERNAL_STORAGE = 200;
     private List<Fragment> fragments;
     private ViewPager viewPager;
     //底部导航栏的总布局
@@ -183,6 +189,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 //并记录下本次点击“返回键”的时刻，以便下次进行判断
                 mExitTime = System.currentTimeMillis();
             } else {
+                ActivityCollector.finishAll();
                 //小于2000ms则认为是用户确实希望退出程序-调用System.exit()方法进行退出
                 System.exit(0);
             }

@@ -63,4 +63,7 @@ public interface ApiService {
     @POST("GiveACommentFail")
     Observable<Integer> register(@Query("username") String username,@Query("gender") int gender,@Query("password") String password,
                                  @Query("school") String school,@Query("phoneNum") String phoneNum);
+
+    @POST("GetPublishInfo")
+    Observable<UserBean> getPersonFragmentInfo(@Query("userId") int userId);
 }

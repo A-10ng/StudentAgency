@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.CreditScoreRecordActivity">
+
+    <com.example.studentagency.ui.widget.TitleBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:iv_return_visibility="true"
+        app:title_name="个人订单">
+    </com.example.studentagency.ui.widget.TitleBar>
+
+</LinearLayout>

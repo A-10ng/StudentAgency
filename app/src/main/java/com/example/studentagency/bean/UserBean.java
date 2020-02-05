@@ -117,4 +117,21 @@ public class UserBean {
     public void setCreditScore(int creditScore) {
         this.creditScore = creditScore;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "[ userId:"+userId+
+                "\n username:"+username+
+                "\n password:"+password+
+                "\n studentId:"+studentId+
+                "\n phoneNum:"+phoneNum+
+                "\n avatar:"+avatar+
+                "\n gender:"+gender+
+                "\n verifyPic:"+verifyPic+
+                "\n verifyState:"+verifyState+
+                "\n school:"+school+
+                "\n balance:"+balance+
+                "\n creditScore:"+creditScore+"]";
+    }
 }

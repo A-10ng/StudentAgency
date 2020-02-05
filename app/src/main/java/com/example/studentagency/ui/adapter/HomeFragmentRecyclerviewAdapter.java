@@ -1,5 +1,6 @@
 package com.example.studentagency.ui.adapter;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.studentagency.R;
 import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.bean.ClassifyBean;
@@ -16,8 +18,10 @@ import com.example.studentagency.viewholder.HomeFragment.BannerViewHolder;
 import com.example.studentagency.viewholder.HomeFragment.ClassifyViewHolder;
 import com.example.studentagency.viewholder.HomeFragment.IndentLoadErrorViewHolder;
 import com.example.studentagency.viewholder.HomeFragment.IndentViewHolder;
+
 import com.zhengsr.viewpagerlib.bean.PageBean;
 import com.zhengsr.viewpagerlib.callback.PageHelperListener;
+
 
 import java.util.List;
 
@@ -86,10 +90,14 @@ public class HomeFragmentRecyclerviewAdapter extends RecyclerView.Adapter<Recycl
         //第一个if先判断是不是indentViewHolder，因为它占用的item数量多，速度应该会稍快点
         if (holder instanceof IndentViewHolder) {
             final IndentBean bean = (IndentBean) mDataList.get(position);
+
+            RequestOptions requestOptions = RequestOptions.circleCropTransform();
             Glide.with(((IndentViewHolder) holder).getView())
                     .load(bean.getAvatar())
                     .placeholder(R.drawable.placeholder_pic)
+                    .apply(requestOptions)
                     .into(((IndentViewHolder) holder).iv_avatar);
+
             ((IndentViewHolder) holder).tv_username.setText(bean.getUsername());
             if (3 == bean.getVerifyState()) {
                 ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.verified);

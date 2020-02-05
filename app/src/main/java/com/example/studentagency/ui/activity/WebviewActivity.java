@@ -187,7 +187,7 @@ public class WebviewActivity extends BaseActivity {
                 switch (msg.what) {
                     case 1:
                         //避免出现默认的错误界面
-                        webView.loadUrl("about:blank");
+                        webView.loadUrl("");
                         //加载自定义的错误页面
                         setErrorPage();
                     break;
