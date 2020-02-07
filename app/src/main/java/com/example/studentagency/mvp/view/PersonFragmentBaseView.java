@@ -11,4 +11,7 @@ import com.example.studentagency.bean.UserBean;
 public interface PersonFragmentBaseView extends IView{
     void getPersonFragmentInfoSuccess(UserBean userBean);
     void getPersonFragmentInfoFail();
+
+    void uploadAvatarSuccess(Integer result);
+    void uploadAvatarFail();
 }

@@ -136,6 +136,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
         Log.i(TAG, "loginByPasswordSuccess: result>>>>>" + result);
 
         if (result == 1) {
+            MyApp.hadLogin = true;
+
             LemonBubble.showRight(this, "登录成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
@@ -158,6 +160,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
 
     @Override
     public void loginByVerifyCodeSuccess(Integer result) {
+        MyApp.hadLogin = true;
+
         Log.i(TAG, "loginByVerifyCodeSuccess: result>>>>>" + result);
         if (result == 1) {
             LemonBubble.showRight(this, "登录成功！", 1000);
