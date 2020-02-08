@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.activity.CreditScoreRecordActivity">
 
     <com.example.studentagency.ui.widget.TitleBar
@@ -13,5 +14,124 @@
         app:iv_return_visibility="true"
         app:title_name="修改密码">
     </com.example.studentagency.ui.widget.TitleBar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:text="修改密码"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/lightgray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:text="新密码："/>
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_no_line"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:maxLength="11"
+            android:inputType="textPassword"
+            android:hint="请输入密码"/>
+
+        <ImageView
+            android:id="@+id/iv_passwordState"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:src="@drawable/icon_success"
+            android:layout_marginRight="20dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/lightgray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:text="确认密码："/>
+
+        <EditText
+            android:id="@+id/et_confirmPwd"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_no_line"
+            android:layout_marginLeft="10dp"
+            android:maxLength="11"
+            android:inputType="textPassword"
+            android:layout_marginRight="20dp"
+            android:hint="请再次输入密码"/>
+
+        <ImageView
+            android:id="@+id/iv_confirmPwdState"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:src="@drawable/icon_success"
+            android:layout_marginRight="20dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/lightgray"/>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_login_btn_bg"
+        android:text="保存"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
 
 </LinearLayout>

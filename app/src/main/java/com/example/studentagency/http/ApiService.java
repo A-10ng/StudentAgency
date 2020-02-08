@@ -73,4 +73,7 @@ public interface ApiService {
     @Multipart
     @POST("UploadAvatar")
     Observable<Integer> uploadAvatar(@Part MultipartBody.Part avatar,@Query("userId") int userId);
+
+    @POST("GiveACommentSuccess")
+    Observable<Integer> changePwd(@Query("userId") int userId,@Query("newPwd")String newPwd);
 }

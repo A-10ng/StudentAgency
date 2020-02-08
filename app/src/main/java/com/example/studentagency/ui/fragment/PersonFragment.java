@@ -129,22 +129,38 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                 }
                 break;
             case R.id.layout_personalIndent:
-                startActivity(new Intent(getActivity(), PersonIndentActivity.class));
+                if (hadLogin) {
+                    startActivity(new Intent(getActivity(), PersonIndentActivity.class));
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.layout_creditScoreRecord:
-                startActivity(new Intent(getActivity(), CreditScoreRecordActivity.class));
+                if (hadLogin) {
+                    startActivity(new Intent(getActivity(), CreditScoreRecordActivity.class));
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.layout_personalInfo:
-                startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+                if (hadLogin) {
+                    startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.layout_modifyPwd:
-                startActivity(new Intent(getActivity(), ModifyPwdActivity.class));
+                if (hadLogin) {
+                    startActivity(new Intent(getActivity(), ModifyPwdActivity.class));
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.layout_exitLogin:
-                if (hadLogin){
+                if (hadLogin) {
                     showEnsureExitLoginDialog();
-                }else {
-                    Toast.makeText(getActivity(), "您还未登录！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -162,19 +178,17 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                     isPickPhoto = false;
 
                     //首先判断是有拥有权限
-                    if(ContextCompat.checkSelfPermission(getActivity(),
+                    if (ContextCompat.checkSelfPermission(getActivity(),
                             Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                       ContextCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                            ContextCompat.checkSelfPermission(getActivity(),
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         requestPermissions(new String[]{Manifest.permission.CAMERA,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE},CAMERA);
-                    }
-                    else {
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA);
+                    } else {
                         //打开系统相机拍照
                         takePhoto();
                     }
-                }
-                else if (1 == position) {
+                } else if (1 == position) {
                     Log.i(TAG, "clickItem: 点击了从相册中选择");
                     choosePicPopupWindow.dismiss();
 
@@ -190,42 +204,13 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                         //打开系统相册
                         openSystemAlbum();
                     }
-                }
-                else {
+                } else {
                     Log.i(TAG, "clickItem: 点击了取消");
                     choosePicPopupWindow.dismiss();
                 }
             }
         });
         choosePicPopupWindow.showAsDropDown(iv_avatar);
-    }
-
-    private void takePhoto() {
-        Intent intent;
-
-        //存放头像的文件
-        File avatarFile = new File(Environment.getExternalStorageDirectory()+File.separator+"StudentAgency",IMAGE_FILE_NAME);
-        if (!avatarFile.getParentFile().exists()){
-            avatarFile.getParentFile().mkdirs();
-        }
-        //判断当前系统，Android7.0及以上版本
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            userAvatarUri = FileProvider.getUriForFile(getActivity(),"com.example.studentagency.FileProvider",avatarFile);
-            Log.i(TAG, "takePhoto: userAvatarUri>>>>>"+userAvatarUri.toString());
-        }
-        else {
-            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            userAvatarUri = Uri.fromFile(avatarFile);
-            Log.i(TAG, "takePhoto: userAvatarUri>>>>>"+userAvatarUri.toString());
-        }
-
-        //去拍照，拍照的结果存到userAvatarUri对应的路径中
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,userAvatarUri);
-        Log.i(TAG, "before takePhoto: "+userAvatarUri.toString());
-        startActivityForResult(intent,REQUEST_CODE_TAKE_PHOTO);
     }
 
     private void goToLogin() {
@@ -252,6 +237,33 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                     }
                 }))
                 .show(getActivity());
+    }
+
+    private void takePhoto() {
+        Intent intent;
+
+        //存放头像的文件
+        File avatarFile = new File(Environment.getExternalStorageDirectory() + File.separator + "StudentAgency", IMAGE_FILE_NAME);
+        if (!avatarFile.getParentFile().exists()) {
+            avatarFile.getParentFile().mkdirs();
+        }
+        //判断当前系统，Android7.0及以上版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            userAvatarUri = FileProvider.getUriForFile(getActivity(), "com.example.studentagency.FileProvider", avatarFile);
+            Log.i(TAG, "takePhoto: userAvatarUri>>>>>" + userAvatarUri.toString());
+        } else {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            userAvatarUri = Uri.fromFile(avatarFile);
+            Log.i(TAG, "takePhoto: userAvatarUri>>>>>" + userAvatarUri.toString());
+        }
+
+        //去拍照，拍照的结果存到userAvatarUri对应的路径中
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, userAvatarUri);
+        Log.i(TAG, "before takePhoto: " + userAvatarUri.toString());
+        startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
     }
 
     public void openSystemAlbum() {
@@ -283,17 +295,17 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
 
                     takePhotoBitmap = null;
                     try {
-                        int takePhotoDegree = ImageUtils.readPictureDegree(FileUtils.getFPUriToPath(getActivity(),userAvatarUri));
+                        int takePhotoDegree = ImageUtils.readPictureDegree(FileUtils.getFPUriToPath(getActivity(), userAvatarUri));
 
-                        Log.i(TAG, "onActivityResult: degree>>>>>"+takePhotoDegree+"\n"
-                        +"userAvatarUri>>>>>"+userAvatarUri+"\n"
-                        +"userAvatarUriPath>>>>>"+FileUtils.getFPUriToPath(getActivity(),userAvatarUri));
+                        Log.i(TAG, "onActivityResult: degree>>>>>" + takePhotoDegree + "\n"
+                                + "userAvatarUri>>>>>" + userAvatarUri + "\n"
+                                + "userAvatarUriPath>>>>>" + FileUtils.getFPUriToPath(getActivity(), userAvatarUri));
 
                         //压缩图片
                         takePhotoBitmap = getCompressBitmap(userAvatarUri);
 
                         //旋转图片
-                        takePhotoBitmap = ImageUtils.rotateBitmap(takePhotoDegree,takePhotoBitmap);
+                        takePhotoBitmap = ImageUtils.rotateBitmap(takePhotoDegree, takePhotoBitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -311,11 +323,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                         public void run() {
                             File takePhotoFile = null;
                             try {
-                                takePhotoFile = FileUtils.bitmapToFile(takePhotoBitmap, DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss")+".jpg");
+                                takePhotoFile = FileUtils.bitmapToFile(takePhotoBitmap, DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss") + ".jpg");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            presenter.uploadAvatar(MyApp.userId,takePhotoFile);
+                            presenter.uploadAvatar(MyApp.userId, takePhotoFile);
                         }
                     }, 1500);
 
@@ -331,16 +343,16 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                     pickPhotoBitmap = null;
                     if (pickedImageUri != null) {
                         Log.i(TAG, "onActivityResult: pickedImageUri != null \n " +
-                                "pickedImageUri>>>>>"+pickedImageUri);
+                                "pickedImageUri>>>>>" + pickedImageUri);
 
-                        int pickPhotoDegree = ImageUtils.readPictureDegree(FileUtils.getRealPathFromURI(getActivity(),pickedImageUri));
+                        int pickPhotoDegree = ImageUtils.readPictureDegree(FileUtils.getRealPathFromURI(getActivity(), pickedImageUri));
 
-                        Log.i(TAG, "onActivityResult: pickPhotoDegree>>>>>"+pickPhotoDegree);
+                        Log.i(TAG, "onActivityResult: pickPhotoDegree>>>>>" + pickPhotoDegree);
                         //将返回的图片进行压缩，不然图片像素过大，可能导致OOM
                         try {
                             pickPhotoBitmap = getCompressBitmap(pickedImageUri);
 
-                            pickPhotoBitmap = ImageUtils.rotateBitmap(pickPhotoDegree,pickPhotoBitmap);
+                            pickPhotoBitmap = ImageUtils.rotateBitmap(pickPhotoDegree, pickPhotoBitmap);
                         } catch (IOException e) {
                             Log.i(TAG, "onActivityResult: IOException");
                             e.printStackTrace();
@@ -368,12 +380,12 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                         public void run() {
                             File pickPhotoFile = null;
                             try {
-                                pickPhotoFile = FileUtils.bitmapToFile(pickPhotoBitmap, DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss")+".jpg");
+                                pickPhotoFile = FileUtils.bitmapToFile(pickPhotoBitmap, DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss") + ".jpg");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
 
-                            presenter.uploadAvatar(MyApp.userId,pickPhotoFile);
+                            presenter.uploadAvatar(MyApp.userId, pickPhotoFile);
                         }
                     }, 1500);
 
@@ -527,21 +539,6 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         return compressImage(bitmap);//再进行质量压缩
     }
 
-    private void initAvatarAndBG(Bitmap bitmap) {
-        RequestOptions requestOptions = RequestOptions.circleCropTransform();
-        Glide.with(getActivity())
-                .load(bitmap)
-                .placeholder(R.drawable.placeholder_pic)
-                .apply(requestOptions)
-                .into(iv_avatar);
-
-        //设置头像背景虚化
-//                Bitmap bitmapBackground = ((BitmapDrawable) iv_avatar_gone.getDrawable()).getBitmap();
-        iv_avatar_bg.setBackgroundColor(Color.TRANSPARENT);
-        iv_avatar_bg.setImageBitmap(BlurUtils.fastBlur(bitmap, 15));
-
-    }
-
     private Bitmap compressImage(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
@@ -609,32 +606,46 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
 
     @Override
     public void uploadAvatarSuccess(Integer result) {
-        Log.i(TAG, "uploadAvatarSuccess: result>>>>>"+result);
+        Log.i(TAG, "uploadAvatarSuccess: result>>>>>" + result);
 
         //上传成功
-        if (1 == result){
+        if (1 == result) {
             LemonBubble.showRight(this, "上传成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (isPickPhoto){
+                    if (isPickPhoto) {
                         initAvatarAndBG(pickPhotoBitmap);
-                    }else {
+                    } else {
                         initAvatarAndBG(takePhotoBitmap);
                     }
                 }
             }, 1100);
+        } else {
+            LemonBubble.showError(this, "上传失败！", 1000);
         }
-        else {
-            LemonBubble.showError(this,"上传失败！",1000);
-        }
+    }
+
+    private void initAvatarAndBG(Bitmap bitmap) {
+        RequestOptions requestOptions = RequestOptions.circleCropTransform();
+        Glide.with(getActivity())
+                .load(bitmap)
+                .placeholder(R.drawable.placeholder_pic)
+                .apply(requestOptions)
+                .into(iv_avatar);
+
+        //设置头像背景虚化
+//                Bitmap bitmapBackground = ((BitmapDrawable) iv_avatar_gone.getDrawable()).getBitmap();
+        iv_avatar_bg.setBackgroundColor(Color.TRANSPARENT);
+        iv_avatar_bg.setImageBitmap(BlurUtils.fastBlur(bitmap, 15));
+
     }
 
     @Override
     public void uploadAvatarFail() {
         Log.i(TAG, "uploadAvatarFail: ");
 
-        LemonBubble.showError(this,"网络异常，请重试！",1000);
+        LemonBubble.showError(this, "网络异常，请重试！", 1000);
     }
 }
