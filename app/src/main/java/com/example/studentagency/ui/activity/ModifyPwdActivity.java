@@ -1,9 +1,6 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -151,6 +148,7 @@ public class ModifyPwdActivity extends BaseActivity implements ModifyPwdActivity
 
                         if (confirmPwdLength == 0) {
                             iv_confirmPwdState.setVisibility(View.GONE);
+                            btn_save.setEnabled(false);
                         } else {
                             if (newPwd.equals(confirmPwd)) {
                                 iv_confirmPwdState.setImageResource(R.drawable.icon_success);

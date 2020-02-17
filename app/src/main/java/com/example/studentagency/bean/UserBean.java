@@ -21,6 +21,15 @@ public class UserBean {
     private String school;
     private Float balance;
     private int creditScore;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public int getUserId() {
         return userId;
@@ -121,17 +130,17 @@ public class UserBean {
     @NonNull
     @Override
     public String toString() {
-        return "[ userId:"+userId+
-                "\n username:"+username+
-                "\n password:"+password+
-                "\n studentId:"+studentId+
-                "\n phoneNum:"+phoneNum+
-                "\n avatar:"+avatar+
-                "\n gender:"+gender+
-                "\n verifyPic:"+verifyPic+
-                "\n verifyState:"+verifyState+
-                "\n school:"+school+
-                "\n balance:"+balance+
-                "\n creditScore:"+creditScore+"]";
+        return "\n[ userId:" + userId +
+                "\n username:" + username +
+                "\n password:" + password +
+                "\n studentId:" + studentId +
+                "\n phoneNum:" + phoneNum +
+                "\n avatar:" + avatar +
+                "\n gender:" + gender +
+                "\n verifyPic:" + verifyPic +
+                "\n verifyState:" + verifyState +
+                "\n school:" + school +
+                "\n balance:" + balance +
+                "\n creditScore:" + creditScore + "]";
     }
 }

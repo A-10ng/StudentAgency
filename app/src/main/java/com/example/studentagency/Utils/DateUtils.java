@@ -19,6 +19,7 @@ import java.util.TimeZone;
  */
 public class DateUtils {
     private static final String TAG = "DateUtils";
+
     public static String getCurrentDateByFormat(String format) {
         Date currentTime = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CHINA);

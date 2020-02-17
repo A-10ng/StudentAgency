@@ -56,11 +56,9 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/edittext_no_line"
-                    android:hint="广东外语外贸大学"
+                    android:text="广东外语外贸大学"
                     android:drawableRight="@drawable/icon_arrow_right"
-                    android:maxLength="8"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
                     android:textSize="18sp"/>
 
             </LinearLayout>

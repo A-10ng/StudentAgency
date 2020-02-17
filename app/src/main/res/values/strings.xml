@@ -13,4 +13,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="PersonalInfo_modifyInfo">修改个人信息</string>
+    <string name="PersonalInfo_school">学校：</string>
+    <string name="PersonalInfo_username">用户名：</string>
+    <string name="longsh1z">LongSh1z</string>
+    <string name="PersonalInfo_phoneNum">手机号：</string>
 </resources>

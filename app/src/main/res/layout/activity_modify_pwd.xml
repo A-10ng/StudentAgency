@@ -30,6 +30,8 @@
         android:layout_marginRight="20dp"
         android:background="@color/lightgray"/>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -56,7 +58,7 @@
             android:layout_marginRight="20dp"
             android:maxLength="11"
             android:inputType="textPassword"
-            android:hint="请输入密码"/>
+            android:hint="请输入新密码"/>
 
         <ImageView
             android:id="@+id/iv_passwordState"
@@ -102,7 +104,7 @@
             android:maxLength="11"
             android:inputType="textPassword"
             android:layout_marginRight="20dp"
-            android:hint="请再次输入密码"/>
+            android:hint="请再次输入新密码"/>
 
         <ImageView
             android:id="@+id/iv_confirmPwdState"
@@ -128,6 +130,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_login_btn_bg"
         android:text="保存"
+        android:enabled="false"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:layout_marginTop="50dp"

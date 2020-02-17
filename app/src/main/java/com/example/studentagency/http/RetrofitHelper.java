@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
 
 //    public static String BASE_URL = "http://120.78.219.119:8080/StudentAgency/";
-//    public static String BASE_URL = "http://192.168.1.104:8080/LongSh1z/";
+//    public static String BASE_URL = "http://192.168.1.116:8080/LongSh1z/";
     public static String BASE_URL = "http://192.168.43.73:8080/LongSh1z/";
 //    public static String BASE_URL = "http://120.78.219.119:8080/LongSh1z/";
 

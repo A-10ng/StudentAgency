@@ -76,4 +76,17 @@ public interface ApiService {
 
     @POST("GiveACommentSuccess")
     Observable<Integer> changePwd(@Query("userId") int userId,@Query("newPwd")String newPwd);
+
+    @POST("GetPublishInfo")
+    Observable<UserBean> getPersonalInfo(@Query("userId") int userId);
+
+    @POST("GiveACommentFail")
+    Observable<Integer> changePersonalInfo(@Query("userBean") UserBean userBean);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> getVerifyState(@Query("userId") int userId);
+
+    @Multipart
+    @POST("UploadAvatar")
+    Observable<Integer> uploadVerifyPic(@Part MultipartBody.Part verifyPic,@Query("userId") int userId);
 }

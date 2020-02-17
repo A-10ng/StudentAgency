@@ -49,6 +49,7 @@ import com.example.studentagency.ui.activity.ModifyPwdActivity;
 import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.activity.PersonIndentActivity;
 import com.example.studentagency.ui.activity.PersonalInfoActivity;
+import com.example.studentagency.ui.activity.StudentVerifyActivity;
 import com.example.studentagency.ui.widget.ChoosePicPopupWindow;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -100,13 +101,19 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     private Bitmap takePhotoBitmap = null;
     private Bitmap pickPhotoBitmap = null;
     private boolean isPickPhoto = true;
-    private Dialog showBigPicDialog;
+
+    //认证信息
+    private ImageView iv_verifyState;
 
     //个人订单
     private RelativeLayout layout_personalIndent;
 
     //信誉积分
     private RelativeLayout layout_creditScoreRecord;
+
+    //学生认证
+    private RelativeLayout layout_studentVerify;
+    private int INT_STUDENT_VERVIFY = -1;
 
     //修改个人信息
     private RelativeLayout layout_personalInfo;
@@ -138,6 +145,15 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
             case R.id.layout_creditScoreRecord:
                 if (hadLogin) {
                     startActivity(new Intent(getActivity(), CreditScoreRecordActivity.class));
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.layout_studentVerify:
+                if (hadLogin) {
+                    Intent intent = new Intent(getActivity(), StudentVerifyActivity.class);
+                    intent.putExtra("INT_STUDENT_VERVIFY",INT_STUDENT_VERVIFY);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
                 }
@@ -441,6 +457,9 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     private void initAllViews() {
         smartRefreshLayout = root.findViewById(R.id.smartRefreshLayout);
 
+        //认证信息
+        iv_verifyState = root.findViewById(R.id.iv_verifyState);
+
         //头像区
         iv_avatar = root.findViewById(R.id.iv_avatar);
         iv_avatar.setOnClickListener(this);
@@ -457,6 +476,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         //信誉积分
         layout_creditScoreRecord = root.findViewById(R.id.layout_creditScoreRecord);
         layout_creditScoreRecord.setOnClickListener(this);
+
+        //学生认证
+        layout_studentVerify = root.findViewById(R.id.layout_studentVerify);
+        layout_studentVerify.setOnClickListener(this);
 
         //修改个人信息
         layout_personalInfo = root.findViewById(R.id.layout_personalInfo);
@@ -562,6 +585,14 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
 
         initAvatarAndBG(userBean.getAvatar());
 
+        if (userBean.getVerifyState() == 3){
+            INT_STUDENT_VERVIFY = 3;
+            iv_verifyState.setImageResource(R.drawable.verified);
+        }else {
+            INT_STUDENT_VERVIFY = userBean.getVerifyState();
+            iv_verifyState.setImageResource(R.drawable.unverified);
+        }
+
         tv_username.setText(userBean.getUsername());
         tv_balance.setText("余额：" + userBean.getBalance());
         tv_creditScore.setText("信誉积分：" + userBean.getCreditScore());
@@ -600,6 +631,12 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         Log.i(TAG, "getPersonInfoFail: ");
 
         initAvatarAndBG(R.drawable.avatar_male);
+
+        INT_STUDENT_VERVIFY = -1;
+        iv_verifyState.setImageResource(R.drawable.unverified);
+        tv_username.setText("");
+        tv_balance.setText("余额：");
+        tv_creditScore.setText("信誉积分：");
 
         smartRefreshLayout.finishRefresh();
     }

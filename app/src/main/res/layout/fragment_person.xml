@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smartrefresh.layout.SmartRefreshLayout
-    android:id="@+id/smartRefreshLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/smartRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -68,6 +68,15 @@
                     android:text="信誉积分："
                     android:textColor="@color/white"/>
 
+                <ImageView
+                    android:id="@+id/iv_verifyState"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/tv_balance"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_creditScore"
+                    android:src="@drawable/unverified"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -84,7 +93,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="个人订单"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="25dp"
@@ -110,7 +119,33 @@
                     android:layout_marginLeft="20dp"
                     android:text="信誉积分记录"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_arrow_right_gray"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_studentVerify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_round_bg_white"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="学生认证"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="25dp"
@@ -135,7 +170,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="修改个人信息"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="25dp"
@@ -160,7 +195,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="修改密码"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="25dp"
@@ -186,7 +221,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="退出登录"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="25dp"

@@ -35,8 +35,8 @@
 
             <ImageView
                 android:id="@+id/iv_home"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/selector_iv_home"/>
 
@@ -47,7 +47,7 @@
                 android:textColor="@drawable/tv_tab_selector"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:text="首页"/>
 
         </LinearLayout>
@@ -65,8 +65,8 @@
                 android:id="@+id/iv_market"
                 android:src="@drawable/selector_iv_market"
                 android:scaleType="centerInside"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
 
             <TextView
                 android:id="@+id/tv_market"
@@ -75,7 +75,7 @@
                 android:textColor="@drawable/tv_tab_selector"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:text="市场"/>
 
         </LinearLayout>
@@ -93,8 +93,8 @@
                 android:id="@+id/iv_message"
                 android:src="@drawable/selector_iv_message"
                 android:scaleType="centerInside"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
 
             <TextView
                 android:id="@+id/tv_message"
@@ -103,7 +103,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
                 android:textColor="@drawable/tv_tab_selector"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:text="消息"/>
 
         </LinearLayout>
@@ -121,15 +121,15 @@
                 android:id="@+id/iv_person"
                 android:src="@drawable/selector_iv_personal"
                 android:scaleType="centerInside"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
 
             <TextView
                 android:id="@+id/tv_person"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
                 android:textColor="@drawable/tv_tab_selector"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="个人"/>
