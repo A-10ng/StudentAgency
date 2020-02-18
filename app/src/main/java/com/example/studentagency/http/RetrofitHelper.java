@@ -3,6 +3,8 @@ package com.example.studentagency.http;
 import android.util.Log;
 
 import com.example.studentagency.Utils.DateUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -58,9 +60,14 @@ public class RetrofitHelper {
     }
 
     private void resetApp() {
+//        Gson mGson = new GsonBuilder()
+//                .setLenient()
+//                .create();
+
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(getOkHttpClient())
+//                .addConverterFactory(GsonConverterFactory.create(mGson))
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

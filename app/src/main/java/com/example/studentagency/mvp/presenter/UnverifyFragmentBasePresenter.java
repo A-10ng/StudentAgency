@@ -23,7 +23,7 @@ public class UnverifyFragmentBasePresenter extends IPresenter {
     public void uploadVerifyPic(File verifyPicFile) {
         if (null != mViewRef && null != mIModel && null != mViewRef.get()){
             ((UnverifyFragmentBaseModel)mIModel).uploadVerifyPic(verifyPicFile, new UnverifyFragmentUploadVerifyPicCallBack() {
-                @Override
+                    @Override
                 public void uploadVerifyPicSuccess(Integer result) {
                     if (null != mViewRef.get()){
                         ((UnverifyFragmentBaseView)mViewRef.get()).uploadVerifyPicSuccess(result);

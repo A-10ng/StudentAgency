@@ -89,4 +89,7 @@ public interface ApiService {
     @Multipart
     @POST("UploadAvatar")
     Observable<Integer> uploadVerifyPic(@Part MultipartBody.Part verifyPic,@Query("userId") int userId);
+
+    @GET("GetVerifyPic")
+    Observable<String> getVerifyPic(@Query("userId") int userId);
 }

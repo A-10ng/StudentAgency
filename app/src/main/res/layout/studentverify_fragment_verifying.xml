@@ -17,4 +17,23 @@
         android:textSize="18sp"
         android:text="后台小哥哥正在努力审核中..."/>
 
+    <TextView
+        android:id="@+id/tv_checkPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:textColor="@color/blue"
+        android:text="查看已上传图片"/>
+
+    <ImageView
+        android:id="@+id/iv_verifyPic"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:layout_height="260dp"/>
+
 </LinearLayout>
