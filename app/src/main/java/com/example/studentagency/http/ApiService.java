@@ -1,5 +1,6 @@
 package com.example.studentagency.http;
 
+import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.bean.CommentBean;
 import com.example.studentagency.bean.IndentBean;
@@ -92,4 +93,16 @@ public interface ApiService {
 
     @GET("GetVerifyPic")
     Observable<String> getVerifyPic(@Query("userId") int userId);
+
+    @GET("GetCreditScore")
+    Observable<Integer> getCreditScore(@Query("userId") int userId);
+
+    @GET("GetCreditAllRecord")
+    Observable<List<CreditBean>> getCreditAllRecord(@Query("userId") int userId);
+
+    @GET("GetCreditInputRecord")
+    Observable<List<CreditBean>> getCreditInputRecord(@Query("userId") int userId);
+
+    @GET("GetCreditOutputRecord")
+    Observable<List<CreditBean>> getCreditOutputRecord(@Query("userId") int userId);
 }

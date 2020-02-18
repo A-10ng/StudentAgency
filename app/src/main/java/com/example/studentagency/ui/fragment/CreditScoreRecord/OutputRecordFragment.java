@@ -1,0 +1,88 @@
+package com.example.studentagency.ui.fragment.CreditScoreRecord;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.studentagency.R;
+import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.mvp.presenter.OutputRecordFragmentBasePresenter;
+import com.example.studentagency.mvp.view.OutputRecordFragmentBaseView;
+import com.example.studentagency.ui.adapter.CreditRecordRecyclerviewAdapter;
+import com.example.studentagency.ui.widget.MyRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+/**
+ * author：LongSh1z
+ * email：2674461089@qq.com
+ * time：2020/02/18
+ * desc:
+ */
+public class OutputRecordFragment extends Fragment implements OutputRecordFragmentBaseView {
+
+    private static final String TAG = "OutputRecordFragment";
+    private View root_layout;
+    private OutputRecordFragmentBasePresenter presenter = new OutputRecordFragmentBasePresenter(this);
+
+    private MyRecyclerView recyclerview;
+    private CreditRecordRecyclerviewAdapter adapter;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        root_layout = inflater.inflate(R.layout.fragment_output_record,container,false);
+
+        initRecyclerView();
+
+        presenter.getCreditOutputRecord();
+
+        return root_layout;
+    }
+
+    private void initRecyclerView() {
+        recyclerview = root_layout.findViewById(R.id.recyclerview);
+
+        List<Object> dataList = new ArrayList<>();
+        dataList.add("暂无数据");
+        adapter = new CreditRecordRecyclerviewAdapter(dataList);
+
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerview.setLayoutManager(manager);
+
+        recyclerview.setAdapter(adapter);
+    }
+
+    @Override
+    public void getCreditOutputRecordSuccess(List<CreditBean> creditBeans) {
+        int number = creditBeans.size();
+        Log.i(TAG, "getCreditRecordSuccess: creditBeans.size()>>>>>"+number);
+
+        List<Object> dataList = new ArrayList<>();
+        if (number == 0){
+            dataList.add("暂无数据");
+            adapter.update(dataList);
+        }
+        else {
+            dataList.addAll(creditBeans);
+            adapter.update(dataList);
+        }
+    }
+
+    @Override
+    public void getCreditOutputRecordFail() {
+        Log.i(TAG, "getCreditRecordFail: ");
+
+        List<Object> dataList = new ArrayList<>();
+        dataList.add("获取失败");
+        adapter.update(dataList);
+    }
+}
