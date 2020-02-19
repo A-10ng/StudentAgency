@@ -1,4 +1,4 @@
-package com.example.studentagency.ui.fragment;
+package com.example.studentagency.ui.fragment.MainActivity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

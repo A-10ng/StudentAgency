@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/lightgray"
     android:orientation="vertical">
 
@@ -40,7 +41,14 @@
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:srlTextLoading="正在加载..."
+            app:srlTextFinish="加载完成"
+            app:srlTextPulling="上拉加载更多"
+            app:srlTextRelease="释放立即加载"
+            app:srlTextRefreshing="正在刷新..."
+            app:srlTextFailed="加载失败"
+            app:srlTextNothing="没有更多数据了"/>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

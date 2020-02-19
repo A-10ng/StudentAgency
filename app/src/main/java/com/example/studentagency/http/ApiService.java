@@ -57,26 +57,26 @@ public interface ApiService {
     Observable<List<IndentBean>> getIndentByType(@Query("type") int type);
 
     @POST("PublishIndentFail")
-    Observable<Integer> publishIndent(@Query("publishId") int publishId,@Query("type") int type,@Query("price") float price,
-                                      @Query("description") String description,@Query("address") String address,@Query("publishTime") String publishTime,
+    Observable<Integer> publishIndent(@Query("publishId") int publishId, @Query("type") int type, @Query("price") float price,
+                                      @Query("description") String description, @Query("address") String address, @Query("publishTime") String publishTime,
                                       @Query("planTime") String planTime);
 
     @POST("GiveACommentFail")
     Observable<Integer> getVerifyCode(@Query("phoneNum") String phoneNum);
 
     @POST("GiveACommentFail")
-    Observable<Integer> register(@Query("username") String username,@Query("gender") int gender,@Query("password") String password,
-                                 @Query("school") String school,@Query("phoneNum") String phoneNum);
+    Observable<Integer> register(@Query("username") String username, @Query("gender") int gender, @Query("password") String password,
+                                 @Query("school") String school, @Query("phoneNum") String phoneNum);
 
     @POST("GetPublishInfo")
     Observable<UserBean> getPersonFragmentInfo(@Query("userId") int userId);
 
     @Multipart
     @POST("UploadAvatar")
-    Observable<Integer> uploadAvatar(@Part MultipartBody.Part avatar,@Query("userId") int userId);
+    Observable<Integer> uploadAvatar(@Part MultipartBody.Part avatar, @Query("userId") int userId);
 
     @POST("GiveACommentSuccess")
-    Observable<Integer> changePwd(@Query("userId") int userId,@Query("newPwd")String newPwd);
+    Observable<Integer> changePwd(@Query("userId") int userId, @Query("newPwd") String newPwd);
 
     @POST("GetPublishInfo")
     Observable<UserBean> getPersonalInfo(@Query("userId") int userId);
@@ -89,7 +89,7 @@ public interface ApiService {
 
     @Multipart
     @POST("UploadAvatar")
-    Observable<Integer> uploadVerifyPic(@Part MultipartBody.Part verifyPic,@Query("userId") int userId);
+    Observable<Integer> uploadVerifyPic(@Part MultipartBody.Part verifyPic, @Query("userId") int userId);
 
     @GET("GetVerifyPic")
     Observable<String> getVerifyPic(@Query("userId") int userId);
@@ -105,4 +105,60 @@ public interface ApiService {
 
     @GET("GetCreditOutputRecord")
     Observable<List<CreditBean>> getCreditOutputRecord(@Query("userId") int userId);
+
+    @GET("GetPublishIndents")
+    Observable<List<IndentBean>> getPublishIndents(@Query("userId") int userId);
+
+    @GET("GetAcceptIndents")
+    Observable<List<IndentBean>> getAcceptIndents(@Query("userId") int userId);
+
+    @POST("GetVerifyStateFail")
+    Observable<Integer> cancelIndentNotTaken(@Query("userId") int userId,
+                                             @Query("indentId") int indentId,
+                                             @Query("price") String price);
+
+    @POST("GetVerifyStateFail")
+    Observable<Integer> cancelIndentHadTaken(@Query("userId") int userId,
+                                             @Query("indentId") int indentId,
+                                             @Query("price") String price);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> deleteIndentNotComment(@Query("userId") int userId,
+                                               @Query("indentId") int indentId,
+                                               @Query("price") String price);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> deleteIndentHadComment(@Query("userId") int userId,
+                                               @Query("indentId") int indentId,
+                                               @Query("price") String price);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> ensureAcceptGoods(@Query("userId") int userId,
+                                          @Query("indentId") int indentId,
+                                          @Query("price") String price);
+
+    @POST("GetVerifyStateFail")
+    Observable<Integer> cancelIndentHadTakenInAcpFragment(@Query("userId") int userId,
+                                                          @Query("indentId") int indentId,
+                                                          @Query("price") String price);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> deleteIndentNotCommentInAcpFragment(@Query("userId") int userId,
+                                                            @Query("indentId") int indentId,
+                                                            @Query("price") String price);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> deleteIndentHadCommentInAcpFragment(@Query("userId") int userId,
+                                                            @Query("indentId") int indentId,
+                                                            @Query("price") String price);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> ensureAcceptGoodsInAcpFragment(@Query("userId") int userId,
+                                                       @Query("indentId") int indentId,
+                                                       @Query("price") String price);
+
+    @POST("GetVerifyStateSuccess")
+    Observable<Integer> giveRating(@Query("userId") int userId,
+                                   @Query("increasement") int increasement,
+                                   @Query("happenTime") String happenTime);
 }

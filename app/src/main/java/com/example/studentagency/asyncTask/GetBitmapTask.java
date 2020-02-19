@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import com.bumptech.glide.Glide;
-import com.example.studentagency.ui.fragment.PersonFragment;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

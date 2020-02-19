@@ -43,4 +43,10 @@
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>  //点击EditText时竖线和下划线的颜色
     </style>
 
+    <style name="ratingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_layer</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="android:maxHeight">60dp</item>
+    </style>
+
 </resources>

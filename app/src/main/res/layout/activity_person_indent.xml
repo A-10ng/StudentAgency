@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.activity.CreditScoreRecordActivity">
 
     <com.example.studentagency.ui.widget.TitleBar
@@ -14,4 +15,83 @@
         app:title_name="个人订单">
     </com.example.studentagency.ui.widget.TitleBar>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:id="@+id/llayout_publsih"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_publsih"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:text="已发布"
+                android:textColor="@drawable/tv_personindent_tab_selector"
+                android:textSize="18sp"/>
+
+            <View
+                android:id="@+id/publsih_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/themeColor"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/page_gray_cccc"/>
+
+        <LinearLayout
+            android:id="@+id/llayout_accept"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:text="已接取"
+                android:textColor="@drawable/tv_personindent_tab_selector"
+                android:textSize="18sp"/>
+
+            <View
+                android:id="@+id/accept_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/themeColor"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@color/page_gray_cccc"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
+

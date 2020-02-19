@@ -1,8 +1,6 @@
 package com.example.studentagency.ui.activity;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,20 +8,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lemonbubble.LemonBubble;
 import com.example.studentagency.R;
 import com.example.studentagency.Utils.ActivityCollector;
 import com.example.studentagency.ui.adapter.MyFragmentPagerAdapter;
-import com.example.studentagency.ui.fragment.HomeFragment;
-import com.example.studentagency.ui.fragment.MarketFragment;
-import com.example.studentagency.ui.fragment.MessageFragment;
-import com.example.studentagency.ui.fragment.PersonFragment;
+import com.example.studentagency.ui.fragment.MainActivity.HomeFragment;
+import com.example.studentagency.ui.fragment.MainActivity.MarketFragment;
+import com.example.studentagency.ui.fragment.MainActivity.MessageFragment;
+import com.example.studentagency.ui.fragment.MainActivity.PersonFragment;
 import com.example.studentagency.ui.widget.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 

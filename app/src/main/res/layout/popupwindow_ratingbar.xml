@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialog_fragment_ratingbar_bg">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/shape_dialog_fragment_ratingbar_bg"
+            android:gravity="center"
+            android:text="评价本次服务"
+            android:textSize="21sp"/>
+
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/icon_error_black"/>
+
+        <ImageView
+            android:id="@+id/iv_ensure"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="25dp"
+            android:src="@drawable/icon_success_black"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@color/page_gray_cccc"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="355dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            style="@style/ratingBar"
+            android:numStars="5"
+            android:rating="5"
+            android:stepSize="1"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
