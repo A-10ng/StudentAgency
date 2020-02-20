@@ -72,8 +72,11 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     //留言区
     private TextView tv_nocomment;
 
-    //主页传过来的indentId
+    //主页或者订单记录传过来的indentId
+    //-1代表是从主页过来的，显示接单和留言按钮
+    //1代表从订单记录传过来的，不显示接单和留言按钮
     private int indentId;
+    private int state = -1;
 
     //接单按钮
     private Button btn_accept;
@@ -94,8 +97,8 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indent);
 
-        //获取主页传过来的indentId
-        getIndentId();
+        //获取传过来的indentId和state
+        getPassedInfo();
 
         initViews();
 
@@ -106,10 +109,11 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         initSmartRefreshLayout();
     }
 
-    private void getIndentId() {
+    private void getPassedInfo() {
         Intent intent = getIntent();
         indentId = intent.getIntExtra("indentId", -1);
-        Log.i(TAG, "传过来的IndentId: " + indentId);
+        state = intent.getIntExtra("state", -1);
+        Log.i(TAG, "传过来的IndentId: " + indentId + " state: " + state);
     }
 
     private void initViews() {
@@ -137,6 +141,13 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         //接单以及留言按钮
         btn_accept = findViewById(R.id.btn_accept);
         btn_comment = findViewById(R.id.btn_comment);
+        if (state == -1) {
+            btn_accept.setVisibility(View.VISIBLE);
+            btn_comment.setVisibility(View.VISIBLE);
+        } else {
+            btn_accept.setVisibility(View.GONE);
+            btn_comment.setVisibility(View.GONE);
+        }
     }
 
     private void setViewsOnClick() {
@@ -231,7 +242,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
                 Log.i(TAG, "clickEnsure：点击了确定留言");
 
                 //如果输入的内容有效
-                if (isValidityOfContent(content)){
+                if (isValidityOfContent(content)) {
 
                     IndentActivity.this.content = content;
 
@@ -250,7 +261,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
                         public void run() {
                             commentTime = getCommentTime();
                             Log.i(TAG, "commentTime>>>>>" + commentTime);
-                            presenter.giveAComment(indentId,userId,content,commentTime);
+                            presenter.giveAComment(indentId, userId, content, commentTime);
                         }
                     }, 1500);
                 }
@@ -268,19 +279,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
             }
         });
         commentDialog.show();
-    }
-
-    private String getCommentTime() {
-        String result = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
-        return result;
-    }
-
-    private boolean isValidityOfContent(String content) {
-        if (TextUtils.isEmpty(content)){
-            return false;
-        }else {
-            return true;
-        }
     }
 
     private void initOriginalData() {
@@ -307,6 +305,19 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     private String getAcceptedTime() {
+        String result = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
+        return result;
+    }
+
+    private boolean isValidityOfContent(String content) {
+        if (TextUtils.isEmpty(content)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private String getCommentTime() {
         String result = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
         return result;
     }

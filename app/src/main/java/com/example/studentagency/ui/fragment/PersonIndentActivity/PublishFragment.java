@@ -1,5 +1,6 @@
 package com.example.studentagency.ui.fragment.PersonIndentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.example.studentagency.Utils.FileUtils;
 import com.example.studentagency.bean.IndentBean;
 import com.example.studentagency.mvp.presenter.PublishFragmentBasePresenter;
 import com.example.studentagency.mvp.view.PublishFragmentBaseView;
+import com.example.studentagency.ui.activity.IndentActivity;
 import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.adapter.PersonIndentRecyclerviewAdapter;
 import com.example.studentagency.ui.widget.RatingBarPopupWindow;
@@ -195,6 +197,11 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                         break;
                     case 110:
                         Log.i(TAG, "clickItem: 点击了订单，indentId>>>>>" + indentId + " price>>>>>" + price + " state>>>>>" + state + " position>>>>>" + position);
+
+                        Intent intent = new Intent(getActivity(), IndentActivity.class);
+                        intent.putExtra("indentId",indentId);
+                        intent.putExtra("state",1);
+                        startActivity(intent);
                         break;
                 }
             }
