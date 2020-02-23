@@ -1,6 +1,7 @@
 package com.example.studentagency.mvp.view;
 
 import com.example.studentagency.bean.CommentBean;
+import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.IndentBean;
 import com.example.studentagency.bean.UserBean;
 
@@ -24,6 +25,10 @@ public interface IndentActivityBaseView extends IView {
     //获取留言的信息
     void getCommentInfoSuccess(List<CommentBean> commentBeans);
     void getCommentInfoFail();
+
+    //获取评价星数
+    void getRatingStarsInfoSuccess(CreditBean creditBean);
+    void getRatingStarsInfoFail();
 
     //接单
     void acceptIndentSuccess(Integer result);

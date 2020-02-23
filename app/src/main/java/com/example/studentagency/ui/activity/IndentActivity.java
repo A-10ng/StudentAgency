@@ -22,6 +22,7 @@ import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
 import com.example.studentagency.Utils.DateUtils;
 import com.example.studentagency.bean.CommentBean;
+import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.IndentBean;
 import com.example.studentagency.bean.PublishAndIndentBean;
 import com.example.studentagency.bean.UserBean;
@@ -74,7 +75,8 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
     //主页或者订单记录传过来的indentId
     //-1代表是从主页过来的，显示接单和留言按钮
-    //1代表从订单记录传过来的，不显示接单和留言按钮
+    //200-206代表从订单记录传过来的，不显示接单和留言按钮
+    //其中203和206还要显示评价内容
     private int indentId;
     private int state = -1;
 
@@ -287,6 +289,11 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
         //留言
         addCommentData();
+
+        //评价
+        if (state == 203 || state == 206) {
+            addRatingStarsData();
+        }
     }
 
     private void setRecyclerViewAdapter() {
@@ -302,6 +309,10 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         presenter.getPublishInfo();
         presenter.getIndentInfo(indentId);
         presenter.getCommentInfo(indentId);
+
+        if (state == 203 || state == 206) {
+            presenter.getRatingStarsInfo(indentId);
+        }
     }
 
     private String getAcceptedTime() {
@@ -340,6 +351,10 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
     private void addCommentData() {
         originalDataList.add("暂无留言");
+    }
+
+    private void addRatingStarsData() {
+        originalDataList.add(new CreditBean());
     }
 
     private void setButtonUnClickable() {
@@ -418,7 +433,8 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         Log.i(TAG, "getCommentInfoSuccess");
         setButtonClickable();
 
-        mAdapter.setCommentData(commentBeans);
+        if (state == 203 || state == 206) mAdapter.setCommentData(commentBeans, true);
+        else mAdapter.setCommentData(commentBeans, false);
     }
 
     @Override
@@ -426,7 +442,23 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         Log.i(TAG, "getCommentInfoFail");
         setButtonUnClickable();
 
-        mAdapter.setCommentData(new ArrayList<CommentBean>());
+        if (state == 203 || state == 206)
+            mAdapter.setCommentData(new ArrayList<CommentBean>(), true);
+        else mAdapter.setCommentData(new ArrayList<CommentBean>(), false);
+    }
+
+    @Override
+    public void getRatingStarsInfoSuccess(CreditBean creditBean) {
+        Log.i(TAG, "getRatingStarsInfoSuccess: creditBean>>>>>" + creditBean.toString());
+
+        mAdapter.setRatingStarsData(creditBean);
+    }
+
+    @Override
+    public void getRatingStarsInfoFail() {
+        Log.i(TAG, "getRatingStarsInfoFail: ");
+
+        mAdapter.setRatingStarsData(new CreditBean());
     }
 
     @Override

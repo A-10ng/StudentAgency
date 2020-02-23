@@ -1,6 +1,7 @@
 package com.example.studentagency.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import cn.jpush.android.api.JPushInterface;
 
 import android.content.Context;
 import android.content.Intent;
@@ -222,6 +223,9 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+//                    JPushInterface.setAlias(RegisterTwoActivity.this,300,phoneNum);
+                    JPushInterface.setAlias(RegisterTwoActivity.this,300,"18218643174");
+
                     startActivity(new Intent(RegisterTwoActivity.this, MainActivity.class));
                 }
             }, 1100);

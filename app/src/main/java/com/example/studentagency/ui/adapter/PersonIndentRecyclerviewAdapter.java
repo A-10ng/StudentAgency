@@ -155,8 +155,39 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (adapterClickListener != null) {
-                        adapterClickListener.clickItem(110, 207,position, null, null,
-                                indentBean.getIndentId(), indentBean.getPrice());
+                        if (indentType == INDENT_PUBLISH) {
+                            if (indentBean.getState() == 0) {//别人未接单
+                                if (itemViewHolder.btn_num1.getText().equals("取消")) {
+                                    adapterClickListener.clickItem(110, 200, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                }
+                            } else if (indentBean.getState() == 1) {//接单中
+                                if (itemViewHolder.btn_num1.getText().equals("取消")) {
+                                    adapterClickListener.clickItem(110, 201, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                }
+                            } else if (indentBean.getState() == 2) {//已完成未评价
+                                if (itemViewHolder.btn_num1.getText().equals("评价")) {
+                                    adapterClickListener.clickItem(110, 202, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                }
+                            } else {//indentBean.getState() == 3 已完成已删除
+                                if (itemViewHolder.btn_num1.getText().equals("删除")) {
+                                    adapterClickListener.clickItem(110, 203, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                }
+                            }
+                        } else {
+                            if (indentBean.getState() == 0) {
+                                if (itemViewHolder.btn_num1.getText().equals("取消")) {//接单中
+                                    adapterClickListener.clickItem(110, 204, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                }
+                            } else if (indentBean.getState() == 1) {//已完成未评价
+                                if (itemViewHolder.btn_num1.getText().equals("删除")) {
+                                    adapterClickListener.clickItem(110, 205, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                }
+                            } else {//indentBean.getState() == 2 已完成已评价
+                                if (itemViewHolder.btn_num1.getText().equals("删除")) {
+                                    adapterClickListener.clickItem(110, 206, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                }
+                            }
+                        }
                     }
                 }
             });

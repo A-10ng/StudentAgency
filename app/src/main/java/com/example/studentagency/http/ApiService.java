@@ -43,6 +43,9 @@ public interface ApiService {
     @POST("GetIndentInfo")
     Observable<IndentBean> getIndentInfoInIndentActivity(@Query("indentId") int indentId);
 
+    @POST("GetRatingStarsInfo")
+    Observable<CreditBean> getRatingStarsInfo(@Query("indentId") int indentId);
+
     @POST("GetMoreCommentInfo")
     Observable<List<CommentBean>> getCommentInfoInIndentActivity(@Query("indentId") int indentId);
 

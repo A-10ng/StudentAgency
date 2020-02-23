@@ -1,12 +1,14 @@
 package com.example.studentagency.mvp.presenter;
 
 import com.example.studentagency.bean.CommentBean;
+import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.IndentBean;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.mvp.model.Callback.IndentActivityAcceptIndentCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetCommentInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetIndentInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetPublishInfoCallBack;
+import com.example.studentagency.mvp.model.Callback.IndentActivityGetRatingStarsCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGiveACommentCallBack;
 import com.example.studentagency.mvp.model.IndentActivityBaseModel;
 import com.example.studentagency.mvp.view.IndentActivityBaseView;
@@ -125,6 +127,27 @@ public class IndentActivityBasePresenter extends IPresenter {
                     }
                 }
             });
+        }
+    }
+
+    public void getRatingStarsInfo(int indentId) {
+        if (null != mIModel && null != mViewRef && null != mViewRef.get()){
+            ((IndentActivityBaseModel)mIModel).getRatingStarsInfo(indentId,
+                    new IndentActivityGetRatingStarsCallBack() {
+                        @Override
+                        public void getRatingStarsInfoSuccess(CreditBean creditBean) {
+                            if (null != mViewRef.get()){
+                                ((IndentActivityBaseView)mViewRef.get()).getRatingStarsInfoSuccess(creditBean);
+                            }
+                        }
+
+                        @Override
+                        public void getRatingStarsInfoFail() {
+                            if (null != mViewRef.get()){
+                                ((IndentActivityBaseView)mViewRef.get()).getRatingStarsInfoFail();
+                            }
+                        }
+                    });
         }
     }
 }

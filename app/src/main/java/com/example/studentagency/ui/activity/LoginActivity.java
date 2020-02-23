@@ -27,6 +27,8 @@ import com.example.studentagency.mvp.view.LoginActivityBaseView;
 
 import java.lang.ref.WeakReference;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class LoginActivity extends BaseActivity implements LoginActivityBaseView, View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
@@ -143,6 +145,9 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+//                    JPushInterface.setAlias(RegisterTwoActivity.this,300,phoneNum);
+                    JPushInterface.setAlias(LoginActivity.this,300,"18218643174");
+
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
             }, 1100);
@@ -169,6 +174,9 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+//                    JPushInterface.setAlias(RegisterTwoActivity.this,300,phoneNum);
+                    JPushInterface.setAlias(LoginActivity.this,300,"18218643174");
+
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
             }, 1100);

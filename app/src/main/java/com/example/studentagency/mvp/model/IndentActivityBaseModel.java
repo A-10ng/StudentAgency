@@ -3,6 +3,7 @@ package com.example.studentagency.mvp.model;
 import android.util.Log;
 
 import com.example.studentagency.bean.CommentBean;
+import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.IndentBean;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.http.ApiService;
@@ -11,6 +12,7 @@ import com.example.studentagency.mvp.model.Callback.IndentActivityAcceptIndentCa
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetCommentInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetIndentInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetPublishInfoCallBack;
+import com.example.studentagency.mvp.model.Callback.IndentActivityGetRatingStarsCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGiveACommentCallBack;
 
 import java.util.List;
@@ -169,6 +171,35 @@ public class IndentActivityBaseModel implements IModel {
                     public void onError(Throwable e) {
                         Log.i(TAG, "giveAComment onError: e>>>>>"+e.getMessage());
                         callBack.onGiveACommentFail();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void getRatingStarsInfo(int indentId, IndentActivityGetRatingStarsCallBack callBack) {
+        apiService.getRatingStarsInfo(indentId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<CreditBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(CreditBean creditBean) {
+                        Log.i(TAG, "onNext: creditBean>>>>>"+creditBean.toString());
+                        callBack.getRatingStarsInfoSuccess(creditBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "onError: e>>>>>"+e.toString());
+                        callBack.getRatingStarsInfoFail();
                     }
 
                     @Override

@@ -58,6 +58,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * 接单中(204)：  取消（106），确认送达（107）
  * 已完成未评价(205)：  删除（108）
  * 已完成已评价(206)：  删除（109）
+ * 100-110是为了判断各个按钮的点击事件和显示
+ * 200-206是为了进入订单详情页面显示不同的内容
  */
 public class PublishFragment extends Fragment implements PublishFragmentBaseView {
 
@@ -200,7 +202,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
 
                         Intent intent = new Intent(getActivity(), IndentActivity.class);
                         intent.putExtra("indentId",indentId);
-                        intent.putExtra("state",1);
+                        intent.putExtra("state",state);
                         startActivity(intent);
                         break;
                 }

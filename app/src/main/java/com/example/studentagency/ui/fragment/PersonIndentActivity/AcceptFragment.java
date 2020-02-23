@@ -173,7 +173,7 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
 
                         Intent intent = new Intent(getActivity(), IndentActivity.class);
                         intent.putExtra("indentId",indentId);
-                        intent.putExtra("state",1);
+                        intent.putExtra("state",state);
                         startActivity(intent);
 
                         break;

@@ -120,6 +120,7 @@
                     android:layout_marginRight="30dp"
                     android:textColorHint="@color/white"
                     android:layout_weight="1"
+                    android:inputType="textPassword"
                     android:background="@drawable/edittext_no_line"
                     android:hint="密码"/>
 

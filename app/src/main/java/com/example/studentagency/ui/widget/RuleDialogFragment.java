@@ -79,7 +79,7 @@ public class RuleDialogFragment extends DialogFragment {
 
 
         //如果不设置宽度，那么即使在布局中设置了宽度为match_parent也不会起作用
-        params.width = Utils.dp2px(context,380);
+        params.width = getResources().getDisplayMetrics().widthPixels;
         params.height = Utils.dp2px(context,400);
         window.setAttributes(params);
 

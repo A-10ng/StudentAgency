@@ -50,14 +50,18 @@ public class MyJReceiver extends BroadcastReceiver {
                 Logger.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
                 String bundleString = bundle.getString(JPushInterface.EXTRA_EXTRA);
-                String msg = bundleString.split("\"")[3];
-                String title = bundleString.split("\"")[7];
+                String title = bundleString.split("\"")[3];
+                String msg = bundleString.split("\"")[7];
                 String code = bundleString.split("\"")[11];
+                String alias = bundleString.split("\"")[15];
                 Log.i(TAG, "onReceive: bundleString>>>>>"+bundleString+
-                        "\nmsg>>>>>"+msg+
                         "\ntitle>>>>>"+title+
-                        "\ntype>>>>>"+code);
-                if (code.equals("101")){
+                        "\nmsg>>>>>"+msg+
+                        "\ncode>>>>>"+code+
+                        "\nalias>>>>>"+alias);
+
+                //接单后，推送给发布方(101)
+                if (!code.equals("107")){
                     //打开自定义的Activity
                     Intent i = new Intent(context, PersonIndentActivity.class);
                     i.putExtras(bundle);
