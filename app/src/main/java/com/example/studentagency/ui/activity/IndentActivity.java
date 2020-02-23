@@ -355,6 +355,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
     private void addRatingStarsData() {
         originalDataList.add(new CreditBean());
+        originalDataList.add("空白处");
     }
 
     private void setButtonUnClickable() {

@@ -258,7 +258,7 @@ public class IndentActivityRecyclerViewAdapter extends RecyclerView.Adapter<Recy
         this.hadRatingStars = hadRatingStars;
 
         if (hadRatingStars){
-            mDataList.subList(1, 2).clear();
+            mDataList.subList(1, mDataList.size() - 2).clear();
             commentDataList_position = 0;
             allCommentDataList.clear();
             allCommentDataList.addAll(commentDataList);
@@ -312,8 +312,13 @@ public class IndentActivityRecyclerViewAdapter extends RecyclerView.Adapter<Recy
     }
 
     public void setRatingStarsData(CreditBean creditBean) {
-        mDataList.set(mDataList.size() - 1,creditBean);
-        mDataList.add("空白处");
+        mDataList.set(mDataList.size() - 2,creditBean);
+        notifyDataSetChanged();
+    }
+
+    public void refreshDataWithRatingStars(List<Object> originalDataList) {
+        mDataList.clear();
+        mDataList.addAll(originalDataList);
         notifyDataSetChanged();
     }
 }
