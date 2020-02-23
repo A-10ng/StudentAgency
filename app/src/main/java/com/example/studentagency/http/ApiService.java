@@ -64,7 +64,7 @@ public interface ApiService {
                                       @Query("description") String description, @Query("address") String address, @Query("publishTime") String publishTime,
                                       @Query("planTime") String planTime);
 
-    @POST("GiveACommentFail")
+    @POST("GiveACommentSuccess")
     Observable<Integer> getVerifyCode(@Query("phoneNum") String phoneNum);
 
     @POST("GiveACommentFail")
@@ -164,4 +164,9 @@ public interface ApiService {
     Observable<Integer> giveRating(@Query("userId") int userId,
                                    @Query("increasement") int increasement,
                                    @Query("happenTime") String happenTime);
+
+    @POST("GiveACommentSuccess")
+    Observable<Integer> modifyPhoneNum(@Query("userId") int userId,
+                                       @Query("newPhoneNum") String newPhoneNum,
+                                       @Query("verifyCode") String verifyCode);
 }

@@ -45,6 +45,7 @@ import com.example.studentagency.mvp.presenter.PersonFragmentBasePresenter;
 import com.example.studentagency.mvp.view.PersonFragmentBaseView;
 import com.example.studentagency.ui.activity.CreditScoreRecordActivity;
 import com.example.studentagency.ui.activity.LoginActivity;
+import com.example.studentagency.ui.activity.ModifyPhoneNumActivity;
 import com.example.studentagency.ui.activity.ModifyPwdActivity;
 import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.activity.PersonIndentActivity;
@@ -118,6 +119,9 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     //修改个人信息
     private RelativeLayout layout_personalInfo;
 
+    //修改手机号
+    private RelativeLayout layout_modifyPhoneNum;
+
     //修改密码
     private RelativeLayout layout_modifyPwd;
 
@@ -161,6 +165,13 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
             case R.id.layout_personalInfo:
                 if (hadLogin) {
                     startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+                } else {
+                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.layout_modifyPhoneNum:
+                if (hadLogin) {
+                    startActivity(new Intent(getActivity(), ModifyPhoneNumActivity.class));
                 } else {
                     Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
                 }
@@ -484,6 +495,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         //修改个人信息
         layout_personalInfo = root.findViewById(R.id.layout_personalInfo);
         layout_personalInfo.setOnClickListener(this);
+
+        //修改手机号
+        layout_modifyPhoneNum = root.findViewById(R.id.layout_modifyPhoneNum);
+        layout_modifyPhoneNum.setOnClickListener(this);
 
         //修改密码
         layout_modifyPwd = root.findViewById(R.id.layout_modifyPwd);
