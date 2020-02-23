@@ -38,32 +38,32 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
     private MyHandler myHandler = new MyHandler(this);
     private boolean getDataSuccess = false;
 
+    private UserBean originalUserbean;
+
     //userId
     private TextView tv_userId;
 
     //学校
     private TextView tv_school;
     private String originalSchool = "";
-    private String school = "";
+    private String changedSchool = "";
 
     //用户名
     private EditText et_username;
-    private String username;
+    private String changedUsername;
+    private String et_username_content;
 
     //性别
     private RadioGroup rg_gender;
     private RadioButton rb_male, rb_female;
     private int originalGender = -1;
-    private int gender;
-
-    //手机号
-    private EditText et_phoneNum;
-    private String phoneNum = "";
+    private int changedGender;
 
     //收货地址
     private EditText et_address;
     private ImageView iv_address;
-    private String address = "";
+    private String changedAddress = "";
+    private String et_address_content = "";
 
     //保存按钮
     private Button btn_save;
@@ -104,16 +104,13 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
         rb_male = findViewById(R.id.rb_male);
         rb_female = findViewById(R.id.rb_female);
 
-        //手机号
-        et_phoneNum = findViewById(R.id.et_phoneNum);
-
         //收货地址
         et_address = findViewById(R.id.et_address);
         iv_address = findViewById(R.id.iv_address);
         iv_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(PersonalInfoActivity.this,AddressActivity.class),REQUEST_PICK_ADDRESS);
+                startActivityForResult(new Intent(PersonalInfoActivity.this, AddressActivity.class), REQUEST_PICK_ADDRESS);
             }
         });
 
@@ -133,13 +130,16 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        UserBean userBean = new UserBean();
-                        userBean.setSchool(school);
-                        userBean.setUsername(username);
-                        userBean.setGender(gender);
-                        userBean.setAddress(address);
-                        userBean.setPhoneNum(phoneNum);
-                        presenter.changePersonalInfo(userBean);
+                        Log.i(TAG, "run: changedSchool>>>>>" + changedSchool + "\n" +
+                                "changedUsername>>>>>" + changedUsername + "\n" +
+                                "changedGender>>>>>" + changedGender + "\n" +
+                                "changedAddress>>>>>" + changedAddress);
+
+                        originalUserbean.setSchool(changedSchool);
+                        originalUserbean.setUsername(changedUsername);
+                        originalUserbean.setGender(changedGender);
+                        originalUserbean.setAddress(changedAddress);
+                        presenter.changePersonalInfo(originalUserbean);
                     }
                 }, 1500);
             }
@@ -197,9 +197,6 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
             //用户名
             et_username.setHint("");
 
-            //手机号
-            et_phoneNum.setHint("");
-
             //收货地址
             et_address.setHint("");
 
@@ -210,10 +207,13 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
 
             LemonBubble.showError(this, "网络异常，请退出重试！", 1500);
         } else {
+            originalUserbean = userBean;
 
             originalSchool = userBean.getSchool();
-
             originalGender = userBean.getGender();
+
+            changedUsername = userBean.getUsername();
+            changedAddress = userBean.getAddress();
 
             //userId
             tv_userId.setText(userBean.getUserId() + "");
@@ -230,9 +230,6 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
 
             //用户名
             et_username.setHint(userBean.getUsername());
-
-            //手机号
-            et_phoneNum.setHint(userBean.getPhoneNum());
 
             //收货地址
             et_address.setHint(userBean.getAddress());
@@ -291,17 +288,19 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
             if (null != personalInfoActivity) {
                 switch (msg.what) {
                     case EDIT_TEXT_LISTEN:
-                        school = tv_school.getText().toString().trim();
-                        username = et_username.getText().toString().trim();
-                        gender = rg_gender.getCheckedRadioButtonId() == R.id.rb_male ? 1 : 0;
-                        phoneNum = et_phoneNum.getText().toString().trim();
-                        address = et_address.getText().toString().trim();
+                        changedSchool = tv_school.getText().toString().trim();
+                        et_username_content = et_username.getText().toString().trim();
+                        changedGender = rg_gender.getCheckedRadioButtonId() == R.id.rb_male ? 1 : 0;
+                        et_address_content = et_address.getText().toString().trim();
 
                         if (!getDataSuccess ||
-                                (originalSchool.equals(school) && TextUtils.isEmpty(username) &&
-                                originalGender == gender && (TextUtils.isEmpty(phoneNum) || phoneNum.length() != 11) && TextUtils.isEmpty(address))) {
+                                (originalSchool.equals(changedSchool) && TextUtils.isEmpty(et_username_content) &&
+                                        originalGender == changedGender && TextUtils.isEmpty(et_address_content))) {
                             btn_save.setEnabled(false);
                         } else {
+                            if (!TextUtils.isEmpty(et_username_content)) changedUsername = et_username_content;
+                            if (!TextUtils.isEmpty(et_address_content)) changedAddress = et_address_content;
+
                             btn_save.setEnabled(true);
                         }
 

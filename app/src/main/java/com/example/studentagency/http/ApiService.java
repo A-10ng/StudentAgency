@@ -46,7 +46,7 @@ public interface ApiService {
     @POST("GetMoreCommentInfo")
     Observable<List<CommentBean>> getCommentInfoInIndentActivity(@Query("indentId") int indentId);
 
-    @POST("AcceptIndentFail")
+    @POST("AcceptIndentSuccess")
     Observable<Integer> acceptIndent(@Query("indentId") int indentId, @Query("acceptedTime") String acceptedTime);
 
     @POST("GiveACommentSuccess")

@@ -3,6 +3,7 @@ package com.example.studentagency.ui.activity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -120,5 +121,12 @@ public class PersonIndentActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         changeTab(v.getId());
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        startActivity(new Intent(this,MainActivity.class));
     }
 }
