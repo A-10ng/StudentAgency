@@ -2,12 +2,15 @@ package com.example.studentagency.ui.fragment.MainActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.lemonbubble.LemonBubble;
 import com.example.studentagency.R;
 import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.bean.ClassifyBean;
@@ -16,6 +19,8 @@ import com.example.studentagency.mvp.presenter.HomeFragmentBasePresenter;
 import com.example.studentagency.mvp.view.HomeFragmentBaseView;
 import com.example.studentagency.ui.activity.ClassifyActivity;
 import com.example.studentagency.ui.activity.IndentActivity;
+import com.example.studentagency.ui.activity.LoginActivity;
+import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.activity.PublishActivity;
 import com.example.studentagency.ui.activity.WebviewActivity;
 import com.example.studentagency.ui.adapter.HomeFragmentRecyclerviewAdapter;
@@ -111,7 +116,18 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "你点击了floatingButton");
-                startActivity(new Intent(getContext(), PublishActivity.class));
+                if (MyApp.hadLogin){
+                    startActivity(new Intent(getContext(), PublishActivity.class));
+                }else {
+                    LemonBubble.showError(HomeFragment.this,"请先登录，即将跳转至登录界面！",1500);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(getContext(), LoginActivity.class));
+                        }
+                    }, 1600);
+                }
             }
         });
     }

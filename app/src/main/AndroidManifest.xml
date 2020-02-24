@@ -27,6 +27,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".ui.activity.OtherPersonActivity">
+        </activity>
         <activity android:name=".ui.activity.ModifyPhoneNumActivity">
         </activity>
         <activity android:name=".ui.activity.AddressActivity">
@@ -70,8 +72,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.activity.LoginActivity"
-            android:launchMode="singleTask">
+            android:name=".ui.activity.LoginActivity">
         </activity>
 
         <provider

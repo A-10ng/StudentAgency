@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,11 +34,14 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+
 import static com.example.studentagency.ui.activity.MyApp.userId;
 
 public class PublishActivity extends BaseActivity implements PublishActivityBaseView,TimeDialogFragment.OnGetPickedTimeListener {
     private static final String TAG = "PublishActivity";
     private static final int LISTEN_EDIT = 1;
+    private static final int REQUEST_PICK_ADDRESS = 2;
     private PublishActivityBasePresenter presenter = new PublishActivityBasePresenter(this);
 
     //选择代办类型
@@ -57,6 +61,7 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
     //收货地点
     private EditText et_address;
     private String str_address;
+    private ImageView iv_pickAddress;
 
     //支付费用
     private EditText et_price;
@@ -72,14 +77,19 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
 
-        //开启监听3个EditText
-        startListening();
-
         findAllViews();
 
         initAgencyType();
 
         initTimeDialogFragment();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //开启监听3个EditText
+        startListening();
     }
 
     private void startListening() {
@@ -95,6 +105,14 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
 
         //收货地点
         et_address = findViewById(R.id.et_address);
+        iv_pickAddress = findViewById(R.id.iv_pickAddress);
+        iv_pickAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PublishActivity.this,AddressActivity.class);
+                startActivityForResult(intent,REQUEST_PICK_ADDRESS);
+            }
+        });
 
         //支付费用
         et_price = findViewById(R.id.et_price);
@@ -114,6 +132,21 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
                 showEnsurePublishDialog();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_PICK_ADDRESS){
+            if (resultCode == RESULT_OK){
+                String pickedAddress = data.getStringExtra("pickedAddress");
+                Log.i(TAG, "onActivityResult: pickedAddress>>>>>"+pickedAddress);
+
+                et_address.setText(pickedAddress);
+                str_address = pickedAddress;
+            }
+        }
     }
 
     private void showEnsurePublishDialog() {

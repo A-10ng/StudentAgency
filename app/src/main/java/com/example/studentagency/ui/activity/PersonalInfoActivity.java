@@ -159,6 +159,13 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
             tv_school.setText(schoolName);
             Log.i(TAG, "onActivityResult: originalSchool>>>>>" + originalSchool);
         }
+        if (requestCode == REQUEST_PICK_ADDRESS){
+            if (resultCode == RESULT_OK){
+                String address = data.getStringExtra("pickedAddress");
+                et_address.setText(address);
+                Log.i(TAG, "onActivityResult: address>>>>>" + address);
+            }
+        }
     }
 
     @Override

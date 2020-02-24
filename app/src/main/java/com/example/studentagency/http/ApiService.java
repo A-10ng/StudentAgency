@@ -1,5 +1,6 @@
 package com.example.studentagency.http;
 
+import com.example.studentagency.bean.AddressBean;
 import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.bean.CommentBean;
@@ -169,4 +170,21 @@ public interface ApiService {
     Observable<Integer> modifyPhoneNum(@Query("userId") int userId,
                                        @Query("newPhoneNum") String newPhoneNum,
                                        @Query("verifyCode") String verifyCode);
+
+    @GET("GetAddress")
+    Observable<List<AddressBean>> getAddress(@Query("userId") int userId);
+
+    @POST("AddAddress")
+    Observable<AddressBean> addAddress(@Query("userId") int userId,
+                                       @Query("tag") String tag,
+                                       @Query("address") String address);
+
+    @POST("GiveACommentSuccess")
+    Observable<Integer> editAddress(@Query("userId") int userId,
+                                    @Query("addressId") int addressId,
+                                    @Query("tag") String tag,
+                                    @Query("address") String addresse);
+
+    @POST("GiveACommentSuccess")
+    Observable<Integer> deleteAddress(@Query("userId") int userId, @Query("addressId") int addressId);
 }

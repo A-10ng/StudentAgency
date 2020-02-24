@@ -25,7 +25,7 @@ public class MyApp extends Application {
 
     public static final String PLACEHOLDER_PIC = "http://www.longsh1z.top/resources/placeholder_pic.png";
     public static int userId = 20160001;
-    public static boolean hadLogin = true;
+    public static boolean hadLogin = false;
 
     @Override
     public void onCreate() {

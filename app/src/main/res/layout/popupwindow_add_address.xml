@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_dialog_fragment_ratingbar_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_cancel"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/icon_error_black"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_dialog_fragment_ratingbar_bg"
+                android:gravity="center"
+                android:text="新增地址"
+                android:textSize="20dp"/>
+
+            <ImageView
+                android:id="@+id/iv_ensure"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/icon_success_black"/>
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@color/page_gray_cccc"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="25dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_default"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:textSize="18dp"
+                android:text="设为默认地址"/>
+
+            <com.example.studentagency.ui.widget.SlideButton
+                android:id="@+id/slideButton"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="25dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightgray"/>
+
+        <LinearLayout
+            android:id="@+id/layout_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_tag"/>
+
+            <EditText
+                android:id="@+id/et_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:maxLength="5"
+                android:background="@drawable/edittext_no_line"
+                android:hint="请输入地址标签，限长5个字符"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightgray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/address"/>
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_no_line"
+                android:gravity="top"
+                android:layout_marginRight="20dp"
+                android:hint="请输入收货地址"
+                android:maxLines="2"
+                android:minLines="2"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
