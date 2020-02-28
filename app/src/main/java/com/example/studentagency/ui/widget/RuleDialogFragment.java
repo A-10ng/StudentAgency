@@ -1,7 +1,6 @@
 package com.example.studentagency.ui.widget;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.Utils;
+import com.example.studentagency.utils.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

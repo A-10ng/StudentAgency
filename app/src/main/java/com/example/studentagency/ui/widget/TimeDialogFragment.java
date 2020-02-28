@@ -1,6 +1,5 @@
 package com.example.studentagency.ui.widget;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.Utils;
+import com.example.studentagency.utils.Utils;
 import com.example.studentagency.ui.adapter.PublishTimeRecycleLeftAdapter;
 import com.example.studentagency.ui.adapter.PublishTimeRecycleRightAdapter;
 

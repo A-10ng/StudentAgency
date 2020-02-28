@@ -2,6 +2,9 @@ package com.example.studentagency.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.options.RegisterOptionalUserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +25,7 @@ import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
 import com.example.studentagency.mvp.presenter.RegisterActivityBasePresenter;
 import com.example.studentagency.mvp.view.RegisterActivityBaseView;
+import com.example.studentagency.utils.ActivityCollector;
 
 import java.lang.ref.WeakReference;
 
@@ -48,7 +52,7 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
     private String verifyCode;
     private TextView tv_getVerifyCode;
     private boolean hasGetCode = false;
-    private CountTime countTime = new CountTime(60000,1000);
+    private CountTime countTime = new CountTime(60000, 1000);
 
     //按钮
     private Button btn_lastStep;
@@ -68,12 +72,18 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
         setViewsOnClick();
     }
 
-    private void setViewsOnClick() {
-        tv_getVerifyCode.setOnClickListener(this);
-
-        btn_lastStep.setOnClickListener(this);
-        btn_finishRegis.setOnClickListener(this);
-        btn_goToLogin.setOnClickListener(this);
+    private void getLastStepInfo() {
+        Intent intent = getIntent();
+        if (null != intent) {
+            username = intent.getStringExtra("username");
+            genderType = intent.getIntExtra("genderType", -1);
+            password = intent.getStringExtra("password");
+            school = intent.getStringExtra("school");
+        }
+        Log.i(TAG, "getLastStepInfo: username>>>>>" + username + "\n" +
+                "genderType>>>>>" + genderType + "\n" +
+                "password>>>>>" + password + "\n" +
+                "school>>>>>" + school);
     }
 
     private void findAllViews() {
@@ -91,18 +101,25 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
         btn_goToLogin = findViewById(R.id.btn_goToLogin);
     }
 
-    private void getLastStepInfo() {
-        Intent intent = getIntent();
-        if (null != intent){
-            username = intent.getStringExtra("username");
-            genderType = intent.getIntExtra("genderType",-1);
-            password = intent.getStringExtra("password");
-            school = intent.getStringExtra("school");
+    private void setViewsOnClick() {
+        tv_getVerifyCode.setOnClickListener(this);
+
+        btn_lastStep.setOnClickListener(this);
+        btn_finishRegis.setOnClickListener(this);
+        btn_goToLogin.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //取消监听
+        cancelListening();
+
+        if (null != countTime) {
+            countTime.cancel();
+            countTime = null;
         }
-        Log.i(TAG, "getLastStepInfo: username>>>>>"+username+"\n"+
-                "genderType>>>>>"+genderType+"\n"+
-                "password>>>>>"+password+"\n"+
-                "school>>>>>"+school);
     }
 
     @Override
@@ -117,37 +134,24 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
         myHandler.sendEmptyMessage(LISTEN_EDIT);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        //取消监听
-        cancelListening();
-
-        if (null != countTime){
-            countTime.cancel();
-            countTime = null;
-        }
-    }
-
     private void cancelListening() {
         myHandler.removeMessages(LISTEN_EDIT);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_lastStep:
-                startActivity(new Intent(this,RegisterOneActivity.class));
+                startActivity(new Intent(this, RegisterOneActivity.class));
                 finish();
                 break;
             case R.id.btn_finishRegis:
-                Log.i(TAG, "onClick btn_finishRegis: username >>>>> "+username+"\n"+
-                        "genderType >>>>> "+genderType+"\n"+
-                    "password >>>>> "+password+"\n"+
-                    "school >>>>> "+school+"\n"+
-                    "phoneNum >>>>> "+phoneNum+"\n"+
-                    "verifyCode >>>>> "+verifyCode);
+                Log.i(TAG, "onClick btn_finishRegis: username >>>>> " + username + "\n" +
+                        "genderType >>>>> " + genderType + "\n" +
+                        "password >>>>> " + password + "\n" +
+                        "school >>>>> " + school + "\n" +
+                        "phoneNum >>>>> " + phoneNum + "\n" +
+                        "verifyCode >>>>> " + verifyCode);
 
                 LemonBubble.getRoundProgressBubbleInfo()
                         .setLocationStyle(LemonBubbleLocationStyle.BOTTOM)
@@ -160,12 +164,29 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        presenter.register(username,genderType,password,school,phoneNum);
+                        RegisterOptionalUserInfo userInfo = new RegisterOptionalUserInfo();
+//                        userInfo.setAvatar("http://www.longsh1z.top/resources/avatar.jpg");
+                        userInfo.setNickname(username);
+                        userInfo.setSignature("http://www.longsh1z.top/resources/avatar.jpg");
+                        JMessageClient.register(phoneNum, phoneNum, userInfo, new BasicCallback() {
+                            @Override
+                            public void gotResult(int responseCode, String s) {
+                                Log.i(TAG, "JMessageClient.register gotResult: responseCode>>>>>" + responseCode + " s>>>>>" + s);
+                                if (responseCode == 0) {
+                                    presenter.register(username, genderType, password, school, phoneNum);
+                                } else if (responseCode == 898001){
+                                    LemonBubble.showError(RegisterTwoActivity.this,"该手机号已注册过极光IM，请更换手机！",1200);
+                                }
+                                else {
+                                    LemonBubble.showError(RegisterTwoActivity.this,"极光服务出现差错，请重试！",1200);
+                                }
+                            }
+                        });
                     }
                 }, 1500);
                 break;
             case R.id.btn_goToLogin:
-                startActivity(new Intent(this,LoginActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
             case R.id.tv_getVerifyCode:
@@ -223,10 +244,9 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    JPushInterface.setAlias(RegisterTwoActivity.this,300,phoneNum);
-                    JPushInterface.setAlias(RegisterTwoActivity.this,300,"18218643174");
+                    finish();
 
-                    startActivity(new Intent(RegisterTwoActivity.this, MainActivity.class));
+                    startActivity(new Intent(RegisterTwoActivity.this, LoginActivity.class));
                 }
             }, 1100);
         } else {
@@ -241,7 +261,7 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
         LemonBubble.showError(this, "网络开了小差，请重试！", 1200);
     }
 
-    private class CountTime extends CountDownTimer{
+    private class CountTime extends CountDownTimer {
 
         public CountTime(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
@@ -262,7 +282,7 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private class MyHandler extends Handler{
+    private class MyHandler extends Handler {
         private WeakReference<Context> reference;
 
         public MyHandler(Context context) {
@@ -274,38 +294,38 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
             super.handleMessage(msg);
 
             RegisterTwoActivity registerTwoActivity = (RegisterTwoActivity) reference.get();
-            if (null != registerTwoActivity){
-                switch (msg.what){
+            if (null != registerTwoActivity) {
+                switch (msg.what) {
                     case LISTEN_EDIT:
                         phoneNum = et_phoneNum.getText().toString().trim();
                         verifyCode = et_verifyCode.getText().toString().trim();
                         int phoneNumLength = phoneNum.length();
                         int verifyCodeLength = verifyCode.length();
 
-                        if (phoneNumLength == 0){
+                        if (phoneNumLength == 0) {
                             iv_phoneNumState.setVisibility(View.GONE);
                             tv_getVerifyCode.setClickable(false);
-                        }else if (phoneNumLength < 11){
+                        } else if (phoneNumLength < 11) {
                             iv_phoneNumState.setImageResource(R.drawable.icon_error);
                             iv_phoneNumState.setVisibility(View.VISIBLE);
                             tv_getVerifyCode.setClickable(false);
-                        }else {
-                            if (hasGetCode){
+                        } else {
+                            if (hasGetCode) {
                                 tv_getVerifyCode.setClickable(false);
-                            }else {
+                            } else {
                                 tv_getVerifyCode.setClickable(true);
                             }
                             iv_phoneNumState.setImageResource(R.drawable.icon_success);
                             iv_phoneNumState.setVisibility(View.VISIBLE);
                         }
 
-                        if (phoneNumLength == 11 && verifyCodeLength > 0){
+                        if (phoneNumLength == 11 && verifyCodeLength > 0) {
                             btn_finishRegis.setEnabled(true);
-                        }else {
+                        } else {
                             btn_finishRegis.setEnabled(false);
                         }
 
-                        myHandler.sendEmptyMessageDelayed(LISTEN_EDIT,500);
+                        myHandler.sendEmptyMessageDelayed(LISTEN_EDIT, 500);
                         break;
                 }
             }

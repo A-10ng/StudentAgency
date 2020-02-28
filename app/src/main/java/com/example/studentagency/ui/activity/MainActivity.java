@@ -9,25 +9,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.ActivityCollector;
+import com.example.studentagency.utils.ActivityCollector;
 import com.example.studentagency.ui.adapter.MyFragmentPagerAdapter;
 import com.example.studentagency.ui.fragment.MainActivity.HomeFragment;
 import com.example.studentagency.ui.fragment.MainActivity.MarketFragment;
 import com.example.studentagency.ui.fragment.MainActivity.MessageFragment;
 import com.example.studentagency.ui.fragment.MainActivity.PersonFragment;
 import com.example.studentagency.ui.widget.TitleBar;
+import com.example.studentagency.utils.VariableName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.MessageEvent;
+import cn.jpush.im.android.api.event.OfflineMessageEvent;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+
+import static com.example.studentagency.ui.activity.MyApp.hadLogin;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private TitleBar titleBar;
     private static final String TAG = "MainActivity";
     private static final int WRITE_EXTERNAL_STORAGE = 200;
+    private View v_red_dot;
+    private TitleBar titleBar;
     private List<Fragment> fragments;
     private ViewPager viewPager;
     //底部导航栏的总布局
@@ -44,6 +53,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //订阅接收消息,子类只要重写onEvent就能收到消息
+        JMessageClient.registerEventReceiver(this);
+
         //初始化控件及监听事件
         initViews();
 
@@ -51,7 +63,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         bindingFragment();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (hadLogin){
+            setRedDotState();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        if (hadLogin){
+            setRedDotState();
+        }
+    }
+
     private void initViews() {
+        v_red_dot = findViewById(R.id.v_red_dot);
+
         titleBar = findViewById(R.id.titleBar);
 
         //底部导航栏linearlayout初始化
@@ -116,6 +148,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         viewPager.setAdapter(pagerAdapter);
     }
 
+    public void setRedDotState() {
+        List<Conversation> conversations = JMessageClient.getConversationList();
+        for (Conversation conversation : conversations) {
+            if (conversation.getExtra().equals(VariableName.NEW_MESSAGE)) {
+                setNew(true);
+            }
+        }
+    }
+
     //改变底部栏图标和文字的样式
     private void changeTab(int position) {
         //取消选中当前的图标和文字
@@ -169,6 +210,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    public void setNew(boolean isNew) {
+        if (isNew) {
+            v_red_dot.setVisibility(View.VISIBLE);
+        } else {
+            v_red_dot.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         changeTab(v.getId());
@@ -192,5 +241,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //接受了离线消息
+    public void onEventMainThread(OfflineMessageEvent event) {
+        if (hadLogin){
+            if (event.getConversation().getExtra().equals(VariableName.NEW_MESSAGE)) {
+                setNew(true);
+            }
+        }
     }
 }

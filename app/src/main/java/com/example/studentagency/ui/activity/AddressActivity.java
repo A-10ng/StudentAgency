@@ -1,7 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +19,6 @@ import com.example.lemonhello.LemonHelloInfo;
 import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.DateUtils;
 import com.example.studentagency.bean.AddressBean;
 import com.example.studentagency.mvp.presenter.AddressActivityBasePresenter;
 import com.example.studentagency.mvp.view.AddressActivityBaseView;
@@ -31,8 +28,6 @@ import com.example.studentagency.ui.widget.EditAddressPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.studentagency.ui.activity.MyApp.userId;
 
 public class AddressActivity extends BaseActivity implements AddressActivityBaseView {
 

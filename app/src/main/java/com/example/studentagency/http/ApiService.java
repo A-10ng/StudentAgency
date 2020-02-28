@@ -5,6 +5,7 @@ import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.bean.CommentBean;
 import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.OtherPersonBean;
 import com.example.studentagency.bean.UserBean;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public interface ApiService {
     @POST("GetMoreIndentData")
     Observable<List<IndentBean>> getIndentByType(@Query("type") int type);
 
-    @POST("PublishIndentFail")
+    @POST("PublishIndentSuccess")
     Observable<Integer> publishIndent(@Query("publishId") int publishId, @Query("type") int type, @Query("price") float price,
                                       @Query("description") String description, @Query("address") String address, @Query("publishTime") String publishTime,
                                       @Query("planTime") String planTime);
@@ -68,7 +69,7 @@ public interface ApiService {
     @POST("GiveACommentSuccess")
     Observable<Integer> getVerifyCode(@Query("phoneNum") String phoneNum);
 
-    @POST("GiveACommentFail")
+    @POST("GiveACommentSuccess")
     Observable<Integer> register(@Query("username") String username, @Query("gender") int gender, @Query("password") String password,
                                  @Query("school") String school, @Query("phoneNum") String phoneNum);
 
@@ -85,7 +86,7 @@ public interface ApiService {
     @POST("GetPublishInfo")
     Observable<UserBean> getPersonalInfo(@Query("userId") int userId);
 
-    @POST("GiveACommentFail")
+    @POST("GiveACommentSuccess")
     Observable<Integer> changePersonalInfo(@Query("userBean") UserBean userBean);
 
     @POST("GetVerifyStateSuccess")
@@ -116,12 +117,12 @@ public interface ApiService {
     @GET("GetAcceptIndents")
     Observable<List<IndentBean>> getAcceptIndents(@Query("userId") int userId);
 
-    @POST("GetVerifyStateFail")
+    @POST("GetVerifyStateSuccess")
     Observable<Integer> cancelIndentNotTaken(@Query("userId") int userId,
                                              @Query("indentId") int indentId,
                                              @Query("price") String price);
 
-    @POST("GetVerifyStateFail")
+    @POST("GetVerifyStateSuccess")
     Observable<Integer> cancelIndentHadTaken(@Query("userId") int userId,
                                              @Query("indentId") int indentId,
                                              @Query("price") String price);
@@ -141,7 +142,7 @@ public interface ApiService {
                                           @Query("indentId") int indentId,
                                           @Query("price") String price);
 
-    @POST("GetVerifyStateFail")
+    @POST("GetVerifyStateSuccess")
     Observable<Integer> cancelIndentHadTakenInAcpFragment(@Query("userId") int userId,
                                                           @Query("indentId") int indentId,
                                                           @Query("price") String price);
@@ -187,4 +188,7 @@ public interface ApiService {
 
     @POST("GiveACommentSuccess")
     Observable<Integer> deleteAddress(@Query("userId") int userId, @Query("addressId") int addressId);
+
+    @GET("GetCurrentUserInfo")
+    Observable<OtherPersonBean> getCurrentUserInfo(@Query("phoneNum") String phoneNum);
 }

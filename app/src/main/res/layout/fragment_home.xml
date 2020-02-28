@@ -23,7 +23,7 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <com.example.studentagency.ui.widget.MyRecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_indent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

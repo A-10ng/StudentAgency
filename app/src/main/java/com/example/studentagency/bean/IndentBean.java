@@ -19,10 +19,19 @@ public class IndentBean {
     private int isDeleted;
     private String avatar;
     private String username;
+    private String phoneNum;
     private int verifyState;
     private String description;
     private String price;
     private String address;
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 
     public int getIndentId() {
         return indentId;

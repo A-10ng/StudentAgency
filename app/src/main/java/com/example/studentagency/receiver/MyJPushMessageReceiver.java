@@ -2,17 +2,10 @@ package com.example.studentagency.receiver;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 
-import com.example.studentagency.Utils.TagAliasOperatorHelper;
+import com.example.studentagency.utils.TagAliasOperatorHelper;
 
-import org.json.JSONObject;
-
-import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
-import cn.jpush.android.api.NotificationMessage;
-import cn.jpush.android.helper.Logger;
 import cn.jpush.android.service.JPushMessageReceiver;
 
 /**

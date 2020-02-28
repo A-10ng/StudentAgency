@@ -1,7 +1,6 @@
 package com.example.studentagency.ui.fragment.MainActivity;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -34,11 +33,11 @@ import com.example.lemonhello.LemonHelloInfo;
 import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.ActivityCollector;
-import com.example.studentagency.Utils.BlurUtils;
-import com.example.studentagency.Utils.DateUtils;
-import com.example.studentagency.Utils.FileUtils;
-import com.example.studentagency.Utils.ImageUtils;
+import com.example.studentagency.utils.ActivityCollector;
+import com.example.studentagency.utils.BlurUtils;
+import com.example.studentagency.utils.DateUtils;
+import com.example.studentagency.utils.FileUtils;
+import com.example.studentagency.utils.ImageUtils;
 import com.example.studentagency.asyncTask.GetBitmapTask;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.mvp.presenter.PersonFragmentBasePresenter;
@@ -69,6 +68,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import cn.jpush.im.android.api.JMessageClient;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -156,7 +156,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
             case R.id.layout_studentVerify:
                 if (hadLogin) {
                     Intent intent = new Intent(getActivity(), StudentVerifyActivity.class);
-                    intent.putExtra("INT_STUDENT_VERVIFY",INT_STUDENT_VERVIFY);
+                    intent.putExtra("INT_STUDENT_VERVIFY", INT_STUDENT_VERVIFY);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
@@ -257,6 +257,9 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                     @Override
                     public void onClick(LemonHelloView lemonHelloView, LemonHelloInfo lemonHelloInfo, LemonHelloAction lemonHelloAction) {
                         Log.i(TAG, "onClick: 确定退出登录");
+                        hadLogin = false;
+                        JMessageClient.logout();
+
                         lemonHelloView.hide();
 
                         ActivityCollector.finishAll();
@@ -525,6 +528,15 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (hadLogin){
+            presenter.getPersonFragmentInfo(MyApp.userId);
+        }
+    }
+
     private void initAvatarAndBG(int resId) {
         RequestOptions requestOptions = RequestOptions.circleCropTransform();
         Glide.with(getActivity())
@@ -600,10 +612,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
 
         initAvatarAndBG(userBean.getAvatar());
 
-        if (userBean.getVerifyState() == 3){
+        if (userBean.getVerifyState() == 3) {
             INT_STUDENT_VERVIFY = 3;
             iv_verifyState.setImageResource(R.drawable.verified);
-        }else {
+        } else {
             INT_STUDENT_VERVIFY = userBean.getVerifyState();
             iv_verifyState.setImageResource(R.drawable.unverified);
         }

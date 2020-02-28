@@ -1,22 +1,19 @@
 package com.example.studentagency.ui.activity;
 
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.ActivityCollector;
+import com.example.studentagency.utils.ActivityCollector;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.MessageEvent;
+import cn.jpush.im.android.api.model.Message;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -32,6 +29,9 @@ public class BaseActivity extends AppCompatActivity {
 
         ActivityCollector.addActivity(this);
         Log.i(TAG, "BaseActivity add Activity : " + getClass().getSimpleName());
+
+        //订阅接收消息,子类只要重写onEvent就能收到消息
+        JMessageClient.registerEventReceiver(this);
     }
 
     private void changeStatusBarColor() {
@@ -51,5 +51,17 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         ActivityCollector.removeActivity(this);
         Log.i(TAG, "BaseActivity remove Activity : " + getClass().getSimpleName());
+
+        JMessageClient.unRegisterEventReceiver(this);
+    }
+    
+    public void onEvent(MessageEvent event){
+        Message message = event.getMessage();
+        Log.i(TAG, "onEvent: message.type>>>>>"+message.getContentType());
+    }
+
+    public void onEventMainThread(MessageEvent event){
+        Message message = event.getMessage();
+        Log.i(TAG, "onEvent: message.type>>>>>"+message.getContentType());
     }
 }

@@ -23,6 +23,7 @@ import com.example.studentagency.mvp.presenter.AcceptFragmentBasePresenter;
 import com.example.studentagency.mvp.view.AcceptFragmentBaseView;
 import com.example.studentagency.ui.activity.IndentActivity;
 import com.example.studentagency.ui.adapter.PersonIndentRecyclerviewAdapter;
+import com.example.studentagency.utils.VariableName;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -36,6 +37,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * author：LongSh1z
@@ -49,6 +54,7 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
     private static final int INDENT_ACCEPT = 4;
     private AcceptFragmentBasePresenter presenter = new AcceptFragmentBasePresenter(this);
     private View viewRoot;
+    private String phoneNum;
 
     //recyclerview
     private RecyclerView mRecyclerView;
@@ -140,39 +146,40 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
         adapter = new PersonIndentRecyclerviewAdapter(dataList, INDENT_ACCEPT);
         adapter.setAdapterClickListener(new PersonIndentRecyclerviewAdapter.AdapterClickListener() {
             @Override
-            public void clickItem(int what, int state, int position, Button btn_num1, Button btn_num2, int indentId, String price) {
+            public void clickItem(int what, int state, int position, Button btn_num1, Button btn_num2,IndentBean indentBean) {
                 clickedPosition = position;
+                phoneNum = indentBean.getPhoneNum();
 
                 switch (what) {
                     case 106:
-                        Log.i(TAG, "clickItem: 点击了已接取-->接单中-->取消，indentId>>>>>" + indentId + " price>>>>>" + price + " state>>>>>" + state + " position>>>>>" + position);
+                        Log.i(TAG, "clickItem: 点击了已接取-->接单中-->取消，indentBean>>>>>" + indentBean.toString() + " state>>>>>" + state + " position>>>>>" + position);
 
-                        showEnsureDialog(indentId, price, 106, "您确定要取消已接的订单吗,这样会扣除一定的信誉积分哦", "取消中...");
+                        showEnsureDialog(indentBean.getIndentId(), indentBean.getPrice(), 106, "您确定要取消已接的订单吗,这样会扣除一定的信誉积分哦", "取消中...");
 
                         break;
                     case 107:
-                        Log.i(TAG, "clickItem: 点击了已接取-->接单中-->确认送达，indentId>>>>>" + indentId + " price>>>>>" + price + " state>>>>>" + state + " position>>>>>" + position);
+                        Log.i(TAG, "clickItem: 点击了已接取-->接单中-->确认送达，indentBean>>>>>" + indentBean.toString() + " state>>>>>" + state + " position>>>>>" + position);
 
-                        showEnsureDialog(indentId, price, 107, "您真的确定货物送到手了吗？", "确认中...");
+                        showEnsureDialog(indentBean.getIndentId(), indentBean.getPrice(), 107, "您真的确定货物送到手了吗？", "确认中...");
 
                         break;
                     case 108:
-                        Log.i(TAG, "clickItem: 点击了已接取-->已完成未评价-->删除，indentId>>>>>" + indentId + " price>>>>>" + price + " state>>>>>" + state + " position>>>>>" + position);
+                        Log.i(TAG, "clickItem: 点击了已接取-->已完成未评价-->删除，indentBean>>>>>" + indentBean.toString() + state + " position>>>>>" + position);
 
-                        showEnsureDialog(indentId, price, 108, "您确定要删除该订单吗？", "删除中...");
+                        showEnsureDialog(indentBean.getIndentId(), indentBean.getPrice(), 108, "您确定要删除该订单吗？", "删除中...");
 
                         break;
                     case 109:
-                        Log.i(TAG, "clickItem: 点击了已接取-->已完成已评价-->删除，indentId>>>>>" + indentId + " price>>>>>" + price + " state>>>>>" + state + " position>>>>>" + position);
+                        Log.i(TAG, "clickItem: 点击了已接取-->已完成已评价-->删除，indentBean>>>>>" + indentBean.toString() + " state>>>>>" + state + " position>>>>>" + position);
 
-                        showEnsureDialog(indentId, price, 109, "您确定要删除该订单吗？", "删除中...");
+                        showEnsureDialog(indentBean.getIndentId(), indentBean.getPrice(), 109, "您确定要删除该订单吗？", "删除中...");
 
                         break;
                     case 110:
-                        Log.i(TAG, "clickItem: 点击了订单，indentId>>>>>" + indentId + " price>>>>>" + price + " state>>>>>" + state + " position>>>>>" + position);
+                        Log.i(TAG, "clickItem: 点击了订单，indentBean>>>>>" + indentBean.toString() + " state>>>>>" + state + " position>>>>>" + position);
 
                         Intent intent = new Intent(getActivity(), IndentActivity.class);
-                        intent.putExtra("indentId",indentId);
+                        intent.putExtra("indentId",indentBean.getIndentId());
                         intent.putExtra("state",state);
                         startActivity(intent);
 
@@ -285,6 +292,9 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
         if (0 == result) {
             LemonBubble.showError(this, "取消失败，请重试！", 1500);
         } else {
+//            sendMessageToPublish(phoneNum,"取消您的订单实在不好意思，请见谅！");
+            sendMessageToPublish("18218643171","取消您的订单实在不好意思，请见谅！");
+
             LemonBubble.showRight(this, "取消成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {
@@ -294,6 +304,25 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
                 }
             }, 1600);
         }
+    }
+
+    private void sendMessageToPublish(String phoneNum,String content) {
+        Conversation.createSingleConversation(phoneNum);
+
+        Message message = JMessageClient.createSingleTextMessage(phoneNum,
+                VariableName.JIGUANG_APP_KEY, content);
+        JMessageClient.sendMessage(message);
+        message.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                Log.i(TAG, "gotResult: i>>>>>" + i + "  s>>>>>" + s);
+                if (i == 0) {
+                    Log.i(TAG, "gotResult: 消息发送成功！");
+                } else {
+                    Log.i(TAG, "gotResult: 消息发送失败！");
+                }
+            }
+        });
     }
 
     @Override
@@ -360,6 +389,9 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
         if (0 == result) {
             LemonBubble.showError(this, "确认失败，请重试！", 1500);
         } else {
+//            sendMessageToPublish(phoneNum,"您的东西已送达，请尽快确认！");
+            sendMessageToPublish("18218643171","您的东西已送达，请尽快确认！");
+
             LemonBubble.showRight(this, "确认成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {

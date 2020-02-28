@@ -1,4 +1,4 @@
-package com.example.studentagency.Utils;
+package com.example.studentagency.utils;
 
 import android.content.Context;
 import android.os.Handler;

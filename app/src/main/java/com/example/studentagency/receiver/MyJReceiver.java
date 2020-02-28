@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.studentagency.Utils.ExampleUtil;
 import com.example.studentagency.ui.activity.MainActivity;
 import com.example.studentagency.ui.activity.PersonIndentActivity;
 
@@ -16,7 +15,6 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.helper.Logger;
 

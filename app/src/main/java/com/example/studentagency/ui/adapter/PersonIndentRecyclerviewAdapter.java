@@ -158,33 +158,33 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                         if (indentType == INDENT_PUBLISH) {
                             if (indentBean.getState() == 0) {//别人未接单
                                 if (itemViewHolder.btn_num1.getText().equals("取消")) {
-                                    adapterClickListener.clickItem(110, 200, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                    adapterClickListener.clickItem(110, 200, position, null, null, indentBean);
                                 }
                             } else if (indentBean.getState() == 1) {//接单中
                                 if (itemViewHolder.btn_num1.getText().equals("取消")) {
-                                    adapterClickListener.clickItem(110, 201, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                    adapterClickListener.clickItem(110, 201, position, null, null, indentBean);
                                 }
                             } else if (indentBean.getState() == 2) {//已完成未评价
                                 if (itemViewHolder.btn_num1.getText().equals("评价")) {
-                                    adapterClickListener.clickItem(110, 202, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                    adapterClickListener.clickItem(110, 202, position, null, null, indentBean);
                                 }
                             } else {//indentBean.getState() == 3 已完成已删除
                                 if (itemViewHolder.btn_num1.getText().equals("删除")) {
-                                    adapterClickListener.clickItem(110, 203, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                    adapterClickListener.clickItem(110, 203, position, null, null, indentBean);
                                 }
                             }
                         } else {
                             if (indentBean.getState() == 0) {
                                 if (itemViewHolder.btn_num1.getText().equals("取消")) {//接单中
-                                    adapterClickListener.clickItem(110, 204, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                    adapterClickListener.clickItem(110, 204, position, null, null, indentBean);
                                 }
                             } else if (indentBean.getState() == 1) {//已完成未评价
                                 if (itemViewHolder.btn_num1.getText().equals("删除")) {
-                                    adapterClickListener.clickItem(110, 205, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                    adapterClickListener.clickItem(110, 205, position, null, null, indentBean);
                                 }
                             } else {//indentBean.getState() == 2 已完成已评价
                                 if (itemViewHolder.btn_num1.getText().equals("删除")) {
-                                    adapterClickListener.clickItem(110, 206, position, null, null, indentBean.getIndentId(), indentBean.getPrice());
+                                    adapterClickListener.clickItem(110, 206, position, null, null, indentBean);
                                 }
                             }
                         }
@@ -210,33 +210,33 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                     if (indentType == INDENT_PUBLISH) {
                         if (indentBean.getState() == 0) {//别人未接单
                             if (btn_num1.getText().equals("取消")) {
-                                adapterClickListener.clickItem(100, 200, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(100, 200, position, btn_num1, btn_num2, indentBean);
                             }
                         } else if (indentBean.getState() == 1) {//接单中
                             if (btn_num1.getText().equals("取消")) {
-                                adapterClickListener.clickItem(101, 201, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(101, 201, position, btn_num1, btn_num2, indentBean);
                             }
                         } else if (indentBean.getState() == 2) {//已完成未评价
                             if (btn_num1.getText().equals("评价")) {
-                                adapterClickListener.clickItem(103, 202, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(103, 202, position, btn_num1, btn_num2, indentBean);
                             }
                         } else {//indentBean.getState() == 3 已完成已删除
                             if (btn_num1.getText().equals("删除")) {
-                                adapterClickListener.clickItem(105, 203, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(105, 203, position, btn_num1, btn_num2, indentBean);
                             }
                         }
                     } else {
                         if (indentBean.getState() == 0) {
                             if (btn_num1.getText().equals("取消")) {//接单中
-                                adapterClickListener.clickItem(106, 204, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(106, 204, position, btn_num1, btn_num2, indentBean);
                             }
                         } else if (indentBean.getState() == 1) {//已完成未评价
                             if (btn_num1.getText().equals("删除")) {
-                                adapterClickListener.clickItem(108, 205, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(108, 205, position, btn_num1, btn_num2, indentBean);
                             }
                         } else {//indentBean.getState() == 2 已完成已评价
                             if (btn_num1.getText().equals("删除")) {
-                                adapterClickListener.clickItem(109, 206, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(109, 206, position, btn_num1, btn_num2, indentBean);
                             }
                         }
                     }
@@ -251,17 +251,17 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                     if (indentType == INDENT_PUBLISH) {
                         if (indentBean.getState() == 1) {
                             if (btn_num2.getText().equals("确认送达")) {
-                                adapterClickListener.clickItem(102, 201, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(102, 201, position, btn_num1, btn_num2, indentBean);
                             }
                         } else {//indentBean.getState() == 2
                             if (btn_num2.getText().equals("删除")) {
-                                adapterClickListener.clickItem(104, 202, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(104, 202, position, btn_num1, btn_num2, indentBean);
                             }
                         }
                     } else {
                         if (indentBean.getState() == 0) {
                             if (btn_num2.getText().equals("确认送达")) {
-                                adapterClickListener.clickItem(107, 204, position, btn_num1, btn_num2, indentBean.getIndentId(), indentBean.getPrice());
+                                adapterClickListener.clickItem(107, 204, position, btn_num1, btn_num2, indentBean);
                             }
                         }
                     }
@@ -369,9 +369,8 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
          * @param state
          * @param btn_num1
          * @param btn_num2
-         * @param indentId
-         * @param price
+         * @param indentBean
          */
-        void clickItem(int what, int state, int position, Button btn_num1, Button btn_num2, int indentId, String price);
+        void clickItem(int what, int state, int position, Button btn_num1, Button btn_num2, IndentBean indentBean);
     }
 }

@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
@@ -24,10 +26,13 @@ import com.example.studentagency.R;
 
 import com.example.studentagency.mvp.presenter.LoginActivityBasePresenter;
 import com.example.studentagency.mvp.view.LoginActivityBaseView;
+import com.example.studentagency.utils.ActivityCollector;
 
 import java.lang.ref.WeakReference;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 public class LoginActivity extends BaseActivity implements LoginActivityBaseView, View.OnClickListener {
 
@@ -35,6 +40,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     private static final int LISTEN_EDITTEXT = 1;
     private LoginActivityBasePresenter presenter = new LoginActivityBasePresenter(this);
     private MyHandler mHandler = new MyHandler(this);
+    //记录当前点击返回键的时间
+    private long mExitTime;
 
     //切换登录模式
     private boolean isPasswordMode = true;
@@ -145,9 +152,10 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    JPushInterface.setAlias(RegisterTwoActivity.this,300,phoneNum);
-                    JPushInterface.setAlias(LoginActivity.this,300,"18218643174");
-
+                    MyApp.userPhoneNum = phoneNum;
+                    JPushInterface.setAlias(LoginActivity.this,300,phoneNum);
+//                    JMessageClient.deleteSingleConversation("18218643170","dd32d31fea0115f1faa8d7f9");
+//                    JMessageClient.deleteSingleConversation("18218643171","dd32d31fea0115f1faa8d7f9");
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
             }, 1100);
@@ -174,8 +182,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    JPushInterface.setAlias(RegisterTwoActivity.this,300,phoneNum);
-                    JPushInterface.setAlias(LoginActivity.this,300,"18218643174");
+                    MyApp.userPhoneNum = phoneNum;
+                    JPushInterface.setAlias(LoginActivity.this,300,phoneNum);
 
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
@@ -275,16 +283,27 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (isPasswordMode) {
-                            presenter.loginByPassword(phoneNum, password);
-                        } else {
-                            presenter.loginByVerifyCode(phoneNum, verifyCode);
-                        }
+                        JMessageClient.login(phoneNum, phoneNum, new BasicCallback() {
+                            @Override
+                            public void gotResult(int resonpseCode, String s) {
+                                Log.i(TAG, "JMessageClient.login gotResult: resonpseCode>>>>>"+resonpseCode+" s>>>>>"+s);
+                                if (resonpseCode == 0){
+                                    if (isPasswordMode) {
+                                        presenter.loginByPassword(phoneNum, password);
+                                    } else {
+                                        presenter.loginByVerifyCode(phoneNum, verifyCode);
+                                    }
+                                }else {
+                                    LemonBubble.showError(LoginActivity.this,"极光消息服务出现差错，请重试",1000);
+                                }
+                            }
+                        });
                     }
                 }, 1500);
                 break;
             //点击注册按钮
             case R.id.btn_goToRegis:
+
                 startActivity(new Intent(LoginActivity.this, RegisterOneActivity.class));
         }
     }

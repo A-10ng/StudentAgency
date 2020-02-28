@@ -1,28 +1,18 @@
 package com.example.studentagency.ui.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.DateUtils;
-import com.example.studentagency.Utils.FileUtils;
-import com.example.studentagency.Utils.ImageUtils;
 import com.example.studentagency.mvp.presenter.StudentVerifyActivityBasePresenter;
 import com.example.studentagency.mvp.view.StudentVerifyActivityBaseView;
 import com.example.studentagency.ui.fragment.StudentVerifyFragment.ErrorFragment;
@@ -32,9 +22,6 @@ import com.example.studentagency.ui.fragment.StudentVerifyFragment.VerifyingFrag
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import java.io.File;
-import java.io.IOException;
 
 public class StudentVerifyActivity extends BaseActivity implements StudentVerifyActivityBaseView {
 

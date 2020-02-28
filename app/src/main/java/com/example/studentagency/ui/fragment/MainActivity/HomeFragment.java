@@ -24,7 +24,6 @@ import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.activity.PublishActivity;
 import com.example.studentagency.ui.activity.WebviewActivity;
 import com.example.studentagency.ui.adapter.HomeFragmentRecyclerviewAdapter;
-import com.example.studentagency.ui.widget.MyRecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -38,6 +37,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -64,10 +64,10 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
     private List<Object> originalDataList = new ArrayList<>();
     private List<Object> AllIndentDataList = new ArrayList<>();//获取到的总数据
     private List<Object> ruledDataList = new ArrayList<>();//用于上拉加载更多
-    private MyRecyclerView myRecyclerView;
+    private RecyclerView myRecyclerView;
     private HomeFragmentRecyclerviewAdapter adapter;
-    private int FIRST_PAGE_NUM = 12;//第一页之所以是12是因为加上了轮播图和分类
-    private int PAGE_NUM = 10;
+    private int FIRST_PAGE_NUM = 7;//第一页之所以是12是因为加上了轮播图和分类
+    private int PAGE_NUM = 5;
     private int dataListPosition;//读到当前dataList的位置
 
     //SmartRefreshLayout
@@ -91,6 +91,8 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
         initRecyclerview();
 
         initSmartRefreshLayout();
+
+        refreshData();
 
         return root;
     }
@@ -145,7 +147,6 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
 
     private void initSmartRefreshLayout() {
         smartRefreshLayout = root.findViewById(R.id.smartRefreshLayout);
-        smartRefreshLayout.autoRefresh();
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {

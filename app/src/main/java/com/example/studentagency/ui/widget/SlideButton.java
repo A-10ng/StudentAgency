@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Scroller;
 
-import com.example.studentagency.Utils.Utils;
+import com.example.studentagency.utils.Utils;
 
 import androidx.annotation.Nullable;
 

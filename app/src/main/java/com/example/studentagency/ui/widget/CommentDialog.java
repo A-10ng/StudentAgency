@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.Utils;
+import com.example.studentagency.utils.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

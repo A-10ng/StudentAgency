@@ -7,8 +7,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lemonbubble.LemonBubble;
@@ -20,7 +18,7 @@ import com.example.lemonhello.LemonHelloInfo;
 import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.DateUtils;
+import com.example.studentagency.utils.DateUtils;
 import com.example.studentagency.bean.CommentBean;
 import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.IndentBean;
@@ -30,6 +28,7 @@ import com.example.studentagency.mvp.presenter.IndentActivityBasePresenter;
 import com.example.studentagency.mvp.view.IndentActivityBaseView;
 import com.example.studentagency.ui.adapter.IndentActivityRecyclerViewAdapter;
 import com.example.studentagency.ui.widget.CommentDialog;
+import com.example.studentagency.utils.VariableName;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -38,9 +37,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.api.BasicCallback;
 
 import static com.example.studentagency.ui.activity.MyApp.userId;
 
@@ -49,6 +51,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     private static final String TAG = "IndentActivity";
     private IndentActivityBasePresenter presenter = new IndentActivityBasePresenter(this);
     private PublishAndIndentBean defaultPAIBean = new PublishAndIndentBean();
+    private String phoneNum;
 
     //smartRefreshLayout
     private SmartRefreshLayout mSmartRefreshLayout;
@@ -59,19 +62,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     private List<CommentBean> allDataList = new ArrayList<>();//所有的留言数据
     private List<Object> ruledCommentDataList = new ArrayList<>();//规定的留言数据
     private IndentActivityRecyclerViewAdapter mAdapter;
-
-    //发布方信息
-    private ImageView iv_avatar, iv_gender, iv_verifyState;
-    private TextView tv_username, tv_creditScore, tv_publishTime;
-
-    //订单信息
-    private TextView tv_indentId, tv_price, tv_type, tv_address, tv_planTime;
-
-    //代办描述
-    private TextView tv_description;
-
-    //留言区
-    private TextView tv_nocomment;
 
     //主页或者订单记录传过来的indentId
     //-1代表是从主页过来的，显示接单和留言按钮
@@ -85,9 +75,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
     //留言按钮
     private Button btn_comment;
-
-    //接单对话框
-    private AlertDialog btn_accept_dialog;
 
     //留言区
     private CommentDialog commentDialog;
@@ -119,27 +106,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     private void initViews() {
-        //发布方信息
-        iv_avatar = findViewById(R.id.iv_avatar);
-        iv_gender = findViewById(R.id.iv_gender);
-        iv_verifyState = findViewById(R.id.iv_verifyState);
-        tv_username = findViewById(R.id.tv_username);
-        tv_creditScore = findViewById(R.id.tv_creditScore);
-        tv_publishTime = findViewById(R.id.tv_publishTime);
-
-        //订单信息
-        tv_indentId = findViewById(R.id.tv_indentId);
-        tv_price = findViewById(R.id.tv_price);
-        tv_type = findViewById(R.id.tv_type);
-        tv_address = findViewById(R.id.tv_address);
-        tv_planTime = findViewById(R.id.tv_planTime);
-
-        //代办描述
-        tv_description = findViewById(R.id.tv_description);
-
-        //留言区
-        tv_nocomment = findViewById(R.id.tv_nocomment);
-
         //接单以及留言按钮
         btn_accept = findViewById(R.id.btn_accept);
         btn_comment = findViewById(R.id.btn_comment);
@@ -157,8 +123,18 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick: 接单");
+                if (MyApp.hadLogin) {
+                    showAcceptDialog();
+                } else {
+                    LemonBubble.showError(IndentActivity.this, "请先登录，即将跳转至登录界面！", 1500);
 
-                showAcceptDialog();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(IndentActivity.this, LoginActivity.class));
+                        }
+                    }, 1600);
+                }
             }
         });
 
@@ -166,7 +142,19 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick: 留言");
-                showCommentDialog();
+
+                if (MyApp.hadLogin) {
+                    showCommentDialog();
+                } else {
+                    LemonBubble.showError(IndentActivity.this, "请先登录，即将跳转至登录界面！", 1500);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(IndentActivity.this, LoginActivity.class));
+                        }
+                    }, 1600);
+                }
             }
         });
     }
@@ -297,7 +285,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     private void setRecyclerViewAdapter() {
-        mAdapter = new IndentActivityRecyclerViewAdapter(originalDataList);
+        mAdapter = new IndentActivityRecyclerViewAdapter(originalDataList, this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -366,10 +354,14 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     @Override
     public void getPublishInfoSuccess(UserBean userBean) {
         Log.i(TAG, "getPublishInfoSuccess: userBean" + userBean.toString());
+
+        phoneNum = userBean.getPhoneNum();
+
         setButtonClickable();
 
         defaultPAIBean.setAvatar(userBean.getAvatar());
         defaultPAIBean.setCreditScore(userBean.getCreditScore());
+        defaultPAIBean.setUserId(userBean.getUserId());
         defaultPAIBean.setGender(userBean.getGender());
         defaultPAIBean.setVerifyState(userBean.getVerifyState());
         defaultPAIBean.setUsername(userBean.getUsername());
@@ -385,10 +377,14 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     @Override
     public void getPusblishInfoFail() {
         Log.i(TAG, "getPusblishInfoFail");
+
+        phoneNum = "";
+
         setButtonUnClickable();
 
         defaultPAIBean.setAvatar("blank");
         defaultPAIBean.setCreditScore(0);
+        defaultPAIBean.setUserId(0);
         defaultPAIBean.setGender(0);
         defaultPAIBean.setVerifyState(0);
         defaultPAIBean.setUsername("");
@@ -445,7 +441,8 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
         if (state == 203 || state == 206)
             mAdapter.setCommentData(new ArrayList<CommentBean>(), true);
-        else mAdapter.setCommentData(new ArrayList<CommentBean>(), false);
+        else
+            mAdapter.setCommentData(new ArrayList<CommentBean>(), false);
     }
 
     @Override
@@ -468,6 +465,25 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
         //接单成功
         if (result == 1) {
+            phoneNum = "18218643171";
+            Conversation.createSingleConversation(phoneNum);
+
+            Message message = JMessageClient.createSingleTextMessage(phoneNum,
+                    VariableName.JIGUANG_APP_KEY,
+                    "我已接单成功，正火速赶往中！");
+            JMessageClient.sendMessage(message);
+            message.setOnSendCompleteCallback(new BasicCallback() {
+                @Override
+                public void gotResult(int i, String s) {
+                    Log.i(TAG, "gotResult: i>>>>>" + i + "  s>>>>>" + s);
+                    if (i == 0) {
+                        Log.i(TAG, "gotResult: 消息发送成功！");
+                    } else {
+                        Log.i(TAG, "gotResult: 消息发送失败！");
+                    }
+                }
+            });
+
             LemonBubble.showRight(this, "接单成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {

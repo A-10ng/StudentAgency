@@ -1,15 +1,11 @@
-package com.example.studentagency.Utils;
+package com.example.studentagency.utils;
 
 import android.util.Log;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * author：LongSh1z

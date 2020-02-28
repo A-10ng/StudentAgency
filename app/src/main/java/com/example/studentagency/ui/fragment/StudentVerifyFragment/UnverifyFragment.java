@@ -24,12 +24,11 @@ import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
 import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
-import com.example.studentagency.Utils.DateUtils;
-import com.example.studentagency.Utils.FileUtils;
-import com.example.studentagency.Utils.ImageUtils;
+import com.example.studentagency.utils.DateUtils;
+import com.example.studentagency.utils.FileUtils;
+import com.example.studentagency.utils.ImageUtils;
 import com.example.studentagency.mvp.presenter.UnverifyFragmentBasePresenter;
 import com.example.studentagency.mvp.view.UnverifyFragmentBaseView;
-import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.widget.ChoosePicPopupWindow;
 
 import java.io.ByteArrayInputStream;

@@ -1,19 +1,11 @@
 package com.example.studentagency.ui.activity;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.example.studentagency.R;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.wuyr.coffeeheader.CoffeeHeader;
+import com.example.studentagency.utils.NotificationClickEventReceiver;
 
-import androidx.annotation.NonNull;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * author：LongSh1z
@@ -23,16 +15,29 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyApp extends Application {
 
+    private static final String TAG = "MyApp";
     public static final String PLACEHOLDER_PIC = "http://www.longsh1z.top/resources/placeholder_pic.png";
     public static int userId = 20160001;
     public static boolean hadLogin = false;
+    public static String userPhoneNum;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        //极光推送初始化
+        //极光推送及IM初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        JMessageClient.setDebugMode(true);
+        JMessageClient.init(this);
+
+        NotificationClickEventReceiver notificationClickEventReceiver = new NotificationClickEventReceiver(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+
+        JMessageClient.logout();
     }
 }

@@ -7,6 +7,7 @@ package com.example.studentagency.bean;
  * desc:
  */
 public class PublishAndIndentBean {
+    private int userId;
     private String username;
     private String avatar;
     private int gender;
@@ -19,6 +20,14 @@ public class PublishAndIndentBean {
     private String planTime;
     private String description;
     private String price;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;
