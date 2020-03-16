@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.studentagency.R;
@@ -116,7 +115,9 @@ public class AddAddressPopupWindow extends PopupWindow implements View.OnClickLi
                     if (isChecked){
                         tag = "默认";
                         if (TextUtils.isEmpty(address)) {
-                            Toast.makeText(context, "请填写收货地址！", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+                            toast.setText("请填写收货地址！");
+                            toast.show();
                         }else {
                             dismiss();
 
@@ -125,7 +126,9 @@ public class AddAddressPopupWindow extends PopupWindow implements View.OnClickLi
                         }
                     }else {
                         if (TextUtils.isEmpty(address) || TextUtils.isEmpty(tag)) {
-                            Toast.makeText(context, "请填写相关信息！", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+                            toast.setText("请填写相关信息！");
+                            toast.show();
                         }else {
                             dismiss();
 

@@ -106,8 +106,9 @@ public class PlayVoiceUtil {
 
 
         } catch (Exception e) {
-            Toast.makeText(mContext, "文件丢失, 尝试重新获取",
-                    Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(mContext, "", Toast.LENGTH_SHORT);
+            toast.setText("文件丢失, 尝试重新获取");
+            toast.show();
             vc.downloadVoiceFile(message, new DownloadCompletionCallback() {
                 @Override
                 public void onComplete(int status, String desc, File file) {

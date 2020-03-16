@@ -1,8 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,14 +17,20 @@ import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
 import com.example.studentagency.bean.AddressBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.AddressActivityBasePresenter;
 import com.example.studentagency.mvp.view.AddressActivityBaseView;
 import com.example.studentagency.ui.adapter.AddressActivityRecyclerviewAdapter;
 import com.example.studentagency.ui.widget.AddAddressPopupWindow;
 import com.example.studentagency.ui.widget.EditAddressPopupWindow;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AddressActivity extends BaseActivity implements AddressActivityBaseView {
 
@@ -183,8 +186,13 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
     }
 
     @Override
-    public void getAddressSuccess(List<AddressBean> addressBeans) {
+    public void getAddressSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getAddressSuccess: ");
+
+        Gson gson = new Gson();
+        List<AddressBean> addressBeans = gson.fromJson(
+                gson.toJson(responseBean.getData()),
+                new TypeToken<List<AddressBean>>() {}.getType());
 
         if (!addressBeans.isEmpty()) {
             adapter.updateAddress(addressBeans);
@@ -199,7 +207,10 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
     }
 
     @Override
-    public void addAddressSuccess(AddressBean addressBean) {
+    public void addAddressSuccess(ResponseBean responseBean) {
+        Gson gson = new Gson();
+        AddressBean addressBean = gson.fromJson(gson.toJson(responseBean.getData()),AddressBean.class);
+
         Log.i(TAG, "addAddressSuccess: addressBean>>>>>" + addressBean.toString());
 
         LemonBubble.showRight(this, "新建成功！", 1500);
@@ -224,10 +235,10 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
     }
 
     @Override
-    public void editAddressSuccess(Integer result) {
-        Log.i(TAG, "editAddressSuccess: result>>>>>" + result);
+    public void editAddressSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "editAddressSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "保存失败，请重试！", 1500);
         } else {
             LemonBubble.showRight(this, "保存成功！", 1500);
@@ -252,10 +263,10 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
     }
 
     @Override
-    public void deleteAddressSuccess(Integer result) {
-        Log.i(TAG, "deleteAddressSuccess: result>>>>>" + result);
+        public void deleteAddressSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "deleteAddressSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "删除失败，请重试！", 1500);
         } else {
             LemonBubble.showRight(this, "删除成功！", 1500);

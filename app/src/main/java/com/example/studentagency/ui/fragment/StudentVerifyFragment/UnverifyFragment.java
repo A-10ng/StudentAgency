@@ -24,12 +24,13 @@ import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
 import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
-import com.example.studentagency.utils.DateUtils;
-import com.example.studentagency.utils.FileUtils;
-import com.example.studentagency.utils.ImageUtils;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.UnverifyFragmentBasePresenter;
 import com.example.studentagency.mvp.view.UnverifyFragmentBaseView;
 import com.example.studentagency.ui.widget.ChoosePicPopupWindow;
+import com.example.studentagency.utils.DateUtils;
+import com.example.studentagency.utils.FileUtils;
+import com.example.studentagency.utils.ImageUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -261,7 +262,9 @@ public class UnverifyFragment extends Fragment implements UnverifyFragmentBaseVi
                 currentBitmap = ((BitmapDrawable) iv_verifyPic.getDrawable()).getBitmap();
                 //如果用户还未选择上传图
                 if (currentBitmap.equals(defaultBitmap)) {
-                    Toast.makeText(getActivity(), "请选择图片！", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
+                    toast.setText("请选择图片！");
+                    toast.show();
                 }
                 else {
 
@@ -377,11 +380,11 @@ public class UnverifyFragment extends Fragment implements UnverifyFragmentBaseVi
     }
 
     @Override
-    public void uploadVerifyPicSuccess(Integer result) {
-        Log.i(TAG, "uploadVerifyPicSuccess: result>>>>>" + result);
+    public void uploadVerifyPicSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "uploadVerifyPicSuccess: result>>>>>" + responseBean.getCode());
 
         //上传成功
-        if (1 == result) {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "上传成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {

@@ -320,7 +320,7 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
 //
 //        newIndentBean.setDescription(oldIndentBean.getDescription());
 //        newIndentBean.setAddress(oldIndentBean.getAddress());
-//        newIndentBean.setPlanTime(oldIndentBean.getPlanTime());
+//        newIndentBean.setPlantime(oldIndentBean.getPlantime());
         if (INDENT_PUBLISH == indentType){
             oldIndentBean.setState(2);
         }else {
@@ -341,7 +341,7 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
 //
 //        newIndentBean.setDescription(oldIndentBean.getDescription());
 //        newIndentBean.setAddress(oldIndentBean.getAddress());
-//        newIndentBean.setPlanTime(oldIndentBean.getPlanTime());
+//        newIndentBean.setPlantime(oldIndentBean.getPlantime());
         if (INDENT_PUBLISH == indentType){
             oldIndentBean.setState(3);
         }else {

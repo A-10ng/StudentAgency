@@ -2,7 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.OtherPersonBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.OtherPersonActivityGetCurrenUserInfoCallBack;
@@ -27,15 +27,14 @@ public class OtherPersonActivityBaseModel implements IModel {
         apiService.getCurrentUserInfo(phoneNum)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<OtherPersonBean>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(OtherPersonBean otherPersonBean) {
-                        Log.i(TAG, "onNext: otherPersonBean>>>>>"+otherPersonBean.toString());
+                    public void onNext(ResponseBean otherPersonBean) {
                         callBack.getCurrentUserInfoSuccess(otherPersonBean);
                     }
 

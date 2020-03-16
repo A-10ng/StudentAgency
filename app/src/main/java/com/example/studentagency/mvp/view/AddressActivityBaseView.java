@@ -1,8 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.AddressBean;
-
-import java.util.List;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -11,15 +9,19 @@ import java.util.List;
  * desc:
  */
 public interface AddressActivityBaseView extends IView {
-    void getAddressSuccess(List<AddressBean> addressBeans);
+//    void getAddressSuccess(List<AddressBean> addressBeans);
+    void getAddressSuccess(ResponseBean responseBean);
     void getAddressFail();
 
-    void addAddressSuccess(AddressBean addressBean);
+//    void addAddressSuccess(AddressBean addressBean);
+    void addAddressSuccess(ResponseBean responseBean);
     void addAddressFail();
 
-    void editAddressSuccess(Integer result);
+//    void editAddressSuccess(Integer result);
+    void editAddressSuccess(ResponseBean responseBean);
     void editAddressFail();
 
-    void deleteAddressSuccess(Integer result);
+//    void deleteAddressSuccess(Integer result);
+    void deleteAddressSuccess(ResponseBean responseBean);
     void deleteAddressFail();
 }

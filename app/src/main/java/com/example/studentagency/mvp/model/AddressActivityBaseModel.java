@@ -2,7 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.AddressBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.AddressActivityAddAddressCallBack;
@@ -10,8 +10,6 @@ import com.example.studentagency.mvp.model.Callback.AddressActivityDeleteAddress
 import com.example.studentagency.mvp.model.Callback.AddressActivityEditAddressCallBack;
 import com.example.studentagency.mvp.model.Callback.AddressActivityGetAddressCallBack;
 import com.example.studentagency.ui.activity.MyApp;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,15 +31,14 @@ public class AddressActivityBaseModel implements IModel {
         apiService.getAddress(MyApp.userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<AddressBean>>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<AddressBean> addressBeans) {
-                        Log.i(TAG, "onNext: addressBeans.size>>>>>"+addressBeans.size());
+                    public void onNext(ResponseBean addressBeans) {
                         callBack.getAddressSuccess(addressBeans);
                     }
 
@@ -62,15 +59,14 @@ public class AddressActivityBaseModel implements IModel {
         apiService.addAddress(MyApp.userId,tag,address)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<AddressBean>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(AddressBean addressBean) {
-                        Log.i(TAG, "onNext: addressBean>>>>>"+addressBean.toString());
+                    public void onNext(ResponseBean addressBean) {
                         callBack.addAddressSuccess(addressBean);
                     }
 
@@ -91,15 +87,14 @@ public class AddressActivityBaseModel implements IModel {
         apiService.editAddress(MyApp.userId,addressId,tag,address)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
-                        Log.i(TAG, "onNext: result>>>>>"+result);
+                    public void onNext(ResponseBean result) {
                         callBack.editAddressSuccess(result);
                     }
 
@@ -120,14 +115,14 @@ public class AddressActivityBaseModel implements IModel {
         apiService.deleteAddress(MyApp.userId,addressId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.deleteAddressSuccess(result);
                     }

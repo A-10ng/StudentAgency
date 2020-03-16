@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.model.Callback;
 
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,6 +9,6 @@ import com.example.studentagency.bean.IndentBean;
  * desc:
  */
 public interface IndentActivityGetIndentInfoCallBack {
-    void onGetIndentInfoSuccess(IndentBean indentBean);
+    void onGetIndentInfoSuccess(ResponseBean responseBean);
     void onGetIndentInfoFail();
 }

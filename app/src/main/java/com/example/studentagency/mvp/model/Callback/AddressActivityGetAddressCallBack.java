@@ -1,8 +1,6 @@
 package com.example.studentagency.mvp.model.Callback;
 
-import com.example.studentagency.bean.AddressBean;
-
-import java.util.List;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -11,6 +9,6 @@ import java.util.List;
  * desc:
  */
 public interface AddressActivityGetAddressCallBack {
-    void getAddressSuccess(List<AddressBean> addressBeans);
+    void getAddressSuccess(ResponseBean responseBean);
     void getAddressFail();
 }

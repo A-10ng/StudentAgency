@@ -1,12 +1,11 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.ClassifyActivityGetIndentByTypeCallBack;
 import com.example.studentagency.mvp.model.ClassifyActivityBaseModel;
 import com.example.studentagency.mvp.view.ClassifyActivityBaseView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -25,9 +24,9 @@ public class ClassifyActivityBasePresenter extends IPresenter {
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((ClassifyActivityBaseModel)mIModel).getIndentByType(type, new ClassifyActivityGetIndentByTypeCallBack() {
                 @Override
-                public void getIndentByTypeSuccess(List<IndentBean> indentBeanList) {
+                public void getIndentByTypeSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((ClassifyActivityBaseView)mViewRef.get()).getIndentByTypeSuccess(indentBeanList);
+                        ((ClassifyActivityBaseView)mViewRef.get()).getIndentByTypeSuccess(responseBean);
                     }
                 }
 

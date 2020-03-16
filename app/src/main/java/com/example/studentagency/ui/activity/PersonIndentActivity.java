@@ -1,8 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +13,9 @@ import com.example.studentagency.ui.fragment.PersonIndentActivity.PublishFragmen
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 public class PersonIndentActivity extends BaseActivity implements View.OnClickListener {
 

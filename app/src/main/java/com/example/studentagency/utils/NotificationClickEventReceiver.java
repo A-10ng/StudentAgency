@@ -1,17 +1,13 @@
 package com.example.studentagency.utils;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
+
+import com.example.studentagency.ui.activity.ChatActivity;
+
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
 import cn.jpush.im.android.api.model.UserInfo;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.example.studentagency.R;
-import com.example.studentagency.ui.activity.ChatActivity;
-import com.example.studentagency.ui.activity.MainActivity;
 
 public class NotificationClickEventReceiver{
 

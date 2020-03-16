@@ -1,5 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.ModifyPwdActivityChangePwdCallBack;
 import com.example.studentagency.mvp.model.ModifyPwdActivityBaseModel;
 import com.example.studentagency.mvp.view.ModifyPwdActivityBaseView;
@@ -23,9 +24,9 @@ public class ModifyPwdActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((ModifyPwdActivityBaseModel)mIModel).changePwd(userId, newPwd, new ModifyPwdActivityChangePwdCallBack() {
                 @Override
-                public void changePwdSuccess(Integer result) {
+                public void changePwdSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((ModifyPwdActivityBaseView)mViewRef.get()).changePwdSuccess(result);
+                        ((ModifyPwdActivityBaseView)mViewRef.get()).changePwdSuccess(responseBean);
                     }
                 }
 

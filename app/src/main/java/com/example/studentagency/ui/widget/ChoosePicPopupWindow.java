@@ -1,7 +1,6 @@
 package com.example.studentagency.ui.widget;
 
 import android.content.Context;
-import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;

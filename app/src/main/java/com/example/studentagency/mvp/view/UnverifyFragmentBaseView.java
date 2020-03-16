@@ -1,5 +1,7 @@
 package com.example.studentagency.mvp.view;
 
+import com.example.studentagency.bean.ResponseBean;
+
 /**
  * author：LongSh1z
  * email：2674461089@qq.com
@@ -7,6 +9,7 @@ package com.example.studentagency.mvp.view;
  * desc:
  */
 public interface UnverifyFragmentBaseView extends IView {
-    void uploadVerifyPicSuccess(Integer result);
+//    void uploadVerifyPicSuccess(Integer result);
+    void uploadVerifyPicSuccess(ResponseBean responseBean);
     void uploadVerifyPicFail();
 }

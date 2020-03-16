@@ -1,5 +1,7 @@
 package com.example.studentagency.mvp.model.Callback;
 
+import com.example.studentagency.bean.ResponseBean;
+
 /**
  * author：LongSh1z
  * email：2674461089@qq.com
@@ -7,6 +9,6 @@ package com.example.studentagency.mvp.model.Callback;
  * desc:
  */
 public interface VerifyingFragmentGetVerifyPicCallBack {
-    void getVerifyPicSuccess(String picPath);
+    void getVerifyPicSuccess(ResponseBean responseBean);
     void getVerifyPicFail();
 }

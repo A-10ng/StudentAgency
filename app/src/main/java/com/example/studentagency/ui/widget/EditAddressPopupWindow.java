@@ -144,9 +144,13 @@ public class EditAddressPopupWindow extends PopupWindow implements View.OnClickL
                     if (isChecked){
                         tag = "默认";
                         if (TextUtils.isEmpty(address)) {
-                            Toast.makeText(context, "请填写收货地址！", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+                            toast.setText("请填写收货地址！");
+                            toast.show();
                         }else if (address.equals(originalAddress) && tag.equals(originalTag)){
-                            Toast.makeText(context, "您的信息和原来一样，无需保存！", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+                            toast.setText("您的信息和原来一样，无需保存！");
+                            toast.show();
                     }
                         else {
                             dismiss();
@@ -156,9 +160,13 @@ public class EditAddressPopupWindow extends PopupWindow implements View.OnClickL
                         }
                     }else {
                         if (TextUtils.isEmpty(address)) {
-                            Toast.makeText(context, "请填写相关信息！", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+                            toast.setText("请填写相关信息！");
+                            toast.show();
                         }else if (address.equals(originalAddress) && tag.equals(originalTag)){
-                            Toast.makeText(context, "您的信息和原来一样，无需保存！", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+                            toast.setText("您的信息和原来一样，无需保存！");
+                            toast.show();
                         }else {
                             dismiss();
 

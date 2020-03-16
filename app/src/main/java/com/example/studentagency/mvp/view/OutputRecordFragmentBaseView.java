@@ -1,8 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.CreditBean;
-
-import java.util.List;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -11,6 +9,7 @@ import java.util.List;
  * desc:
  */
 public interface OutputRecordFragmentBaseView extends IView {
-    void getCreditOutputRecordSuccess(List<CreditBean> creditBeans);
+//    void getCreditOutputRecordSuccess(List<CreditBean> creditBeans);
+    void getCreditOutputRecordSuccess(ResponseBean responseBean);
     void getCreditOutputRecordFail();
 }

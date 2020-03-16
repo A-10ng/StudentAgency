@@ -1,8 +1,6 @@
 package com.example.studentagency.viewholder.HomeFragment;
 
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.studentagency.R;
 import com.zhengsr.viewpagerlib.indicator.ZoomIndicator;

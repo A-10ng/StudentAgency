@@ -1,10 +1,10 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.ModifyPhoneNumActivityGetVerifyCodeCallBack;
 import com.example.studentagency.mvp.model.Callback.ModifyPhoneNumActivityModifyPhoneNumCallBack;
 import com.example.studentagency.mvp.model.ModifyPhoneNumActivityBaseModel;
 import com.example.studentagency.mvp.view.ModifyPhoneNumActivityBaseView;
-import com.example.studentagency.ui.activity.ModifyPhoneNumActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -25,9 +25,9 @@ public class ModifyPhoneNumActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((ModifyPhoneNumActivityBaseModel)mIModel).getVerifyCode(newPhoneNum, new ModifyPhoneNumActivityGetVerifyCodeCallBack() {
                 @Override
-                public void getVerifyCodeSuccess(Integer result) {
+                public void getVerifyCodeSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((ModifyPhoneNumActivityBaseView)mViewRef.get()).getVerifyCodeSuccess(result);
+                        ((ModifyPhoneNumActivityBaseView)mViewRef.get()).getVerifyCodeSuccess(responseBean);
                     }
                 }
 
@@ -45,9 +45,9 @@ public class ModifyPhoneNumActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((ModifyPhoneNumActivityBaseModel)mIModel).modifyPhoneNum(newPhoneNum, verifyCode, new ModifyPhoneNumActivityModifyPhoneNumCallBack() {
                 @Override
-                public void modifyPhoneNumSuccess(Integer result) {
+                public void modifyPhoneNumSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((ModifyPhoneNumActivityBaseView)mViewRef.get()).modifyPhoneNumSuccess(result);
+                        ((ModifyPhoneNumActivityBaseView)mViewRef.get()).modifyPhoneNumSuccess(responseBean);
                     }
                 }
 

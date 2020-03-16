@@ -1,9 +1,9 @@
 package com.example.studentagency.mvp.model.Callback;
 
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 
-import java.util.List;
+import retrofit2.Response;
 
 /**
  * author：LongSh1z
@@ -12,6 +12,6 @@ import java.util.List;
  * desc:
  */
 public interface LoginActivityLoginByVerifyCodeCallBack {
-    void loginByVerifyCodeSuccess(Integer result);
+    void loginByVerifyCodeSuccess(Response<ResponseBean> response);
     void loginByVerifyCodeFail();
 }

@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,9 +9,11 @@ import com.example.studentagency.bean.UserBean;
  * desc:
  */
 public interface PersonalInfoActivityBaseView extends IView {
-    void getPersonalInfoSuccess(UserBean userBean);
+//    void getPersonalInfoSuccess(UserBean userBean);
+    void getPersonalInfoSuccess(ResponseBean responseBean);
     void getPersonalInfoFail();
 
-    void changeUserInfoSuccess(Integer result);
+//    void changeUserInfoSuccess(Integer result);
+    void changeUserInfoSuccess(ResponseBean responseBean);
     void changeUserInfoFail();
 }

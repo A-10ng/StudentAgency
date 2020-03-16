@@ -2,6 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.LoginActivityGetVerifyCodeCallBack;
@@ -12,6 +13,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 /**
  * author：LongSh1z
@@ -28,16 +30,15 @@ public class LoginActivityBaseModel implements IModel {
         apiService.loginByPassword(phoneNum, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<Response<ResponseBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
-                        Log.i(TAG, "loginByPassword onNext: result>>>>>"+result);
-                        callBack.loginByPasswordSuccess(result);
+                    public void onNext(Response<ResponseBean> response) {
+                        callBack.loginByPasswordSuccess(response);
                     }
 
                     @Override
@@ -57,16 +58,15 @@ public class LoginActivityBaseModel implements IModel {
         apiService.loginByVerifyCode(phoneNum, verifyCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<Response<ResponseBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
-                        Log.i(TAG, "loginByVerifyCode onNext: result>>>>>"+result);
-                        callBack.loginByVerifyCodeSuccess(result);
+                    public void onNext(Response<ResponseBean> response) {
+                        callBack.loginByVerifyCodeSuccess(response);
                     }
 
                     @Override
@@ -86,14 +86,14 @@ public class LoginActivityBaseModel implements IModel {
         apiService.getVerifyCode(phoneNum)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "getVerifyCode onNext: result>>>>>"+result);
                         callBack.getVerifyCodeSuccess(result);
                     }

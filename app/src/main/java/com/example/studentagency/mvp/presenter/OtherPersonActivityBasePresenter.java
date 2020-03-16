@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.OtherPersonBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.OtherPersonActivityGetCurrenUserInfoCallBack;
 import com.example.studentagency.mvp.model.OtherPersonActivityBaseModel;
 import com.example.studentagency.mvp.view.OtherPersonActivityBaseView;
@@ -24,9 +24,9 @@ public class OtherPersonActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((OtherPersonActivityBaseModel)mIModel).getCurrentUserInfo(phoneNum,new OtherPersonActivityGetCurrenUserInfoCallBack() {
                 @Override
-                public void getCurrentUserInfoSuccess(OtherPersonBean otherPersonBean) {
+                public void getCurrentUserInfoSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((OtherPersonActivityBaseView)mViewRef.get()).getCurrentUserInfoSuccess(otherPersonBean);
+                        ((OtherPersonActivityBaseView)mViewRef.get()).getCurrentUserInfoSuccess(responseBean);
                     }
                 }
 

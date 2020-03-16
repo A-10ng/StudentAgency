@@ -1,14 +1,14 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.core.app.ActivityCompat;
-import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
-import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
-
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.studentagency.R;
+
+import androidx.core.app.ActivityCompat;
+import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
+import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 
 public class VideoPlayerActivity extends BaseActivity {
 

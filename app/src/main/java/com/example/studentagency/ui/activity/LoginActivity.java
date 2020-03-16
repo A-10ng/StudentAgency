@@ -1,15 +1,12 @@
 package com.example.studentagency.ui.activity;
 
 import android.content.Context;
-
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.util.Log;
-
-
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -23,16 +20,20 @@ import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
 import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
-
+import com.example.studentagency.bean.ResponseBean;
+import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.mvp.presenter.LoginActivityBasePresenter;
 import com.example.studentagency.mvp.view.LoginActivityBaseView;
 import com.example.studentagency.utils.ActivityCollector;
+import com.example.studentagency.utils.SharedPreferencesUtils;
+import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
+import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements LoginActivityBaseView, View.OnClickListener {
 
@@ -40,6 +41,7 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     private static final int LISTEN_EDITTEXT = 1;
     private LoginActivityBasePresenter presenter = new LoginActivityBasePresenter(this);
     private MyHandler mHandler = new MyHandler(this);
+    private SharedPreferencesUtils preferencesUtils;
     //记录当前点击返回键的时间
     private long mExitTime;
 
@@ -74,6 +76,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        preferencesUtils = new SharedPreferencesUtils(this);
 
         //初始化控件
         initViews();
@@ -141,11 +145,18 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     }
 
     @Override
-    public void loginByPasswordSuccess(Integer result) {
-        Log.i(TAG, "loginByPasswordSuccess: result>>>>>" + result);
+    public void loginByPasswordSuccess(Response<ResponseBean> response) {
+        Gson gson = new Gson();
+        int userId = gson.fromJson(gson.toJson(response.body()), UserBean.class).getUserId();
+        Log.i(TAG, "loginByPasswordSuccess: result>>>>>" + response.body().toString()+" \n" +
+                "token>>>>>"+response.headers().get("token")+"\n" +
+                "userId>>>>>"+userId);
 
-        if (result == 1) {
-            MyApp.hadLogin = true;
+        if (response.body().getCode() == 200) {
+
+            preferencesUtils.putString("token",response.headers().get("token"));
+            preferencesUtils.putString("phoneNum",phoneNum);
+            preferencesUtils.putInt("userId",userId);
 
             LemonBubble.showRight(this, "登录成功！", 1000);
 
@@ -153,6 +164,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
                 @Override
                 public void run() {
                     MyApp.userPhoneNum = phoneNum;
+                    MyApp.userId = userId;
+
                     JPushInterface.setAlias(LoginActivity.this,300,phoneNum);
 //                    JMessageClient.deleteSingleConversation("18218643170","dd32d31fea0115f1faa8d7f9");
 //                    JMessageClient.deleteSingleConversation("18218643171","dd32d31fea0115f1faa8d7f9");
@@ -172,17 +185,26 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     }
 
     @Override
-    public void loginByVerifyCodeSuccess(Integer result) {
-        MyApp.hadLogin = true;
+    public void loginByVerifyCodeSuccess(Response<ResponseBean> response) {
+        Gson gson = new Gson();
+        int userId = gson.fromJson(gson.toJson(response.body()), UserBean.class).getUserId();
 
-        Log.i(TAG, "loginByVerifyCodeSuccess: result>>>>>" + result);
-        if (result == 1) {
+        Log.i(TAG, "loginByVerifyCodeSuccess: token>>>>>" + response.headers().get("token")+"\n" +
+                "userId>>>>>"+userId);
+        if (response.body().getCode() == 200) {
+
+            preferencesUtils.putString("token",response.headers().get("token"));
+            preferencesUtils.putString("phoneNum",phoneNum);
+            preferencesUtils.putInt("userId",userId);
+
             LemonBubble.showRight(this, "登录成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     MyApp.userPhoneNum = phoneNum;
+                    MyApp.userId = userId;
+
                     JPushInterface.setAlias(LoginActivity.this,300,phoneNum);
 
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -201,10 +223,10 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     }
 
     @Override
-    public void getVerifyCodeSuccess(Integer result) {
-        Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + result);
+    public void getVerifyCodeSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + responseBean.getCode());
 
-        if (result == 1) {
+        if (responseBean.getCode() == 200) {
             LemonBubble.showRight(this, "发送成功！", 1000);
 
             timeOut.start();
@@ -318,6 +340,28 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //判断用户是否点击了“返回键”
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //与上次点击返回键时刻作差
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                //大于2000ms则认为是误操作，使用Toast进行提示
+                Toast toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+                toast.setText("再按一次退出程序");
+                toast.show();
+                //并记录下本次点击“返回键”的时刻，以便下次进行判断
+                mExitTime = System.currentTimeMillis();
+            } else {
+                ActivityCollector.finishAll();
+                //小于2000ms则认为是用户确实希望退出程序-调用System.exit()方法进行退出
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private class MyHandler extends Handler {

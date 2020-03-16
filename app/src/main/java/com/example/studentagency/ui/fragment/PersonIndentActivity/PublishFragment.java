@@ -18,14 +18,17 @@ import com.example.lemonhello.LemonHelloInfo;
 import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
-import com.example.studentagency.utils.DateUtils;
 import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.PublishFragmentBasePresenter;
 import com.example.studentagency.mvp.view.PublishFragmentBaseView;
 import com.example.studentagency.ui.activity.IndentActivity;
 import com.example.studentagency.ui.adapter.PersonIndentRecyclerviewAdapter;
 import com.example.studentagency.ui.widget.RatingBarPopupWindow;
+import com.example.studentagency.utils.DateUtils;
 import com.example.studentagency.utils.VariableName;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -302,7 +305,12 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     }
 
     @Override
-    public void getPublishIndentsSuccess(List<IndentBean> indentBeanList) {
+    public void getPublishIndentsSuccess(ResponseBean responseBean) {
+        Gson gson = new Gson();
+        List<IndentBean> indentBeanList = gson.fromJson(
+                gson.toJson(responseBean.getData()),
+                new TypeToken<List<IndentBean>>() {}.getType());
+
         int dataSize = indentBeanList.size();
         Log.i(TAG, "getPublishIndentsSuccess: indentBeanList.size>>>>>" + dataSize);
 
@@ -341,10 +349,10 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     }
 
     @Override
-    public void cancelIndentNotTakenSuccess(Integer result) {
-        Log.i(TAG, "cancelIndentNotTakenSuccess: result>>>>>" + result);
+    public void cancelIndentNotTakenSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "cancelIndentNotTakenSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "取消失败，请重试！", 1500);
         } else {
             LemonBubble.showRight(this, "取消成功！", 1500);
@@ -385,10 +393,10 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     }
 
     @Override
-    public void cancelIndentHadTakenSuccess(Integer result) {
-        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + result);
+    public void cancelIndentHadTakenSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "取消失败，请重试！", 1500);
         } else {
 //            sendMessageToPublish(phoneNum,"临时有事该订单已取消，请见谅！");
@@ -413,10 +421,10 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     }
 
     @Override
-    public void deleteIndentNotCommentSuccess(Integer result) {
-        Log.i(TAG, "deleteIndentNotCommentSuccess: result>>>>>" + result);
+    public void deleteIndentNotCommentSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "deleteIndentNotCommentSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "删除失败，请重试！", 1500);
         } else {
             LemonBubble.showRight(this, "删除成功！", 1500);
@@ -438,10 +446,10 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     }
 
     @Override
-    public void deleteIndentHadCommentSuccess(Integer result) {
-        Log.i(TAG, "deleteIndentHadCommentSuccess: result>>>>>" + result);
+    public void deleteIndentHadCommentSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "deleteIndentHadCommentSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "删除失败，请重试！", 1500);
         } else {
             LemonBubble.showRight(this, "删除成功！", 1500);
@@ -463,10 +471,10 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     }
 
     @Override
-    public void ensureAcceptGoodsSuccess(Integer result) {
-        Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + result);
+    public void ensureAcceptGoodsSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "确认失败，请重试！", 1500);
         } else {
 //            sendMessageToPublish(phoneNum,"东西我已收到，辛苦了！");
@@ -491,10 +499,10 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     }
 
     @Override
-    public void giveRatingSuccess(Integer result) {
-        Log.i(TAG, "giveRatingSuccess: result>>>>>" + result);
+    public void giveRatingSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "giveRatingSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "评价失败，请重试！", 1500);
         } else {
 //            sendMessageToPublish(phoneNum,"我已评价你的服务，请前往查看！");

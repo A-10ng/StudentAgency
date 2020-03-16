@@ -53,36 +53,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llayout_market"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="10dp">
-
-            <ImageView
-                android:id="@+id/iv_market"
-                android:src="@drawable/selector_iv_market"
-                android:scaleType="centerInside"
-                android:layout_width="25dp"
-                android:layout_height="25dp"/>
-
-            <TextView
-                android:id="@+id/tv_market"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@drawable/tv_tab_selector"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:textSize="11sp"
-                android:text="市场"/>
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
             android:id="@+id/llayout_message"
             android:layout_width="0dp"
             android:layout_weight="1"

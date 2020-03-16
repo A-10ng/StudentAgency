@@ -1,8 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -17,17 +14,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.studentagency.R;
-import com.example.studentagency.utils.BlurUtils;
 import com.example.studentagency.asyncTask.GetBitmapTask;
 import com.example.studentagency.bean.OtherPersonBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.OtherPersonActivityBasePresenter;
 import com.example.studentagency.mvp.view.OtherPersonActivityBaseView;
+import com.example.studentagency.utils.BlurUtils;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 public class OtherPersonActivity extends BaseActivity implements OtherPersonActivityBaseView {
 
@@ -137,8 +139,11 @@ public class OtherPersonActivity extends BaseActivity implements OtherPersonActi
     }
 
     @Override
-    public void getCurrentUserInfoSuccess(OtherPersonBean otherPersonBean) {
+    public void getCurrentUserInfoSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getCurrentUserInfoSuccess: ");
+
+        Gson gson = new Gson();
+        OtherPersonBean otherPersonBean = gson.fromJson(gson.toJson(responseBean.getData()),OtherPersonBean.class);
 
         setCurrentUserInfo(otherPersonBean);
 

@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.model.Callback;
 
-import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,6 +9,6 @@ import com.example.studentagency.bean.CreditBean;
  * desc:
  */
 public interface IndentActivityGetRatingStarsCallBack {
-    void getRatingStarsInfoSuccess(CreditBean creditBean);
+    void getRatingStarsInfoSuccess(ResponseBean responseBean);
     void getRatingStarsInfoFail();
 }

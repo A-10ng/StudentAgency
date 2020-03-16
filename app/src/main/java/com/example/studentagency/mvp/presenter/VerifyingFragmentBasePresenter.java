@@ -1,5 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.VerifyingFragmentGetVerifyPicCallBack;
 import com.example.studentagency.mvp.model.VerifyingFragmentBaseModel;
 import com.example.studentagency.mvp.view.VerifyingFragmentBaseView;
@@ -23,9 +24,9 @@ public class VerifyingFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((VerifyingFragmentBaseModel)mIModel).getVerifyPic(new VerifyingFragmentGetVerifyPicCallBack() {
                 @Override
-                public void getVerifyPicSuccess(String picPath) {
+                public void getVerifyPicSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((VerifyingFragmentBaseView)mViewRef.get()).getVerifyPicSuccess(picPath);
+                        ((VerifyingFragmentBaseView)mViewRef.get()).getVerifyPicSuccess(responseBean);
                     }
                 }
 

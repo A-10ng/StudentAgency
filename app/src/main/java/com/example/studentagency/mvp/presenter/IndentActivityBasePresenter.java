@@ -1,9 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.CommentBean;
-import com.example.studentagency.bean.CreditBean;
-import com.example.studentagency.bean.IndentBean;
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.IndentActivityAcceptIndentCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetCommentInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetIndentInfoCallBack;
@@ -14,7 +11,6 @@ import com.example.studentagency.mvp.model.IndentActivityBaseModel;
 import com.example.studentagency.mvp.view.IndentActivityBaseView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -29,13 +25,13 @@ public class IndentActivityBasePresenter extends IPresenter {
         this.mViewRef = new WeakReference<>(view);
     }
 
-    public void getPublishInfo(){
+    public void getPublishInfo(int publishId){
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
-            ((IndentActivityBaseModel)mIModel).getPublishInfo(new IndentActivityGetPublishInfoCallBack() {
+            ((IndentActivityBaseModel)mIModel).getPublishInfo(publishId,new IndentActivityGetPublishInfoCallBack() {
                 @Override
-                public void onGetPublishInfoSuccess(UserBean userBean) {
+                public void onGetPublishInfoSuccess(ResponseBean responseBean) {
                     if (mViewRef.get() != null){
-                        ((IndentActivityBaseView)mViewRef.get()).getPublishInfoSuccess(userBean);
+                        ((IndentActivityBaseView)mViewRef.get()).getPublishInfoSuccess(responseBean);
                     }
                 }
 
@@ -53,9 +49,9 @@ public class IndentActivityBasePresenter extends IPresenter {
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((IndentActivityBaseModel)mIModel).getIndentInfo(indentId,new IndentActivityGetIndentInfoCallBack() {
                 @Override
-                public void onGetIndentInfoSuccess(IndentBean indentBean) {
+                public void onGetIndentInfoSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((IndentActivityBaseView)mViewRef.get()).getIndentInfoSuccess(indentBean);
+                        ((IndentActivityBaseView)mViewRef.get()).getIndentInfoSuccess(responseBean);
                     }
                 }
 
@@ -73,9 +69,9 @@ public class IndentActivityBasePresenter extends IPresenter {
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((IndentActivityBaseModel)mIModel).getCommentInfo(indentId,new IndentActivityGetCommentInfoCallBack() {
                 @Override
-                public void onGetCommentInfoSuccess(List<CommentBean> commentBeans) {
+                public void onGetCommentInfoSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((IndentActivityBaseView)mViewRef.get()).getCommentInfoSuccess(commentBeans);
+                        ((IndentActivityBaseView)mViewRef.get()).getCommentInfoSuccess(responseBean);
                     }
                 }
 
@@ -93,9 +89,9 @@ public class IndentActivityBasePresenter extends IPresenter {
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((IndentActivityBaseModel)mIModel).acceptIndent(indentId, acceptedTime, new IndentActivityAcceptIndentCallBack() {
                 @Override
-                public void onAcceptIndentSuccess(Integer result) {
+                public void onAcceptIndentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((IndentActivityBaseView)mViewRef.get()).acceptIndentSuccess(result);
+                        ((IndentActivityBaseView)mViewRef.get()).acceptIndentSuccess(responseBean);
                     }
                 }
 
@@ -114,9 +110,9 @@ public class IndentActivityBasePresenter extends IPresenter {
             ((IndentActivityBaseModel)mIModel).giveAComment(indentId, userId, content, commentTime,
                     new IndentActivityGiveACommentCallBack() {
                 @Override
-                public void onGiveACommentSuccess(Integer result) {
+                public void onGiveACommentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((IndentActivityBaseView)mViewRef.get()).giveACommentSuccess(result);
+                        ((IndentActivityBaseView)mViewRef.get()).giveACommentSuccess(responseBean);
                     }
                 }
 
@@ -135,9 +131,9 @@ public class IndentActivityBasePresenter extends IPresenter {
             ((IndentActivityBaseModel)mIModel).getRatingStarsInfo(indentId,
                     new IndentActivityGetRatingStarsCallBack() {
                         @Override
-                        public void getRatingStarsInfoSuccess(CreditBean creditBean) {
+                        public void getRatingStarsInfoSuccess(ResponseBean responseBean) {
                             if (null != mViewRef.get()){
-                                ((IndentActivityBaseView)mViewRef.get()).getRatingStarsInfoSuccess(creditBean);
+                                ((IndentActivityBaseView)mViewRef.get()).getRatingStarsInfoSuccess(responseBean);
                             }
                         }
 

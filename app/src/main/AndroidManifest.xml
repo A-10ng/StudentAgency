@@ -21,13 +21,23 @@
         android:name=".ui.activity.MyApp"
         android:allowBackup="true"
         android:appComponentFactory="android.support.v7.app.CoreComponentFactory"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".ui.activity.RechargeActivity">
+        </activity>
+        <activity android:name=".ui.activity.SloganActivity"
+            android:theme="@style/SloganTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.activity.VideoPlayerActivity">
         </activity>
         <activity android:name=".ui.activity.PreviewImageActivity">
@@ -67,18 +77,15 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.BaseActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.LoginActivity">
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTask">
         </activity>
 
         <provider
@@ -96,7 +103,8 @@
         <service
             android:name=".service.MyJService"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false"
+            android:process=":pushcore">
             <intent-filter>
                 <action android:name="cn.jiguang.user.service.action"/>
             </intent-filter>

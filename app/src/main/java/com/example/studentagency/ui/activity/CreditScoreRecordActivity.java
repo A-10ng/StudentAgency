@@ -1,18 +1,13 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.studentagency.R;
-import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.CreditScoreRecordActivityBasePresenter;
 import com.example.studentagency.mvp.view.CreditScoreRecordActivityBaseView;
 import com.example.studentagency.ui.adapter.MyFragmentPagerAdapter;
@@ -23,6 +18,9 @@ import com.example.studentagency.ui.widget.RuleDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 public class CreditScoreRecordActivity extends BaseActivity implements CreditScoreRecordActivityBaseView, View.OnClickListener {
 
@@ -154,10 +152,10 @@ public class CreditScoreRecordActivity extends BaseActivity implements CreditSco
     }
 
     @Override
-    public void getCreditScoreSuccess(Integer score) {
-        Log.i(TAG, "getCreditScoreSuccess: score>>>>>" + score);
+    public void getCreditScoreSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "getCreditScoreSuccess: score>>>>>" + (double)responseBean.getData());
 
-        tv_creditScore.setText("" + score);
+        tv_creditScore.setText("" + (double)responseBean.getData());
     }
 
     @Override

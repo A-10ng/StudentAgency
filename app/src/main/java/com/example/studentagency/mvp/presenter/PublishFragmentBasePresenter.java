@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.PublishFragmentCancelIndentHadTakenCallBack;
 import com.example.studentagency.mvp.model.Callback.PublishFragmentCancelIndentNotTakenCallBack;
 import com.example.studentagency.mvp.model.Callback.PublishFragmentDeleteIndentHadCommentCallBack;
@@ -12,7 +12,6 @@ import com.example.studentagency.mvp.model.PublishFragmentBaseModel;
 import com.example.studentagency.mvp.view.PublishFragmentBaseView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -31,9 +30,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PublishFragmentBaseModel)mIModel).getPublishIndents(new PublishFragmentGetPublishIndentsCallBack() {
                 @Override
-                public void getPublishIndentsSuccess(List<IndentBean> indentBeanList) {
+                public void getPublishIndentsSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PublishFragmentBaseView)mViewRef.get()).getPublishIndentsSuccess(indentBeanList);
+                        ((PublishFragmentBaseView)mViewRef.get()).getPublishIndentsSuccess(responseBean);
                     }
                 }
 
@@ -51,9 +50,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PublishFragmentBaseModel)mIModel).cancelIndentNotTaken(indentId, price,new PublishFragmentCancelIndentNotTakenCallBack() {
                 @Override
-                public void cancelIndentNotTakenSuccess(Integer result) {
+                public void cancelIndentNotTakenSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PublishFragmentBaseView)mViewRef.get()).cancelIndentNotTakenSuccess(result);
+                        ((PublishFragmentBaseView)mViewRef.get()).cancelIndentNotTakenSuccess(responseBean);
                     }
                 }
 
@@ -71,9 +70,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PublishFragmentBaseModel)mIModel).cancelIndentHadTaken(indentId, price,new PublishFragmentCancelIndentHadTakenCallBack() {
                 @Override
-                public void cancelIndentHadTakenSuccess(Integer result) {
+                public void cancelIndentHadTakenSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PublishFragmentBaseView)mViewRef.get()).cancelIndentHadTakenSuccess(result);
+                        ((PublishFragmentBaseView)mViewRef.get()).cancelIndentHadTakenSuccess(responseBean);
                     }
                 }
 
@@ -91,9 +90,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PublishFragmentBaseModel)mIModel).deleteIndentNotComment(indentId, price,new PublishFragmentDeleteIndentNotCommentCallBack() {
                 @Override
-                public void deleteIndentNotCommentSuccess(Integer result) {
+                public void deleteIndentNotCommentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PublishFragmentBaseView)mViewRef.get()).deleteIndentNotCommentSuccess(result);
+                        ((PublishFragmentBaseView)mViewRef.get()).deleteIndentNotCommentSuccess(responseBean);
                     }
                 }
 
@@ -111,9 +110,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PublishFragmentBaseModel)mIModel).deleteIndentHadComment(indentId, price,new PublishFragmentDeleteIndentHadCommentCallBack() {
                 @Override
-                public void deleteIndentHadCommentSuccess(Integer result) {
+                public void deleteIndentHadCommentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PublishFragmentBaseView)mViewRef.get()).deleteIndentHadCommentSuccess(result);
+                        ((PublishFragmentBaseView)mViewRef.get()).deleteIndentHadCommentSuccess(responseBean);
                     }
                 }
 
@@ -131,9 +130,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PublishFragmentBaseModel)mIModel).ensureAcceptGoods(indentId, price,new PublishFragmentEnsureAcceptGoodsCallBack() {
                 @Override
-                public void ensureAcceptGoodsSuccess(Integer result) {
+                public void ensureAcceptGoodsSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PublishFragmentBaseView)mViewRef.get()).ensureAcceptGoodsSuccess(result);
+                        ((PublishFragmentBaseView)mViewRef.get()).ensureAcceptGoodsSuccess(responseBean);
                     }
                 }
 
@@ -151,9 +150,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PublishFragmentBaseModel)mIModel).giveRating(increasement, happenTime,new PublishFragmentGiveRatingCallBack() {
                 @Override
-                public void giveRatingSuccess(Integer result) {
+                public void giveRatingSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PublishFragmentBaseView)mViewRef.get()).giveRatingSuccess(result);
+                        ((PublishFragmentBaseView)mViewRef.get()).giveRatingSuccess(responseBean);
                     }
                 }
 

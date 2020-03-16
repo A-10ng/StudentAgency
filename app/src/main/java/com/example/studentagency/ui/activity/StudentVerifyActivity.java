@@ -1,10 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +8,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.studentagency.R;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.StudentVerifyActivityBasePresenter;
 import com.example.studentagency.mvp.view.StudentVerifyActivityBaseView;
 import com.example.studentagency.ui.fragment.StudentVerifyFragment.ErrorFragment;
@@ -22,6 +18,11 @@ import com.example.studentagency.ui.fragment.StudentVerifyFragment.VerifyingFrag
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class StudentVerifyActivity extends BaseActivity implements StudentVerifyActivityBaseView {
 
@@ -92,10 +93,10 @@ public class StudentVerifyActivity extends BaseActivity implements StudentVerify
     }
 
     @Override
-    public void getVerifyStateSuccess(Integer result) {
-        Log.i(TAG, "getVerifyStateSuccess: result>>>>>" + result);
+    public void getVerifyStateSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "getVerifyStateSuccess: result>>>>>" + responseBean.getCode());
 
-        INT_STUDENT_VERVIFY = result;
+        INT_STUDENT_VERVIFY = responseBean.getCode();
 
         setMatchingFragment(INT_STUDENT_VERVIFY);
 

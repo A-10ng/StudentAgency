@@ -2,6 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.UnverifyFragmentUploadVerifyPicCallBack;
@@ -34,14 +35,14 @@ public class UnverifyFragmentBaseModel implements IModel {
         apiService.uploadVerifyPic(verifyPic, MyApp.userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.uploadVerifyPicSuccess(result);
                     }

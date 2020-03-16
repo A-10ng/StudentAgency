@@ -19,11 +19,14 @@ import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
 import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.AcceptFragmentBasePresenter;
 import com.example.studentagency.mvp.view.AcceptFragmentBaseView;
 import com.example.studentagency.ui.activity.IndentActivity;
 import com.example.studentagency.ui.adapter.PersonIndentRecyclerviewAdapter;
 import com.example.studentagency.utils.VariableName;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -246,7 +249,12 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
     }
 
     @Override
-    public void getAcceptIndentsSuccess(List<IndentBean> indentBeanList) {
+    public void getAcceptIndentsSuccess(ResponseBean responseBean) {
+        Gson gson = new Gson();
+        List<IndentBean> indentBeanList = gson.fromJson(
+                gson.toJson(responseBean.getData()),
+                new TypeToken<List<IndentBean>>() {}.getType());
+
         int dataSize = indentBeanList.size();
         Log.i(TAG, "getPublishIndentsSuccess: indentBeanList.size>>>>>" + dataSize);
 
@@ -286,10 +294,10 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
     }
 
     @Override
-    public void cancelIndentHadTakenSuccess(Integer result) {
-        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + result);
+    public void cancelIndentHadTakenSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "取消失败，请重试！", 1500);
         } else {
 //            sendMessageToPublish(phoneNum,"取消您的订单实在不好意思，请见谅！");
@@ -333,10 +341,10 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
     }
 
     @Override
-    public void deleteIndentNotCommentSuccess(Integer result) {
-        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + result);
+    public void deleteIndentNotCommentSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "删除失败，请重试！", 1500);
         } else {
             LemonBubble.showRight(this, "删除成功！", 1500);
@@ -358,10 +366,10 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
     }
 
     @Override
-    public void deleteIndentHadCommentSuccess(Integer result) {
-        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + result);
+    public void deleteIndentHadCommentSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "删除失败，请重试！", 1500);
         } else {
             LemonBubble.showRight(this, "删除成功！", 1500);
@@ -383,10 +391,10 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
     }
 
     @Override
-    public void ensureAcceptGoodsSuccess(Integer result) {
-        Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + result);
+    public void ensureAcceptGoodsSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == result) {
+        if (0 == responseBean.getCode()) {
             LemonBubble.showError(this, "确认失败，请重试！", 1500);
         } else {
 //            sendMessageToPublish(phoneNum,"您的东西已送达，请尽快确认！");

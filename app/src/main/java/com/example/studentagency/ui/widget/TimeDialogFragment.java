@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.studentagency.R;
-import com.example.studentagency.utils.Utils;
 import com.example.studentagency.ui.adapter.PublishTimeRecycleLeftAdapter;
 import com.example.studentagency.ui.adapter.PublishTimeRecycleRightAdapter;
+import com.example.studentagency.utils.Utils;
 
 import java.util.List;
 
@@ -83,7 +83,9 @@ public class TimeDialogFragment extends DialogFragment {
                     }
                     dismiss();
                 }else {
-                    Toast.makeText(context, "请在当前页面选择时间！", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+                    toast.setText("请在当前页面选择时间！");
+                    toast.show();
                 }
             }
         });

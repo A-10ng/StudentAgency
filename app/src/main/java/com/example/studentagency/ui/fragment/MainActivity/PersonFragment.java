@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -33,15 +32,12 @@ import com.example.lemonhello.LemonHelloInfo;
 import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
-import com.example.studentagency.utils.ActivityCollector;
-import com.example.studentagency.utils.BlurUtils;
-import com.example.studentagency.utils.DateUtils;
-import com.example.studentagency.utils.FileUtils;
-import com.example.studentagency.utils.ImageUtils;
 import com.example.studentagency.asyncTask.GetBitmapTask;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.mvp.presenter.PersonFragmentBasePresenter;
 import com.example.studentagency.mvp.view.PersonFragmentBaseView;
+import com.example.studentagency.ui.activity.AddressActivity;
 import com.example.studentagency.ui.activity.CreditScoreRecordActivity;
 import com.example.studentagency.ui.activity.LoginActivity;
 import com.example.studentagency.ui.activity.ModifyPhoneNumActivity;
@@ -49,8 +45,16 @@ import com.example.studentagency.ui.activity.ModifyPwdActivity;
 import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.activity.PersonIndentActivity;
 import com.example.studentagency.ui.activity.PersonalInfoActivity;
+import com.example.studentagency.ui.activity.RechargeActivity;
 import com.example.studentagency.ui.activity.StudentVerifyActivity;
 import com.example.studentagency.ui.widget.ChoosePicPopupWindow;
+import com.example.studentagency.utils.ActivityCollector;
+import com.example.studentagency.utils.BlurUtils;
+import com.example.studentagency.utils.DateUtils;
+import com.example.studentagency.utils.FileUtils;
+import com.example.studentagency.utils.ImageUtils;
+import com.example.studentagency.utils.SharedPreferencesUtils;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -72,7 +76,6 @@ import cn.jpush.im.android.api.JMessageClient;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-import static com.example.studentagency.ui.activity.MyApp.hadLogin;
 
 /**
  * author：LongSh1z
@@ -87,9 +90,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     private static final int WRITE_EXTERNAL_STORAGE = 201;
     private static final int REQUEST_CODE_PICK_IMAGE = 0;
     private static final int REQUEST_CODE_TAKE_PHOTO = 1;
+    private static final int REQUEST_CODE_RECHARGE = 2;
     private static final String IMAGE_FILE_NAME = "sa_user_avatar.jpg";
     private SmartRefreshLayout smartRefreshLayout;
     private PersonFragmentBasePresenter presenter = new PersonFragmentBasePresenter(this);
+    private SharedPreferencesUtils preferencesUtils;
     private Uri userAvatarUri;//保存用户头像的URI
 
     //根视图
@@ -116,6 +121,9 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     private RelativeLayout layout_studentVerify;
     private int INT_STUDENT_VERVIFY = -1;
 
+    //地址管理
+    private RelativeLayout layout_addressManage;
+
     //修改个人信息
     private RelativeLayout layout_personalInfo;
 
@@ -125,6 +133,9 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     //修改密码
     private RelativeLayout layout_modifyPwd;
 
+    //充值金额
+    private RelativeLayout layout_recharge;
+
     //退出登录
     private RelativeLayout layout_exitLogin;
 
@@ -132,63 +143,36 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_avatar:
-                if (hadLogin) {
-                    showChoosePicPopupWindow();
-                } else {
-                    //还未登录则前往登录
-                    goToLogin();
-                }
+                showChoosePicPopupWindow();
                 break;
             case R.id.layout_personalIndent:
-                if (hadLogin) {
-                    startActivity(new Intent(getActivity(), PersonIndentActivity.class));
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(getActivity(), PersonIndentActivity.class));
                 break;
             case R.id.layout_creditScoreRecord:
-                if (hadLogin) {
-                    startActivity(new Intent(getActivity(), CreditScoreRecordActivity.class));
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(getActivity(), CreditScoreRecordActivity.class));
                 break;
             case R.id.layout_studentVerify:
-                if (hadLogin) {
-                    Intent intent = new Intent(getActivity(), StudentVerifyActivity.class);
-                    intent.putExtra("INT_STUDENT_VERVIFY", INT_STUDENT_VERVIFY);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getActivity(), StudentVerifyActivity.class);
+                intent.putExtra("INT_STUDENT_VERVIFY", INT_STUDENT_VERVIFY);
+                startActivity(intent);
                 break;
             case R.id.layout_personalInfo:
-                if (hadLogin) {
-                    startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+                break;
+            case R.id.layout_addressManage:
+                startActivity(new Intent(getActivity(), AddressActivity.class));
                 break;
             case R.id.layout_modifyPhoneNum:
-                if (hadLogin) {
-                    startActivity(new Intent(getActivity(), ModifyPhoneNumActivity.class));
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(getActivity(), ModifyPhoneNumActivity.class));
                 break;
             case R.id.layout_modifyPwd:
-                if (hadLogin) {
-                    startActivity(new Intent(getActivity(), ModifyPwdActivity.class));
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(getActivity(), ModifyPwdActivity.class));
+                break;
+            case R.id.layout_recharge:
+                startActivityForResult(new Intent(getActivity(), RechargeActivity.class),REQUEST_CODE_RECHARGE);
                 break;
             case R.id.layout_exitLogin:
-                if (hadLogin) {
-                    showEnsureExitLoginDialog();
-                } else {
-                    Toast.makeText(getActivity(), "请先登录！", Toast.LENGTH_SHORT).show();
-                }
+                showEnsureExitLoginDialog();
                 break;
         }
     }
@@ -240,10 +224,6 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         choosePicPopupWindow.showAsDropDown(iv_avatar);
     }
 
-    private void goToLogin() {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
-    }
-
     private void showEnsureExitLoginDialog() {
         LemonHello.getInformationHello("提示", "您确定要退出登录吗？")
                 .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
@@ -257,7 +237,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                     @Override
                     public void onClick(LemonHelloView lemonHelloView, LemonHelloInfo lemonHelloInfo, LemonHelloAction lemonHelloAction) {
                         Log.i(TAG, "onClick: 确定退出登录");
-                        hadLogin = false;
+                        preferencesUtils.putString("token",null);
+                        preferencesUtils.putInt("userId",-1);
+                        preferencesUtils.putString("phoneNum",null);
+
                         JMessageClient.logout();
 
                         lemonHelloView.hide();
@@ -420,6 +403,13 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                     }, 1500);
 
                     break;
+
+                case REQUEST_CODE_RECHARGE:
+                    double recharge = Double.parseDouble(data.getStringExtra("recharge"));
+                    String str_originalBal = tv_balance.getText().toString();
+                    double originalBal = Double.parseDouble(str_originalBal.substring(3,str_originalBal.length()));
+                    tv_balance.setText("余额："+(originalBal+recharge));
+                    break;
             }
         }
     }
@@ -454,16 +444,14 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_person, container, false);
 
+        preferencesUtils = new SharedPreferencesUtils(getActivity());
+
         initAllViews();
 
         initSmartRefreshLayout();
 
-        if (hadLogin) {
-            //发送请求
-            presenter.getPersonFragmentInfo(MyApp.userId);
-        } else {
-            initAvatarAndBG(R.drawable.icon_upload_avatar);
-        }
+        //发送请求
+        presenter.getPersonFragmentInfo(MyApp.userId);
 
         return root;
     }
@@ -495,6 +483,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         layout_studentVerify = root.findViewById(R.id.layout_studentVerify);
         layout_studentVerify.setOnClickListener(this);
 
+        //地址管理
+        layout_addressManage = root.findViewById(R.id.layout_addressManage);
+        layout_addressManage.setOnClickListener(this);
+
         //修改个人信息
         layout_personalInfo = root.findViewById(R.id.layout_personalInfo);
         layout_personalInfo.setOnClickListener(this);
@@ -507,6 +499,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         layout_modifyPwd = root.findViewById(R.id.layout_modifyPwd);
         layout_modifyPwd.setOnClickListener(this);
 
+        //充值金额
+        layout_recharge = root.findViewById(R.id.layout_recharge);
+        layout_recharge.setOnClickListener(this);
+
         //退出登录
         layout_exitLogin = root.findViewById(R.id.layout_exitLogin);
         layout_exitLogin.setOnClickListener(this);
@@ -517,37 +513,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                if (hadLogin) {
-                    //发送请求
-                    presenter.getPersonFragmentInfo(MyApp.userId);
-                } else {
-                    initAvatarAndBG(R.drawable.icon_upload_avatar);
-                    smartRefreshLayout.finishRefresh();
-                }
+                //发送请求
+                presenter.getPersonFragmentInfo(MyApp.userId);
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (hadLogin){
-            presenter.getPersonFragmentInfo(MyApp.userId);
-        }
-    }
-
-    private void initAvatarAndBG(int resId) {
-        RequestOptions requestOptions = RequestOptions.circleCropTransform();
-        Glide.with(getActivity())
-                .load(resId)
-                .placeholder(R.drawable.placeholder_pic)
-                .apply(requestOptions)
-                .into(iv_avatar);
-
-        iv_avatar_bg.setBackground(new ColorDrawable(0x1296db));
-        iv_avatar_bg.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.themeColor));
-        iv_avatar_bg.setImageBitmap(null);
     }
 
     private Bitmap getCompressBitmap(Uri pickedImageUri) throws IOException {
@@ -607,8 +576,14 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     }
 
     @Override
-    public void getPersonFragmentInfoSuccess(UserBean userBean) {
+    public void getPersonFragmentInfoSuccess(ResponseBean responseBean) {
+
+        Gson gson = new Gson();
+        UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
+
         Log.i(TAG, "getPersonInfoSuccess: userBean>>>>>" + userBean.toString());
+
+        preferencesUtils.putInt("userId",userBean.getUserId());
 
         initAvatarAndBG(userBean.getAvatar());
 
@@ -668,12 +643,32 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         smartRefreshLayout.finishRefresh();
     }
 
+    private void initAvatarAndBG(int resId) {
+        RequestOptions requestOptions = RequestOptions.circleCropTransform();
+        Glide.with(getActivity())
+                .load(resId)
+                .placeholder(R.drawable.placeholder_pic)
+                .apply(requestOptions)
+                .into(iv_avatar);
+
+        iv_avatar_bg.setBackground(new ColorDrawable(0x1296db));
+        iv_avatar_bg.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.themeColor));
+        iv_avatar_bg.setImageBitmap(null);
+    }
+
     @Override
-    public void uploadAvatarSuccess(Integer result) {
-        Log.i(TAG, "uploadAvatarSuccess: result>>>>>" + result);
+    public void uploadAvatarFail() {
+        Log.i(TAG, "uploadAvatarFail: ");
+
+        LemonBubble.showError(this, "网络异常，请重试！", 1000);
+    }
+
+    @Override
+    public void uploadAvatarSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "uploadAvatarSuccess: result>>>>>" + responseBean.getCode());
 
         //上传成功
-        if (1 == result) {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "上传成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
@@ -704,12 +699,5 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
         iv_avatar_bg.setBackgroundColor(Color.TRANSPARENT);
         iv_avatar_bg.setImageBitmap(BlurUtils.fastBlur(bitmap, 15));
 
-    }
-
-    @Override
-    public void uploadAvatarFail() {
-        Log.i(TAG, "uploadAvatarFail: ");
-
-        LemonBubble.showError(this, "网络异常，请重试！", 1000);
     }
 }

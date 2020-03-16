@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.OtherPersonBean;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,6 +9,7 @@ import com.example.studentagency.bean.OtherPersonBean;
  * desc:
  */
 public interface OtherPersonActivityBaseView extends IView {
-    void getCurrentUserInfoSuccess(OtherPersonBean otherPersonBean);
+//    void getCurrentUserInfoSuccess(OtherPersonBean otherPersonBean);
+    void getCurrentUserInfoSuccess(ResponseBean responseBean);
     void getCurrentUserInfoFail();
 }

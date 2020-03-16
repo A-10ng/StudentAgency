@@ -1,11 +1,10 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.mvp.model.Callback.PersonalInfoActivityChangePersonalInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.PersonalInfoActivityGetPersonalInfoCallBack;
-import com.example.studentagency.mvp.model.PersonFragmentBaseModel;
 import com.example.studentagency.mvp.model.PersonalInfoActivityBaseModel;
-import com.example.studentagency.mvp.view.PersonFragmentBaseView;
 import com.example.studentagency.mvp.view.PersonalInfoActivityBaseView;
 
 import java.lang.ref.WeakReference;
@@ -27,9 +26,9 @@ public class PersonalInfoActivityBasePresenter extends IPresenter {
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((PersonalInfoActivityBaseModel)mIModel).getPersonalInfo(userId, new PersonalInfoActivityGetPersonalInfoCallBack() {
                 @Override
-                public void getPersonalInfoSuccess(UserBean userBean) {
+                public void getPersonalInfoSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PersonalInfoActivityBaseView)mViewRef.get()).getPersonalInfoSuccess(userBean);
+                        ((PersonalInfoActivityBaseView)mViewRef.get()).getPersonalInfoSuccess(responseBean);
                     }
                 }
 
@@ -47,9 +46,9 @@ public class PersonalInfoActivityBasePresenter extends IPresenter {
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((PersonalInfoActivityBaseModel)mIModel).changePersonalInfo(userBean, new PersonalInfoActivityChangePersonalInfoCallBack() {
                 @Override
-                public void changePersonalInfoSuccess(Integer result) {
+                public void changePersonalInfoSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((PersonalInfoActivityBaseView)mViewRef.get()).changeUserInfoSuccess(result);
+                        ((PersonalInfoActivityBaseView)mViewRef.get()).changeUserInfoSuccess(responseBean);
                     }
                 }
 

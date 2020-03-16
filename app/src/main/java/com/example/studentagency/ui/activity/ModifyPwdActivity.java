@@ -14,6 +14,7 @@ import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
 import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.ModifyPwdActivityBasePresenter;
 import com.example.studentagency.mvp.view.ModifyPwdActivityBaseView;
 
@@ -96,10 +97,10 @@ public class ModifyPwdActivity extends BaseActivity implements ModifyPwdActivity
     }
 
     @Override
-    public void changePwdSuccess(Integer result) {
-        Log.i(TAG, "changePwdSuccess: result>>>>>"+result);
+    public void changePwdSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "changePwdSuccess: result>>>>>"+responseBean.getCode());
 
-        if (1 == result){
+        if (200 == responseBean.getCode()){
             LemonBubble.showRight(this,"保存成功！",1000);
 
             new Handler().postDelayed(new Runnable() {

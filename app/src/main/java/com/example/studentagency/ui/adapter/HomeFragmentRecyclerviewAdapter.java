@@ -1,6 +1,5 @@
 package com.example.studentagency.ui.adapter;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +10,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.studentagency.R;
-import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.bean.ClassifyBean;
 import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.viewholder.HomeFragment.BannerViewHolder;
 import com.example.studentagency.viewholder.HomeFragment.ClassifyViewHolder;
 import com.example.studentagency.viewholder.HomeFragment.IndentLoadErrorViewHolder;
 import com.example.studentagency.viewholder.HomeFragment.IndentViewHolder;
-
 import com.zhengsr.viewpagerlib.bean.PageBean;
 import com.zhengsr.viewpagerlib.callback.PageHelperListener;
-
 
 import java.util.List;
 
@@ -104,15 +101,19 @@ public class HomeFragmentRecyclerviewAdapter extends RecyclerView.Adapter<Recycl
             } else {
                 ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.unverified);
             }
+                ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.unverified);
+
+
             ((IndentViewHolder) holder).tv_description.setText(bean.getDescription());
-            ((IndentViewHolder) holder).tv_price.setText(bean.getPrice());
-            ((IndentViewHolder) holder).tv_address.setText(bean.getAddress());
+            ((IndentViewHolder) holder).tv_price.setText(bean.getPrice() + "");
+            ((IndentViewHolder) holder).tv_address.setText("广外南苑12栋");
+//            ((IndentViewHolder) holder).tv_address.setText(bean.getAddress());
 
             ((IndentViewHolder) holder).item_root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (indentItemClickListener != null) {
-                        indentItemClickListener.onIndentItemClick(bean.getIndentId(), position);
+                        indentItemClickListener.onIndentItemClick(bean.getIndentId(), position,bean.getPublishId());
                     }
                 }
             });
@@ -253,6 +254,6 @@ public class HomeFragmentRecyclerviewAdapter extends RecyclerView.Adapter<Recycl
     }
 
     public interface onIndentItemClickListener {
-        void onIndentItemClick(int indentId, int position);
+        void onIndentItemClick(int indentId, int position,int publishId);
     }
 }

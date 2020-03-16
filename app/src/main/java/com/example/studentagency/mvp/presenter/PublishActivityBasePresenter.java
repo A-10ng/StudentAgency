@@ -1,7 +1,7 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.PublishActivityPublishIndentCallBack;
-import com.example.studentagency.mvp.model.IModel;
 import com.example.studentagency.mvp.model.PublishActivityBaseModel;
 import com.example.studentagency.mvp.view.PublishActivityBaseView;
 
@@ -28,9 +28,9 @@ public class PublishActivityBasePresenter extends IPresenter {
                     publishId, type, price, description, address, publishTime, planTime,
                     new PublishActivityPublishIndentCallBack() {
                         @Override
-                        public void publishIndentSuccess(Integer result) {
+                        public void publishIndentSuccess(ResponseBean responseBean) {
                             if (mViewRef.get() != null){
-                                ((PublishActivityBaseView)mViewRef.get()).publishIndentSuccess(result);
+                                ((PublishActivityBaseView)mViewRef.get()).publishIndentSuccess(responseBean);
                             }
                         }
 

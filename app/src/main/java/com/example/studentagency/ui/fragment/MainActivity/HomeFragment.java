@@ -2,29 +2,27 @@ package com.example.studentagency.ui.fragment.MainActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.lemonbubble.LemonBubble;
 import com.example.studentagency.R;
-import com.example.studentagency.bean.NewsBean;
 import com.example.studentagency.bean.ClassifyBean;
 import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.NewsBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.HomeFragmentBasePresenter;
 import com.example.studentagency.mvp.view.HomeFragmentBaseView;
 import com.example.studentagency.ui.activity.ClassifyActivity;
 import com.example.studentagency.ui.activity.IndentActivity;
-import com.example.studentagency.ui.activity.LoginActivity;
-import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.activity.PublishActivity;
 import com.example.studentagency.ui.activity.WebviewActivity;
 import com.example.studentagency.ui.adapter.HomeFragmentRecyclerviewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -118,18 +116,7 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "你点击了floatingButton");
-                if (MyApp.hadLogin){
-                    startActivity(new Intent(getContext(), PublishActivity.class));
-                }else {
-                    LemonBubble.showError(HomeFragment.this,"请先登录，即将跳转至登录界面！",1500);
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(getContext(), LoginActivity.class));
-                        }
-                    }, 1600);
-                }
+                startActivity(new Intent(getContext(), PublishActivity.class));
             }
         });
     }
@@ -165,6 +152,18 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
                 smartRefreshLayout.finishLoadMore();
             }
         });
+    }
+
+    private void refreshData() {
+        iv_layout_loading.setVisibility(View.VISIBLE);
+
+        //先清空dataList里面的数据，防止重复
+        AllIndentDataList.clear();
+        dataListPosition = 0;
+
+        presenter = new HomeFragmentBasePresenter(this);
+        presenter.getBannerData();
+        presenter.getIndentData();
     }
 
     private void initOriginalData() {
@@ -227,29 +226,18 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
                 },
                 new HomeFragmentRecyclerviewAdapter.onIndentItemClickListener() {
                     @Override
-                    public void onIndentItemClick(int indentId, int position) {
+                    public void onIndentItemClick(int indentId, int position,int publishId) {
                         Log.i(TAG, "onIndentItemClick: 你点击了位置为" + position + "的订单");
                         Log.i(TAG, "onIndentItemClick: 你点击了indentId为" + indentId + "的订单");
                         Intent intent = new Intent(getActivity(), IndentActivity.class);
                         intent.putExtra("indentId", indentId);
+                        intent.putExtra("publishId", publishId);
                         startActivity(intent);
                     }
                 });
         myRecyclerView.setAdapter(adapter);
 
         Log.i(TAG, "setRecyclerViewAdapter: originalDataList.size()>>>>>" + originalDataList.size());
-    }
-
-    private void refreshData() {
-        iv_layout_loading.setVisibility(View.VISIBLE);
-
-        //先清空dataList里面的数据，防止重复
-        AllIndentDataList.clear();
-        dataListPosition = 0;
-
-        presenter = new HomeFragmentBasePresenter(this);
-        presenter.getBannerData();
-        presenter.getIndentData();
     }
 
     private void loadMoreData() {
@@ -271,13 +259,19 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
     }
 
     @Override
-    public void getBannerDataSuccess(List<NewsBean> newsBeanList) {
+    public void getBannerDataSuccess(ResponseBean responseBean) {
         Log.i(TAG, "connect getBannerDataSuccess: 获取成功 originalDataList.size()>>>>>" + originalDataList.size());
+
+        Gson gson = new Gson();
+        List<NewsBean> newsBeanList = gson.fromJson(gson.toJson(responseBean.getData()),
+                new TypeToken<List<NewsBean>>() {
+                }.getType());
+
         StringBuilder stringBuilder1 = new StringBuilder();
         for (int i = 0; i < newsBeanList.size(); i++) {
-            stringBuilder1.append(newsBeanList.get(i).getNewsPic()+"/ \n");
+            stringBuilder1.append(newsBeanList.get(i).getNewsPic() + "/ \n");
         }
-        Log.i(TAG, "getBannerDataSuccess: newsBeanList>>>>>"+stringBuilder1.toString());
+        Log.i(TAG, "getBannerDataSuccess: newsBeanList>>>>>" + stringBuilder1.toString());
         adapter.setBannerData(newsBeanList);
     }
 
@@ -288,8 +282,13 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
     }
 
     @Override
-    public void getIndentsDataSuccess(List<IndentBean> indentBeanList) {
+    public void getIndentsDataSuccess(ResponseBean responseBean) {
         Log.i(TAG, "connect getIndentsDataSuccess: originalDataList.size()>>>>>" + originalDataList.size());
+
+        Gson gson = new Gson();
+        List<IndentBean> indentBeanList = gson.fromJson(gson.toJson(responseBean.getData()),
+                new TypeToken<List<IndentBean>>() {
+                }.getType());
 
         AllIndentDataList.addAll(indentBeanList);
 

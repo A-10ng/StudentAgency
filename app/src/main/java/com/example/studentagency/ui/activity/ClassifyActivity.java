@@ -1,10 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +8,13 @@ import android.widget.ImageView;
 
 import com.example.studentagency.R;
 import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.ClassifyActivityBasePresenter;
 import com.example.studentagency.mvp.view.ClassifyActivityBaseView;
 import com.example.studentagency.ui.adapter.ClassifyActivityRecyclerviewAdapter;
-import com.example.studentagency.ui.adapter.HomeFragmentRecyclerviewAdapter;
-import com.example.studentagency.ui.widget.MyRecyclerView;
 import com.example.studentagency.ui.widget.TitleBar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -26,6 +22,10 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ClassifyActivity extends BaseActivity implements ClassifyActivityBaseView {
 
@@ -162,8 +162,14 @@ public class ClassifyActivity extends BaseActivity implements ClassifyActivityBa
     }
 
     @Override
-    public void getIndentByTypeSuccess(List<IndentBean> indentBeanList) {
+    public void getIndentByTypeSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getIndentByTypeSuccess");
+
+        Gson gson = new Gson();
+        List<IndentBean> indentBeanList = gson.fromJson(
+                gson.toJson(responseBean.getData()),
+                new TypeToken<List<IndentBean>>() {}.getType());
+
         layout_loading.setVisibility(View.GONE);
 
         if (indentBeanList.isEmpty()) {

@@ -1,8 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.IndentBean;
-
-import java.util.List;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -11,6 +9,7 @@ import java.util.List;
  * desc:
  */
 public interface ClassifyActivityBaseView extends IView {
-    void getIndentByTypeSuccess(List<IndentBean> indentBeanList);
+//    void getIndentByTypeSuccess(List<IndentBean> indentBeanList);
+    void getIndentByTypeSuccess(ResponseBean responseBean);
     void getIndentByTypeFail();
 }

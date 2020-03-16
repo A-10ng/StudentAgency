@@ -1,13 +1,11 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.InputRecordFragmentGetCreditInputRecordCallBack;
-import com.example.studentagency.mvp.model.IndentActivityBaseModel;
 import com.example.studentagency.mvp.model.InputRecordFragmentBaseModel;
 import com.example.studentagency.mvp.view.InputRecordFragmentBaseView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -26,9 +24,9 @@ public class InputRecordFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((InputRecordFragmentBaseModel)mIModel).getCreditInputRecord(new InputRecordFragmentGetCreditInputRecordCallBack() {
                 @Override
-                public void getCreditInputRecordSuccess(List<CreditBean> creditBeans) {
+                public void getCreditInputRecordSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((InputRecordFragmentBaseView)mViewRef.get()).getCreditInputRecordSuccess(creditBeans);
+                        ((InputRecordFragmentBaseView)mViewRef.get()).getCreditInputRecordSuccess(responseBean);
                     }
                 }
 

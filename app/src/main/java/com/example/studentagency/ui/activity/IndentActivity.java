@@ -18,17 +18,20 @@ import com.example.lemonhello.LemonHelloInfo;
 import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
-import com.example.studentagency.utils.DateUtils;
 import com.example.studentagency.bean.CommentBean;
 import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.IndentBean;
 import com.example.studentagency.bean.PublishAndIndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.mvp.presenter.IndentActivityBasePresenter;
 import com.example.studentagency.mvp.view.IndentActivityBaseView;
 import com.example.studentagency.ui.adapter.IndentActivityRecyclerViewAdapter;
 import com.example.studentagency.ui.widget.CommentDialog;
+import com.example.studentagency.utils.DateUtils;
 import com.example.studentagency.utils.VariableName;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -69,6 +72,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     //其中203和206还要显示评价内容
     private int indentId;
     private int state = -1;
+    private int publishId = -1;
 
     //接单按钮
     private Button btn_accept;
@@ -102,7 +106,8 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         Intent intent = getIntent();
         indentId = intent.getIntExtra("indentId", -1);
         state = intent.getIntExtra("state", -1);
-        Log.i(TAG, "传过来的IndentId: " + indentId + " state: " + state);
+        publishId = intent.getIntExtra("publishId", -1);
+        Log.i(TAG, "传过来的IndentId: " + indentId + " state: " + state + " publishId: " + publishId);
     }
 
     private void initViews() {
@@ -123,18 +128,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick: 接单");
-                if (MyApp.hadLogin) {
-                    showAcceptDialog();
-                } else {
-                    LemonBubble.showError(IndentActivity.this, "请先登录，即将跳转至登录界面！", 1500);
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(IndentActivity.this, LoginActivity.class));
-                        }
-                    }, 1600);
-                }
+                showAcceptDialog();
             }
         });
 
@@ -143,18 +137,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
             public void onClick(View v) {
                 Log.i(TAG, "onClick: 留言");
 
-                if (MyApp.hadLogin) {
-                    showCommentDialog();
-                } else {
-                    LemonBubble.showError(IndentActivity.this, "请先登录，即将跳转至登录界面！", 1500);
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(IndentActivity.this, LoginActivity.class));
-                        }
-                    }, 1600);
-                }
+                showCommentDialog();
             }
         });
     }
@@ -257,7 +240,9 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
                 }
                 //如果输入的内容无效
                 else {
-                    Toast.makeText(IndentActivity.this, "您的输入为空，请重新输入！", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(IndentActivity.this, "", Toast.LENGTH_SHORT);
+                    toast.setText("您的输入为空，请重新输入！");
+                    toast.show();
                 }
             }
         });
@@ -294,7 +279,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         ruledCommentDataList.clear();
         setButtonUnClickable();
 
-        presenter.getPublishInfo();
+        presenter.getPublishInfo(publishId);
         presenter.getIndentInfo(indentId);
         presenter.getCommentInfo(indentId);
 
@@ -352,7 +337,10 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     @Override
-    public void getPublishInfoSuccess(UserBean userBean) {
+    public void getPublishInfoSuccess(ResponseBean responseBean) {
+        Gson gson = new Gson();
+        UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
+
         Log.i(TAG, "getPublishInfoSuccess: userBean" + userBean.toString());
 
         phoneNum = userBean.getPhoneNum();
@@ -393,22 +381,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     @Override
-    public void getIndentInfoSuccess(IndentBean indentBean) {
-        Log.i(TAG, "getIndentInfoSuccess: indentBean>>>>>" + indentBean.toString());
-        setButtonClickable();
-
-        defaultPAIBean.setIndentId(indentBean.getIndentId());
-        defaultPAIBean.setAddress(indentBean.getAddress());
-        defaultPAIBean.setDescription(indentBean.getDescription());
-        defaultPAIBean.setPlanTime(indentBean.getPlanTime());
-        defaultPAIBean.setPrice(indentBean.getPrice());
-        defaultPAIBean.setType(indentBean.getType());
-        defaultPAIBean.setPublishTime(indentBean.getPublishTime());
-
-        mAdapter.setPublishOrIndentData(defaultPAIBean);
-    }
-
-    @Override
     public void getIndentInfoFail() {
         Log.i(TAG, "getIndentInfoFail");
 
@@ -426,15 +398,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     @Override
-    public void getCommentInfoSuccess(List<CommentBean> commentBeans) {
-        Log.i(TAG, "getCommentInfoSuccess");
-        setButtonClickable();
-
-        if (state == 203 || state == 206) mAdapter.setCommentData(commentBeans, true);
-        else mAdapter.setCommentData(commentBeans, false);
-    }
-
-    @Override
     public void getCommentInfoFail() {
         Log.i(TAG, "getCommentInfoFail");
         setButtonUnClickable();
@@ -446,13 +409,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     @Override
-    public void getRatingStarsInfoSuccess(CreditBean creditBean) {
-        Log.i(TAG, "getRatingStarsInfoSuccess: creditBean>>>>>" + creditBean.toString());
-
-        mAdapter.setRatingStarsData(creditBean);
-    }
-
-    @Override
     public void getRatingStarsInfoFail() {
         Log.i(TAG, "getRatingStarsInfoFail: ");
 
@@ -460,11 +416,69 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     @Override
-    public void acceptIndentSuccess(Integer result) {
-        Log.i(TAG, "acceptIndentSuccess result:" + result);
+    public void acceptIndentFail() {
+        Log.i(TAG, "acceptIndentFail");
+
+        LemonBubble.showError(this, "网络异常，请重试！", 1500);
+    }
+
+    @Override
+    public void giveACommentFail() {
+        Log.i(TAG, "giveACommentFail");
+        LemonBubble.showError(this, "网络异常，请重试！", 1500);
+    }
+
+    @Override
+    public void getIndentInfoSuccess(ResponseBean responseBean) {
+        Gson gson = new Gson();
+        IndentBean indentBean = gson.fromJson(gson.toJson(responseBean.getData()),IndentBean.class);
+
+        Log.i(TAG, "getIndentInfoSuccess: indentBean>>>>>" + indentBean.toString());
+        setButtonClickable();
+
+        defaultPAIBean.setIndentId(indentBean.getIndentId());
+        defaultPAIBean.setAddress(indentBean.getAddress());
+        defaultPAIBean.setDescription(indentBean.getDescription());
+        defaultPAIBean.setPlanTime(indentBean.getPlanTime());
+        defaultPAIBean.setPrice(indentBean.getPrice());
+        defaultPAIBean.setType(indentBean.getType());
+        defaultPAIBean.setPublishTime(indentBean.getPublishTime());
+
+        mAdapter.setPublishOrIndentData(defaultPAIBean);
+    }
+
+    @Override
+    public void getCommentInfoSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "getCommentInfoSuccess");
+
+        Gson gson = new Gson();
+        List<CommentBean> commentBeans = gson.fromJson(
+                gson.toJson(responseBean.getData()),
+                new TypeToken<List<CommentBean>>() {}.getType());
+
+        setButtonClickable();
+
+        if (state == 203 || state == 206) mAdapter.setCommentData(commentBeans, true);
+        else mAdapter.setCommentData(commentBeans, false);
+    }
+
+    @Override
+    public void getRatingStarsInfoSuccess(ResponseBean responseBean) {
+
+        Gson gson = new Gson();
+        CreditBean creditBean = gson.fromJson(gson.toJson(responseBean.getData()),CreditBean.class);
+
+        Log.i(TAG, "getRatingStarsInfoSuccess: creditBean>>>>>" + creditBean.toString());
+
+        mAdapter.setRatingStarsData(creditBean);
+    }
+
+    @Override
+        public void acceptIndentSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "acceptIndentSuccess result:" + responseBean.getCode());
 
         //接单成功
-        if (result == 1) {
+        if (responseBean.getCode() == 200) {
             phoneNum = "18218643171";
             Conversation.createSingleConversation(phoneNum);
 
@@ -500,18 +514,11 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     }
 
     @Override
-    public void acceptIndentFail() {
-        Log.i(TAG, "acceptIndentFail");
-
-        LemonBubble.showError(this, "网络异常，请重试！", 1500);
-    }
-
-    @Override
-    public void giveACommentSuccess(Integer result) {
+    public void giveACommentSuccess(ResponseBean responseBean) {
         Log.i(TAG, "giveACommentSuccess");
 
         //留言成功
-        if (result == 1) {
+        if (responseBean.getCode() == 200) {
             LemonBubble.showRight(this, "留言成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {
@@ -530,11 +537,5 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
         else {
             LemonBubble.showError(this, "留言失败！", 1500);
         }
-    }
-
-    @Override
-    public void giveACommentFail() {
-        Log.i(TAG, "giveACommentFail");
-        LemonBubble.showError(this, "网络异常，请重试！", 1500);
     }
 }

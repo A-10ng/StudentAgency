@@ -1,10 +1,6 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import cn.jpush.android.api.JPushInterface;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -20,10 +16,13 @@ import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
 import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.ModifyPhoneNumActivityBasePresenter;
 import com.example.studentagency.mvp.view.ModifyPhoneNumActivityBaseView;
 
 import java.lang.ref.WeakReference;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class ModifyPhoneNumActivity extends BaseActivity implements View.OnClickListener, ModifyPhoneNumActivityBaseView {
 
@@ -144,10 +143,10 @@ public class ModifyPhoneNumActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    public void modifyPhoneNumSuccess(Integer result) {
-        Log.i(TAG, "modifyPhoneNumSuccess: result>>>>>" + result);
+    public void modifyPhoneNumSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "modifyPhoneNumSuccess: result>>>>>" + responseBean.getCode());
 
-        if (result == 2) {
+        if (responseBean.getCode() == 2) {
             LemonBubble.showRight(this, "保存成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
@@ -159,7 +158,7 @@ public class ModifyPhoneNumActivity extends BaseActivity implements View.OnClick
                     finish();
                 }
             }, 1100);
-        } else if (result == 1) {
+        } else if (responseBean.getCode() == 1) {
             LemonBubble.showError(this, "请使用新手机号！", 1200);
         } else {
             LemonBubble.showError(this, "保存失败，请重试！", 1200);
@@ -174,10 +173,10 @@ public class ModifyPhoneNumActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    public void getVerifyCodeSuccess(Integer result) {
-        Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + result);
+    public void getVerifyCodeSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + responseBean.getCode());
 
-        if (result == 1) {
+        if (responseBean.getCode() == 1) {
             LemonBubble.showRight(this, "发送成功！", 1000);
 
             timeOut.start();

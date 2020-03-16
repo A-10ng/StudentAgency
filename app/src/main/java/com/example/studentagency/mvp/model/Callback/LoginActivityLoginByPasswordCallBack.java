@@ -1,7 +1,9 @@
 package com.example.studentagency.mvp.model.Callback;
 
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
+
+import retrofit2.Response;
 
 /**
  * author：LongSh1z
@@ -10,6 +12,6 @@ import com.example.studentagency.bean.UserBean;
  * desc:
  */
 public interface LoginActivityLoginByPasswordCallBack {
-    void loginByPasswordSuccess(Integer result);
+    void loginByPasswordSuccess(Response<ResponseBean> response);
     void loginByPasswordFail();
 }

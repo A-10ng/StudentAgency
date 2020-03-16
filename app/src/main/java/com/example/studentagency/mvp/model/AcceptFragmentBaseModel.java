@@ -2,7 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentCancelIndentHadTakenCallBack;
@@ -11,8 +11,6 @@ import com.example.studentagency.mvp.model.Callback.AcceptFragmentDeleteIndentNo
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentEnsureAcceptGoodsCallBack;
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentGetAcceptIndentsCallBack;
 import com.example.studentagency.ui.activity.MyApp;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,16 +32,15 @@ public class AcceptFragmentBaseModel implements IModel {
         apiService.getAcceptIndents(MyApp.userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<IndentBean>>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<IndentBean> indentBeanList) {
-                        Log.i(TAG, "onNext: indentBeanList.size>>>>>"+indentBeanList.size());
-                        callBack.getAcceptIndentsSuccess(indentBeanList);
+                    public void onNext(ResponseBean responseBean) {
+                        callBack.getAcceptIndentsSuccess(responseBean);
                     }
 
                     @Override
@@ -63,16 +60,15 @@ public class AcceptFragmentBaseModel implements IModel {
         apiService.cancelIndentHadTakenInAcpFragment(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
-                        Log.i(TAG, "onNext: result>>>>>"+result);
-                        callBack.cancelIndentHadTakenSuccess(result);
+                    public void onNext(ResponseBean responseBean) {
+                        callBack.cancelIndentHadTakenSuccess(responseBean);
                     }
 
                     @Override
@@ -92,14 +88,14 @@ public class AcceptFragmentBaseModel implements IModel {
         apiService.deleteIndentNotCommentInAcpFragment(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.deleteIndentNotCommentSuccess(result);
                     }
@@ -121,14 +117,14 @@ public class AcceptFragmentBaseModel implements IModel {
         apiService.deleteIndentHadCommentInAcpFragment(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.deleteIndentHadCommentSuccess(result);
                     }
@@ -150,14 +146,14 @@ public class AcceptFragmentBaseModel implements IModel {
         apiService.ensureAcceptGoodsInAcpFragment(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.ensureAcceptGoodsSuccess(result);
                     }

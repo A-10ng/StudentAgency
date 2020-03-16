@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.AddressBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.AddressActivityBaseModel;
 import com.example.studentagency.mvp.model.Callback.AddressActivityAddAddressCallBack;
 import com.example.studentagency.mvp.model.Callback.AddressActivityDeleteAddressCallBack;
@@ -9,7 +9,6 @@ import com.example.studentagency.mvp.model.Callback.AddressActivityGetAddressCal
 import com.example.studentagency.mvp.view.AddressActivityBaseView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -28,9 +27,9 @@ public class AddressActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AddressActivityBaseModel)mIModel).getAddress(new AddressActivityGetAddressCallBack() {
                 @Override
-                public void getAddressSuccess(List<AddressBean> addressBeans) {
+                public void getAddressSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AddressActivityBaseView)mViewRef.get()).getAddressSuccess(addressBeans);
+                        ((AddressActivityBaseView)mViewRef.get()).getAddressSuccess(responseBean);
                     }
                 }
 
@@ -48,9 +47,9 @@ public class AddressActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AddressActivityBaseModel)mIModel).addAddress(tag,address,new AddressActivityAddAddressCallBack() {
                 @Override
-                public void addAddressSuccess(AddressBean addressBean) {
+                public void addAddressSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AddressActivityBaseView)mViewRef.get()).addAddressSuccess(addressBean);
+                        ((AddressActivityBaseView)mViewRef.get()).addAddressSuccess(responseBean);
                     }
                 }
 
@@ -68,9 +67,9 @@ public class AddressActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AddressActivityBaseModel)mIModel).editAddress(addressId,tag,address,new AddressActivityEditAddressCallBack() {
                 @Override
-                public void editAddressSuccess(Integer result) {
+                public void editAddressSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AddressActivityBaseView)mViewRef.get()).editAddressSuccess(result);
+                        ((AddressActivityBaseView)mViewRef.get()).editAddressSuccess(responseBean);
                     }
                 }
 
@@ -88,9 +87,9 @@ public class AddressActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AddressActivityBaseModel)mIModel).deleteAddress(addressId,new AddressActivityDeleteAddressCallBack() {
                 @Override
-                public void deleteAddressSuccess(Integer result) {
+                public void deleteAddressSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AddressActivityBaseView)mViewRef.get()).deleteAddressSuccess(result);
+                        ((AddressActivityBaseView)mViewRef.get()).deleteAddressSuccess(responseBean);
                     }
                 }
 

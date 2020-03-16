@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.model.Callback;
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,6 +9,6 @@ import com.example.studentagency.bean.UserBean;
  * desc:
  */
 public interface PersonalInfoActivityGetPersonalInfoCallBack {
-    void getPersonalInfoSuccess(UserBean userBean);
+    void getPersonalInfoSuccess(ResponseBean responseBean);
     void getPersonalInfoFail();
 }

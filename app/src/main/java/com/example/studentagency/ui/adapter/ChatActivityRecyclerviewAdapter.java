@@ -1,10 +1,7 @@
 package com.example.studentagency.ui.adapter;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -15,20 +12,13 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.studentagency.R;
 import com.example.studentagency.bean.ChatBean;
 import com.example.studentagency.utils.TimeFormat;
-import com.example.studentagency.utils.VariableName;
 
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import cn.jpush.im.android.api.callback.DownloadCompletionCallback;
-import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
-import cn.jpush.im.android.api.content.CustomContent;
-import cn.jpush.im.android.api.content.FileContent;
 import cn.jpush.im.android.api.content.ImageContent;
-import cn.jpush.im.android.api.content.LocationContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.content.VideoContent;
 import cn.jpush.im.android.api.content.VoiceContent;

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.example.studentagency.R;
 import com.example.studentagency.ui.activity.ChatActivity;
 import com.example.studentagency.ui.activity.MainActivity;
-import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.adapter.MessageFragmentRecyclerviewAdapter;
 import com.example.studentagency.utils.VariableName;
 
@@ -47,6 +46,21 @@ public class MessageFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Object> conversationList = new ArrayList<>();
     private MessageFragmentRecyclerviewAdapter adapter;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        switch (requestCode) {
+            case VariableName.REQUEST_CODE_ONE:
+                refresh();
+                break;
+        }
+    }
 
     @Nullable
     @Override
@@ -90,6 +104,31 @@ public class MessageFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    public void checkNew() {
+        if (getActivity() == null) {
+            return;
+        }
+        boolean hasNew = false;
+
+        for (Object object : conversationList) {
+            if (object instanceof Conversation) {
+                if (((Conversation) object).getExtra().equals(VariableName.NEW_MESSAGE)) {
+                    setNew(true);
+                    hasNew = true;
+                }
+            }
+        }
+
+        if (!hasNew) {
+            setNew(false);
+        }
+    }
+
+    private void setNew(boolean news) {
+        if (getActivity() == null) return;
+        ((MainActivity) getActivity()).setNew(news);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -97,43 +136,15 @@ public class MessageFragment extends Fragment {
         refresh();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode != Activity.RESULT_OK){
-            return;
-        }
-
-        switch (requestCode){
-            case VariableName.REQUEST_CODE_ONE:
-            refresh();
-            break;
-        }
-    }
-
     private void refresh() {
         conversationList.clear();
-        if (MyApp.hadLogin) {
-            List<Conversation> conversations = JMessageClient.getConversationList();
-            Log.i(TAG, "refresh: conversations.size>>>>>" + conversations.size());
+        List<Conversation> conversations = JMessageClient.getConversationList();
+        Log.i(TAG, "refresh: conversations.size>>>>>" + conversations.size());
 
-            if (conversations.isEmpty()) {
-                conversationList.add("错误");
-            } else {
-//                if (conversations.size() == 1){
-//                    if (((UserInfo)conversations.get(0).getTargetInfo()).getNickname().equals("")){
-//                        conversationList.add("错误");
-//                    }else {
-//                        conversationList.addAll(conversations);
-//                    }
-//                }else {
-//                    conversationList.addAll(conversations);
-//                }
-                conversationList.addAll(conversations);
-            }
-        } else {
+        if (conversations.isEmpty()) {
             conversationList.add("错误");
+        } else {
+            conversationList.addAll(conversations);
         }
         adapter.notifyDataSetChanged();
 
@@ -148,7 +159,7 @@ public class MessageFragment extends Fragment {
             UserInfo userInfo = (UserInfo) msg.getTargetInfo();
 
             for (Object object : conversationList) {
-                if (object instanceof Conversation){
+                if (object instanceof Conversation) {
                     Conversation conversation = (Conversation) object;
                     if (conversation.getType() == ConversationType.single) {
                         UserInfo userInfo1 = (UserInfo) conversation.getTargetInfo();
@@ -162,7 +173,7 @@ public class MessageFragment extends Fragment {
                             adapter.notifyItemChanged(conversationList.indexOf(conversation));
                         }
                     }
-                }else {
+                } else {
                     conversationList.clear();
                     adapter.notifyDataSetChanged();
                 }
@@ -171,7 +182,7 @@ public class MessageFragment extends Fragment {
             if (!handlable) {
                 Conversation conversation = JMessageClient.getSingleConversation(userInfo.getUserName(),
                         VariableName.JIGUANG_APP_KEY);
-                if (conversation.getTargetInfo() instanceof UserInfo){
+                if (conversation.getTargetInfo() instanceof UserInfo) {
                     conversation.updateConversationExtra(VariableName.NEW_MESSAGE);
                     conversationList.add(conversation);
                 }
@@ -181,30 +192,5 @@ public class MessageFragment extends Fragment {
         }
 
         checkNew();
-    }
-
-    public void checkNew() {
-        if (getActivity() == null) {
-            return;
-        }
-        boolean hasNew = false;
-
-        for (Object object : conversationList) {
-            if (object instanceof Conversation){
-                if (((Conversation)object).getExtra().equals(VariableName.NEW_MESSAGE)) {
-                    setNew(true);
-                    hasNew = true;
-                }
-            }
-        }
-
-        if (!hasNew) {
-            setNew(false);
-        }
-    }
-
-    private void setNew(boolean news) {
-        if (getActivity() == null) return;
-        ((MainActivity)getActivity()).setNew(news);
     }
 }

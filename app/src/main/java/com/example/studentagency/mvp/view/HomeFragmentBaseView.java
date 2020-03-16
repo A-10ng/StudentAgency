@@ -1,9 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.NewsBean;
-import com.example.studentagency.bean.IndentBean;
-
-import java.util.List;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -12,8 +9,10 @@ import java.util.List;
  * desc:
  */
 public interface HomeFragmentBaseView extends IView{
-    void getBannerDataSuccess(List<NewsBean> newsBeanList);
+//    void getBannerDataSuccess(List<NewsBean> newsBeanList);
+    void getBannerDataSuccess(ResponseBean responseBean);
     void getBannerDataFail();
-    void getIndentsDataSuccess(List<IndentBean> indentBeanList);
+
+    void getIndentsDataSuccess(ResponseBean responseBean);
     void getIndentsDataFail();
 }

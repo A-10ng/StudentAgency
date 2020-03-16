@@ -206,51 +206,6 @@
                 android:layout_marginRight="20dp"
                 android:background="@color/lightgray"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="19sp"
-                    android:text="收货地址："/>
-
-                <EditText
-                    android:id="@+id/et_address"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/edittext_no_line"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:minLines="2"
-                    android:gravity="top"
-                    android:hint="广东外语外贸大学大学城\n校区南苑12栋405"/>
-
-                <ImageView
-                    android:id="@+id/iv_address"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:visibility="visible"
-                    android:src="@drawable/icon_add"
-                    android:layout_marginRight="20dp"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/lightgray"/>
-
             <Button
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"

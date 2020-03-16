@@ -1,9 +1,6 @@
 package com.example.studentagency.viewholder.CreditScoreRecordActivity;
 
 import android.view.View;
-import android.widget.TextView;
-
-import com.example.studentagency.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

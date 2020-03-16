@@ -2,6 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
@@ -28,15 +29,14 @@ public class PersonalInfoActivityBaseModel implements IModel {
         apiService.getPersonalInfo(userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<UserBean>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(UserBean userBean) {
-                        Log.i(TAG, "getPersonalInfo onNext: userBean>>>>>"+userBean.toString());
+                    public void onNext(ResponseBean userBean) {
                         callBack.getPersonalInfoSuccess(userBean);
                     }
 
@@ -57,14 +57,14 @@ public class PersonalInfoActivityBaseModel implements IModel {
         apiService.changePersonalInfo(userBean)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "changePersonalInfo onNext: result>>>>>"+result);
                         callBack.changePersonalInfoSuccess(result);
                     }

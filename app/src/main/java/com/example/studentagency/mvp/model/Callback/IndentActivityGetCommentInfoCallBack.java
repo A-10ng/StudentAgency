@@ -1,8 +1,6 @@
 package com.example.studentagency.mvp.model.Callback;
 
-import com.example.studentagency.bean.CommentBean;
-
-import java.util.List;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -11,6 +9,6 @@ import java.util.List;
  * desc:
  */
 public interface IndentActivityGetCommentInfoCallBack {
-    void onGetCommentInfoSuccess(List<CommentBean> commentBeans);
+    void onGetCommentInfoSuccess(ResponseBean responseBean);
     void onGetCommentInfoFail();
 }

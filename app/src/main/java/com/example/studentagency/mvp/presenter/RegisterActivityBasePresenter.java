@@ -1,5 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.RegisterTwoActivityGetVerifyCodeCallBack;
 import com.example.studentagency.mvp.model.Callback.RegisterTwoActivityRegisterCallBack;
 import com.example.studentagency.mvp.model.RegisterActivityBaseModel;
@@ -24,9 +25,9 @@ public class RegisterActivityBasePresenter extends IPresenter {
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((RegisterActivityBaseModel)mIModel).getVerifyCode(phoneNum, new RegisterTwoActivityGetVerifyCodeCallBack() {
                 @Override
-                public void getVerifyCodeSuccess(Integer result) {
+                public void getVerifyCodeSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((RegisterActivityBaseView)mViewRef.get()).getVerifyCodeSuccess(result);
+                        ((RegisterActivityBaseView)mViewRef.get()).getVerifyCodeSuccess(responseBean);
                     }
                 }
 
@@ -46,9 +47,9 @@ public class RegisterActivityBasePresenter extends IPresenter {
             ((RegisterActivityBaseModel)mIModel).register(username, gender, password, school, phoneNum,
                     new RegisterTwoActivityRegisterCallBack() {
                         @Override
-                        public void registerSuccess(Integer result) {
+                        public void registerSuccess(ResponseBean responseBean) {
                             if (null != mViewRef.get()){
-                                ((RegisterActivityBaseView)mViewRef.get()).registerSuccess(result);
+                                ((RegisterActivityBaseView)mViewRef.get()).registerSuccess(responseBean);
                             }
                         }
 

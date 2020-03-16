@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         lsz:title_name="登录"
-        lsz:iv_return_visibility="true"/>
+        lsz:iv_return_visibility="false"/>
 
     <LinearLayout
         android:id="@+id/root_view"
@@ -28,7 +28,7 @@
             android:padding="2.5dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/shape_login_avatar_bg"
-            android:src="@drawable/avatar_male"/>
+            android:src="@drawable/logo_round"/>
 
         <LinearLayout
             android:layout_width="match_parent"

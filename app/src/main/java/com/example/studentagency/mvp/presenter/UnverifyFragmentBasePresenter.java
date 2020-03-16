@@ -1,5 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.UnverifyFragmentUploadVerifyPicCallBack;
 import com.example.studentagency.mvp.model.UnverifyFragmentBaseModel;
 import com.example.studentagency.mvp.view.UnverifyFragmentBaseView;
@@ -24,9 +25,9 @@ public class UnverifyFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mIModel && null != mViewRef.get()){
             ((UnverifyFragmentBaseModel)mIModel).uploadVerifyPic(verifyPicFile, new UnverifyFragmentUploadVerifyPicCallBack() {
                     @Override
-                public void uploadVerifyPicSuccess(Integer result) {
+                public void uploadVerifyPicSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((UnverifyFragmentBaseView)mViewRef.get()).uploadVerifyPicSuccess(result);
+                        ((UnverifyFragmentBaseView)mViewRef.get()).uploadVerifyPicSuccess(responseBean);
                     }
                 }
 

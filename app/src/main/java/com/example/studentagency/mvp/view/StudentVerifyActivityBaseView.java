@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import java.io.File;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,6 +9,7 @@ import java.io.File;
  * desc:
  */
 public interface StudentVerifyActivityBaseView extends IView {
-    void getVerifyStateSuccess(Integer result);
+//    void getVerifyStateSuccess(Integer result);
+    void getVerifyStateSuccess(ResponseBean responseBean);
     void getVerifyStateFail();
 }

@@ -1,8 +1,8 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 
-import java.util.List;
+import retrofit2.Response;
 
 /**
  * author：LongSh1z
@@ -12,14 +12,15 @@ import java.util.List;
  */
 public interface LoginActivityBaseView extends IView{
     //通过密码登录
-    void loginByPasswordSuccess(Integer result);
+    void loginByPasswordSuccess(Response<ResponseBean> response);
     void loginByPasswordFail();
 
     //通过验证码登录
-    void loginByVerifyCodeSuccess(Integer result);
+    void loginByVerifyCodeSuccess(Response<ResponseBean> response);
     void loginByVerifyCodeFail();
 
     //获取验证码
-    void getVerifyCodeSuccess(Integer result);
+//    void getVerifyCodeSuccess(Integer result);
+    void getVerifyCodeSuccess(ResponseBean responseBean);
     void getVerifyCodeFail();
 }

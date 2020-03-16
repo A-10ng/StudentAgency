@@ -24,10 +24,11 @@ import com.example.lemonhello.LemonHelloInfo;
 import com.example.lemonhello.LemonHelloView;
 import com.example.lemonhello.interfaces.LemonHelloActionDelegate;
 import com.example.studentagency.R;
-import com.example.studentagency.utils.DateUtils;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.PublishActivityBasePresenter;
 import com.example.studentagency.mvp.view.PublishActivityBaseView;
 import com.example.studentagency.ui.widget.TimeDialogFragment;
+import com.example.studentagency.utils.DateUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -401,11 +402,11 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
     }
 
     @Override
-    public void publishIndentSuccess(Integer result) {
-        Log.i(TAG, "publishIndentSuccess: result>>>>>"+result);
+    public void publishIndentSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "publishIndentSuccess: result>>>>>"+responseBean.getCode());
 
         //发布成功
-        if (result == 1) {
+        if (responseBean.getCode() == 1) {
             LemonBubble.showRight(this, "发布成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {

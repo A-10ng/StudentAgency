@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.studentagency.R;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.VerifyingFragmentBasePresenter;
 import com.example.studentagency.mvp.view.VerifyingFragmentBaseView;
 
@@ -51,8 +52,9 @@ public class VerifyingFragment extends Fragment implements VerifyingFragmentBase
     }
 
     @Override
-    public void getVerifyPicSuccess(String picPath) {
-        Log.i(TAG, "getVerifyPicSuccess: picPath>>>>>"+picPath);
+    public void getVerifyPicSuccess(ResponseBean responseBean) {
+        String picPath = responseBean.getData().toString();
+        Log.i(TAG, "getVerifyPicSuccess: picPath>>>>>"+ picPath);
 
         Glide.with(this)
                 .load(picPath)

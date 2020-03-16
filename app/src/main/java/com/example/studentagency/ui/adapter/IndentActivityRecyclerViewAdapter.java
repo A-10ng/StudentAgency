@@ -12,7 +12,6 @@ import com.example.studentagency.R;
 import com.example.studentagency.bean.CommentBean;
 import com.example.studentagency.bean.CreditBean;
 import com.example.studentagency.bean.PublishAndIndentBean;
-import com.example.studentagency.ui.activity.IndentActivity;
 import com.example.studentagency.ui.activity.OtherPersonActivity;
 import com.example.studentagency.viewholder.IndentActivity.BlankViewHolder;
 import com.example.studentagency.viewholder.IndentActivity.ClickUnfoldViewHolder;

@@ -1,12 +1,11 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.OutputRecordFragmentGetCreditOutputRecordCallBack;
 import com.example.studentagency.mvp.model.OutputRecordFragmentBaseModel;
 import com.example.studentagency.mvp.view.OutputRecordFragmentBaseView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -25,9 +24,9 @@ public class OutputRecordFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((OutputRecordFragmentBaseModel)mIModel).getCreditOutputRecord(new OutputRecordFragmentGetCreditOutputRecordCallBack() {
                 @Override
-                public void getCreditOutputRecordSuccess(List<CreditBean> creditBeans) {
+                public void getCreditOutputRecordSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((OutputRecordFragmentBaseView)mViewRef.get()).getCreditOutputRecordSuccess(creditBeans);
+                        ((OutputRecordFragmentBaseView)mViewRef.get()).getCreditOutputRecordSuccess(responseBean);
                     }
                 }
 

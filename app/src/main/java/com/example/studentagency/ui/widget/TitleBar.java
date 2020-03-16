@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.studentagency.R;
-import com.example.studentagency.ui.activity.BaseActivity;
 
 /**
  * author：LongSh1z

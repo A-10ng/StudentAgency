@@ -2,16 +2,11 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
-import com.example.studentagency.mvp.model.Callback.InputRecordFragmentGetCreditInputRecordCallBack;
-import com.example.studentagency.mvp.model.Callback.OutputRecordFragmentGetCreditOutputRecordCallBack;
-import com.example.studentagency.mvp.model.Callback.AllRecordFragmentGetCreditAllRecordCallBack;
 import com.example.studentagency.mvp.model.Callback.CreditSRActivityGetCreditScoreCallBack;
 import com.example.studentagency.ui.activity.MyApp;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,14 +28,14 @@ public class CreditScoreRecordActivityBaseModel implements IModel {
         apiService.getCreditScore(MyApp.userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer score) {
+                    public void onNext(ResponseBean score) {
                         Log.i(TAG, "onNext: score>>>>>"+score);
                         callBack.getCreditScoreSuccess(score);
                     }

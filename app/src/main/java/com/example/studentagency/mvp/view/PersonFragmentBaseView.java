@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,9 +9,11 @@ import com.example.studentagency.bean.UserBean;
  * desc:
  */
 public interface PersonFragmentBaseView extends IView{
-    void getPersonFragmentInfoSuccess(UserBean userBean);
+//    void getPersonFragmentInfoSuccess(UserBean userBean);
+    void getPersonFragmentInfoSuccess(ResponseBean responseBean);
     void getPersonFragmentInfoFail();
 
-    void uploadAvatarSuccess(Integer result);
+//    void uploadAvatarSuccess(Integer result);
+    void uploadAvatarSuccess(ResponseBean responseBean);
     void uploadAvatarFail();
 }

@@ -1,10 +1,10 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.StudentVerifyActivityGetVerifyStateCallBack;
 import com.example.studentagency.mvp.model.StudentVerifyActivityBaseModel;
 import com.example.studentagency.mvp.view.StudentVerifyActivityBaseView;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 
 /**
@@ -24,9 +24,9 @@ public class StudentVerifyActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mIModel && null != mViewRef.get()){
             ((StudentVerifyActivityBaseModel)mIModel).getVerifyState(userId, new StudentVerifyActivityGetVerifyStateCallBack() {
                 @Override
-                public void getVerifyStateSuccess(Integer result) {
+                public void getVerifyStateSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((StudentVerifyActivityBaseView)mViewRef.get()).getVerifyStateSuccess(result);
+                        ((StudentVerifyActivityBaseView)mViewRef.get()).getVerifyStateSuccess(responseBean);
                     }
                 }
 

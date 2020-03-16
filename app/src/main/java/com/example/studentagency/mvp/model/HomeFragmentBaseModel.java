@@ -2,14 +2,12 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.NewsBean;
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.HomeFragmentBannerCallBack;
 import com.example.studentagency.mvp.model.Callback.HomeFragmentIndentCallBack;
-
-import java.util.List;
+import com.example.studentagency.ui.activity.MyApp;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,15 +29,14 @@ public class HomeFragmentBaseModel implements IModel {
         apiService.getBannerData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<NewsBean>>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<NewsBean> newsBeanList) {
-                        Log.i(TAG, "getBannerData: onNext bannerBeanList: "+ newsBeanList.toString());
+                    public void onNext(ResponseBean newsBeanList) {
                         callBack.onGetBannerDataSuccess(newsBeanList);
                     }
 
@@ -57,19 +54,18 @@ public class HomeFragmentBaseModel implements IModel {
     }
 
     public void getIndentData(final HomeFragmentIndentCallBack callBack){
-        apiService.getIndentData()
+        apiService.getIndentData(MyApp.userPhoneNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<IndentBean>>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<IndentBean> indentBeanList) {
-                        Log.i(TAG, "getIndentData: onNext indentBeanList: "+indentBeanList.toString());
-                        callBack.onGetIndentDataSuccess(indentBeanList);
+                    public void onNext(ResponseBean responseBean) {
+                        callBack.onGetIndentDataSuccess(responseBean);
                     }
 
                     @Override

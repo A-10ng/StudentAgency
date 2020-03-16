@@ -1,7 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.annotation.Nullable;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,11 +18,15 @@ import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
 import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.bean.UserBean;
 import com.example.studentagency.mvp.presenter.PersonalInfoActivityBasePresenter;
 import com.example.studentagency.mvp.view.PersonalInfoActivityBaseView;
+import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.Nullable;
 
 public class PersonalInfoActivity extends BaseActivity implements PersonalInfoActivityBaseView {
 
@@ -58,12 +59,6 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
     private RadioButton rb_male, rb_female;
     private int originalGender = -1;
     private int changedGender;
-
-    //收货地址
-    private EditText et_address;
-    private ImageView iv_address;
-    private String changedAddress = "";
-    private String et_address_content = "";
 
     //保存按钮
     private Button btn_save;
@@ -104,16 +99,6 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
         rb_male = findViewById(R.id.rb_male);
         rb_female = findViewById(R.id.rb_female);
 
-        //收货地址
-        et_address = findViewById(R.id.et_address);
-        iv_address = findViewById(R.id.iv_address);
-        iv_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(PersonalInfoActivity.this, AddressActivity.class), REQUEST_PICK_ADDRESS);
-            }
-        });
-
         //保存按钮
         btn_save = findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -132,13 +117,11 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
                     public void run() {
                         Log.i(TAG, "run: changedSchool>>>>>" + changedSchool + "\n" +
                                 "changedUsername>>>>>" + changedUsername + "\n" +
-                                "changedGender>>>>>" + changedGender + "\n" +
-                                "changedAddress>>>>>" + changedAddress);
+                                "changedGender>>>>>" + changedGender);
 
                         originalUserbean.setSchool(changedSchool);
                         originalUserbean.setUsername(changedUsername);
                         originalUserbean.setGender(changedGender);
-                        originalUserbean.setAddress(changedAddress);
                         presenter.changePersonalInfo(originalUserbean);
                     }
                 }, 1500);
@@ -158,13 +141,6 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
             String schoolName = data.getStringExtra("schoolName");
             tv_school.setText(schoolName);
             Log.i(TAG, "onActivityResult: originalSchool>>>>>" + originalSchool);
-        }
-        if (requestCode == REQUEST_PICK_ADDRESS){
-            if (resultCode == RESULT_OK){
-                String address = data.getStringExtra("pickedAddress");
-                et_address.setText(address);
-                Log.i(TAG, "onActivityResult: address>>>>>" + address);
-            }
         }
     }
 
@@ -186,7 +162,10 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
     }
 
     @Override
-    public void getPersonalInfoSuccess(UserBean userBean) {
+    public void getPersonalInfoSuccess(ResponseBean responseBean) {
+        Gson gson = new Gson();
+        UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
+
         Log.i(TAG, "getPersonalInfoSuccess: userBean>>>>>" + userBean.toString());
 
         setPageInfo(userBean);
@@ -204,12 +183,8 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
             //用户名
             et_username.setHint("");
 
-            //收货地址
-            et_address.setHint("");
-
             getDataSuccess = false;
 
-            iv_address.setClickable(false);
             tv_school.setClickable(false);
 
             LemonBubble.showError(this, "网络异常，请退出重试！", 1500);
@@ -220,7 +195,6 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
             originalGender = userBean.getGender();
 
             changedUsername = userBean.getUsername();
-            changedAddress = userBean.getAddress();
 
             //userId
             tv_userId.setText(userBean.getUserId() + "");
@@ -238,12 +212,8 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
             //用户名
             et_username.setHint(userBean.getUsername());
 
-            //收货地址
-            et_address.setHint(userBean.getAddress());
-
             getDataSuccess = true;
 
-            iv_address.setClickable(true);
             tv_school.setClickable(true);
         }
     }
@@ -256,10 +226,10 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
     }
 
     @Override
-    public void changeUserInfoSuccess(Integer result) {
-        Log.i(TAG, "changeUserInfoSuccess: result>>>>>" + result);
+    public void changeUserInfoSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "changeUserInfoSuccess: result>>>>>" + responseBean.getCode());
 
-        if (1 == result) {
+        if (1 == responseBean.getCode()) {
             LemonBubble.showRight(this, "保存成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
@@ -298,15 +268,14 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
                         changedSchool = tv_school.getText().toString().trim();
                         et_username_content = et_username.getText().toString().trim();
                         changedGender = rg_gender.getCheckedRadioButtonId() == R.id.rb_male ? 1 : 0;
-                        et_address_content = et_address.getText().toString().trim();
 
                         if (!getDataSuccess ||
                                 (originalSchool.equals(changedSchool) && TextUtils.isEmpty(et_username_content) &&
-                                        originalGender == changedGender && TextUtils.isEmpty(et_address_content))) {
+                                        originalGender == changedGender)) {
                             btn_save.setEnabled(false);
                         } else {
-                            if (!TextUtils.isEmpty(et_username_content)) changedUsername = et_username_content;
-                            if (!TextUtils.isEmpty(et_address_content)) changedAddress = et_address_content;
+                            if (!TextUtils.isEmpty(et_username_content))
+                                changedUsername = et_username_content;
 
                             btn_save.setEnabled(true);
                         }

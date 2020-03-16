@@ -1,11 +1,5 @@
 package com.example.studentagency.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.options.RegisterOptionalUserInfo;
-import cn.jpush.im.api.BasicCallback;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,11 +17,16 @@ import com.example.lemonbubble.LemonBubble;
 import com.example.lemonbubble.enums.LemonBubbleLayoutStyle;
 import com.example.lemonbubble.enums.LemonBubbleLocationStyle;
 import com.example.studentagency.R;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.RegisterActivityBasePresenter;
 import com.example.studentagency.mvp.view.RegisterActivityBaseView;
-import com.example.studentagency.utils.ActivityCollector;
+import com.example.studentagency.utils.SharedPreferencesUtils;
 
 import java.lang.ref.WeakReference;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.options.RegisterOptionalUserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 public class RegisterTwoActivity extends BaseActivity implements View.OnClickListener, RegisterActivityBaseView {
 
@@ -35,6 +34,7 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
     private static final int LISTEN_EDIT = 1;
     private MyHandler myHandler = new MyHandler(this);
     private RegisterActivityBasePresenter presenter = new RegisterActivityBasePresenter(this);
+    private SharedPreferencesUtils preferencesUtils = new SharedPreferencesUtils(this);
 
     //上一步填写的信息
     private String username;
@@ -165,7 +165,6 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void run() {
                         RegisterOptionalUserInfo userInfo = new RegisterOptionalUserInfo();
-//                        userInfo.setAvatar("http://www.longsh1z.top/resources/avatar.jpg");
                         userInfo.setNickname(username);
                         userInfo.setSignature("http://www.longsh1z.top/resources/avatar.jpg");
                         JMessageClient.register(phoneNum, phoneNum, userInfo, new BasicCallback() {
@@ -187,7 +186,6 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.btn_goToLogin:
                 startActivity(new Intent(this, LoginActivity.class));
-                finish();
                 break;
             case R.id.tv_getVerifyCode:
                 hasGetCode = true;
@@ -211,10 +209,10 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void getVerifyCodeSuccess(Integer result) {
-        Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + result);
+    public void getVerifyCodeSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + responseBean.getCode());
 
-        if (result == 1) {
+        if (responseBean.getCode() == 200) {
             LemonBubble.showRight(this, "发送成功！", 1000);
 
             countTime.start();
@@ -236,16 +234,15 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void registerSuccess(Integer result) {
-        Log.i(TAG, "registerSuccess: result>>>>>" + result);
-        if (result == 1) {
+    public void registerSuccess(ResponseBean responseBean) {
+        Log.i(TAG, "registerSuccess: result>>>>>" + responseBean.getCode());
+
+        if (responseBean.getCode() == 200) {
             LemonBubble.showRight(this, "注册成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    finish();
-
                     startActivity(new Intent(RegisterTwoActivity.this, LoginActivity.class));
                 }
             }, 1100);

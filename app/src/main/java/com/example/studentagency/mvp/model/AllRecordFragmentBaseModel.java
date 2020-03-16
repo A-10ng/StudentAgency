@@ -2,13 +2,11 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.AllRecordFragmentGetCreditAllRecordCallBack;
 import com.example.studentagency.ui.activity.MyApp;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,15 +28,14 @@ public class AllRecordFragmentBaseModel implements IModel {
         apiService.getCreditAllRecord(MyApp.userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<CreditBean>>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<CreditBean> creditBeans) {
-                        Log.i(TAG, "onNext: creditBeans>>>>>"+creditBeans.toString());
+                    public void onNext(ResponseBean creditBeans) {
                         callBack.getCreditAllRecordSuccess(creditBeans);
                     }
 

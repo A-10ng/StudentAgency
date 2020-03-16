@@ -1,18 +1,15 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.AcceptFragmentBaseModel;
-import com.example.studentagency.mvp.model.AllRecordFragmentBaseModel;
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentCancelIndentHadTakenCallBack;
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentDeleteIndentHadCommentCallBack;
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentDeleteIndentNotCommentCallBack;
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentEnsureAcceptGoodsCallBack;
 import com.example.studentagency.mvp.model.Callback.AcceptFragmentGetAcceptIndentsCallBack;
 import com.example.studentagency.mvp.view.AcceptFragmentBaseView;
-import com.example.studentagency.ui.fragment.PersonIndentActivity.AcceptFragment;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -31,9 +28,10 @@ public class AcceptFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AcceptFragmentBaseModel)mIModel).getAcceptIndents(new AcceptFragmentGetAcceptIndentsCallBack() {
                 @Override
-                public void getAcceptIndentsSuccess(List<IndentBean> indentBeanList) {
+//                public void getAcceptIndentsSuccess(List<IndentBean> indentBeanList) {
+                public void getAcceptIndentsSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AcceptFragmentBaseView)mViewRef.get()).getAcceptIndentsSuccess(indentBeanList);
+                        ((AcceptFragmentBaseView)mViewRef.get()).getAcceptIndentsSuccess(responseBean);
                     }
                 }
 
@@ -51,9 +49,10 @@ public class AcceptFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AcceptFragmentBaseModel)mIModel).cancelIndentHadTaken(indentId, price,new AcceptFragmentCancelIndentHadTakenCallBack() {
                 @Override
-                public void cancelIndentHadTakenSuccess(Integer result) {
+//                public void cancelIndentHadTakenSuccess(Integer result) {
+                public void cancelIndentHadTakenSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AcceptFragmentBaseView)mViewRef.get()).cancelIndentHadTakenSuccess(result);
+                        ((AcceptFragmentBaseView)mViewRef.get()).cancelIndentHadTakenSuccess(responseBean);
                     }
                 }
 
@@ -71,9 +70,10 @@ public class AcceptFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AcceptFragmentBaseModel)mIModel).deleteIndentNotComment(indentId, price,new AcceptFragmentDeleteIndentNotCommentCallBack() {
                 @Override
-                public void deleteIndentNotCommentSuccess(Integer result) {
+//                public void deleteIndentNotCommentSuccess(Integer result) {
+                public void deleteIndentNotCommentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AcceptFragmentBaseView)mViewRef.get()).deleteIndentNotCommentSuccess(result);
+                        ((AcceptFragmentBaseView)mViewRef.get()).deleteIndentNotCommentSuccess(responseBean);
                     }
                 }
 
@@ -91,9 +91,9 @@ public class AcceptFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AcceptFragmentBaseModel)mIModel).deleteIndentHadComment(indentId, price,new AcceptFragmentDeleteIndentHadCommentCallBack() {
                 @Override
-                public void deleteIndentHadCommentSuccess(Integer result) {
+                public void deleteIndentHadCommentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AcceptFragmentBaseView)mViewRef.get()).deleteIndentHadCommentSuccess(result);
+                        ((AcceptFragmentBaseView)mViewRef.get()).deleteIndentHadCommentSuccess(responseBean);
                     }
                 }
 
@@ -111,9 +111,9 @@ public class AcceptFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((AcceptFragmentBaseModel)mIModel).ensureAcceptGoods(indentId, price,new AcceptFragmentEnsureAcceptGoodsCallBack() {
                 @Override
-                public void ensureAcceptGoodsSuccess(Integer result) {
+                public void ensureAcceptGoodsSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((AcceptFragmentBaseView)mViewRef.get()).ensureAcceptGoodsSuccess(result);
+                        ((AcceptFragmentBaseView)mViewRef.get()).ensureAcceptGoodsSuccess(responseBean);
                     }
                 }
 

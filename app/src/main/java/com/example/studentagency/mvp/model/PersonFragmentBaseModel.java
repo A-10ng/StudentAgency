@@ -2,7 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.PersonFragmentGetPersonFragmentCallBack;
@@ -33,14 +33,14 @@ public class PersonFragmentBaseModel implements IModel {
         apiService.getPersonFragmentInfo(userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<UserBean>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(UserBean userBean) {
+                    public void onNext(ResponseBean userBean) {
                         Log.i(TAG, "getPersonFragmentInfo onNext: userBean>>>>>"+userBean.toString());
                         callBack.getPersonFragmentSuccess(userBean);
                     }
@@ -64,14 +64,14 @@ public class PersonFragmentBaseModel implements IModel {
         apiService.uploadAvatar(avatar,userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "uploadAvatar onNext: result>>>>>"+result);
                         callBack.uploadAvatarSuccess(result);
                     }

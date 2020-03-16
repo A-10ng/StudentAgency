@@ -1,11 +1,6 @@
 package com.example.studentagency.mvp.view;
 
-import com.example.studentagency.bean.CommentBean;
-import com.example.studentagency.bean.CreditBean;
-import com.example.studentagency.bean.IndentBean;
-import com.example.studentagency.bean.UserBean;
-
-import java.util.List;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -15,26 +10,32 @@ import java.util.List;
  */
 public interface IndentActivityBaseView extends IView {
     //获取发布方的信息
-    void getPublishInfoSuccess(UserBean userBean);
+//    void getPublishInfoSuccess(UserBean userBean);
+    void getPublishInfoSuccess(ResponseBean responseBean);
     void getPusblishInfoFail();
 
     //获取该订单的信息
-    void getIndentInfoSuccess(IndentBean indentBean);
+//    void getIndentInfoSuccess(IndentBean indentBean);
+    void getIndentInfoSuccess(ResponseBean responseBean);
     void getIndentInfoFail();
 
     //获取留言的信息
-    void getCommentInfoSuccess(List<CommentBean> commentBeans);
+//    void getCommentInfoSuccess(List<CommentBean> commentBeans);
+    void getCommentInfoSuccess(ResponseBean responseBean);
     void getCommentInfoFail();
 
     //获取评价星数
-    void getRatingStarsInfoSuccess(CreditBean creditBean);
+//    void getRatingStarsInfoSuccess(CreditBean creditBean);
+    void getRatingStarsInfoSuccess(ResponseBean responseBean);
     void getRatingStarsInfoFail();
 
     //接单
-    void acceptIndentSuccess(Integer result);
+//    void acceptIndentSuccess(Integer result);
+    void acceptIndentSuccess(ResponseBean responseBean);
     void acceptIndentFail();
 
     //留言
-    void giveACommentSuccess(Integer result);
+//    void giveACommentSuccess(Integer result);
+    void giveACommentSuccess(ResponseBean responseBean);
     void giveACommentFail();
 }

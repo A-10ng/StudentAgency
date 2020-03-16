@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.studentagency.ui.activity.MainActivity;
-import com.example.studentagency.ui.activity.PersonIndentActivity;
+import com.example.studentagency.ui.activity.SloganActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +20,8 @@ import cn.jpush.android.helper.Logger;
 public class MyJReceiver extends BroadcastReceiver {
 
     private static final String TAG = "MyJReceiver";
+    private static final int PERSON_INDENT_ACTIVITY = 1;
+    private static final int MAIN_ACTIVITY = 2;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -58,18 +59,17 @@ public class MyJReceiver extends BroadcastReceiver {
                         "\ncode>>>>>"+code+
                         "\nalias>>>>>"+alias);
 
+                Intent i = new Intent(context, SloganActivity.class);
+                i.putExtras(bundle);
                 //接单后，推送给发布方(101)
                 if (!code.equals("107")){
                     //打开自定义的Activity
-                    Intent i = new Intent(context, PersonIndentActivity.class);
-                    i.putExtras(bundle);
-                    context.startActivity(i);
+                    i.putExtra("type",PERSON_INDENT_ACTIVITY);
                 }else {
                     //打开自定义的Activity
-                    Intent i = new Intent(context, MainActivity.class);
-                    i.putExtras(bundle);
-                    context.startActivity(i);
+                    i.putExtra("type",MAIN_ACTIVITY);
                 }
+                context.startActivity(i);
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
                 //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..

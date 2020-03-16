@@ -1,14 +1,12 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.NewsBean;
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.HomeFragmentBannerCallBack;
 import com.example.studentagency.mvp.model.Callback.HomeFragmentIndentCallBack;
 import com.example.studentagency.mvp.model.HomeFragmentBaseModel;
 import com.example.studentagency.mvp.view.HomeFragmentBaseView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * author：LongSh1z
@@ -26,9 +24,9 @@ public class HomeFragmentBasePresenter extends IPresenter{
         if (mIModel != null && null != mViewRef && null != mViewRef.get()){
             ((HomeFragmentBaseModel)mIModel).getBannerData(new HomeFragmentBannerCallBack() {
                 @Override
-                public void onGetBannerDataSuccess(List<NewsBean> newsBeanList) {
+                public void onGetBannerDataSuccess(ResponseBean responseBean) {
                     if (mViewRef.get() != null) {
-                        ((HomeFragmentBaseView) mViewRef.get()).getBannerDataSuccess(newsBeanList);
+                        ((HomeFragmentBaseView) mViewRef.get()).getBannerDataSuccess(responseBean);
                     }
                 }
 
@@ -46,9 +44,9 @@ public class HomeFragmentBasePresenter extends IPresenter{
         if (mIModel != null && null != mViewRef && null != mViewRef.get()){
             ((HomeFragmentBaseModel)mIModel).getIndentData(new HomeFragmentIndentCallBack() {
                 @Override
-                public void onGetIndentDataSuccess(List<IndentBean> indentBeanList) {
+                public void onGetIndentDataSuccess(ResponseBean responseBean) {
                     if (mViewRef.get() != null) {
-                        ((HomeFragmentBaseView) mViewRef.get()).getIndentsDataSuccess(indentBeanList);
+                        ((HomeFragmentBaseView) mViewRef.get()).getIndentsDataSuccess(responseBean);
                     }
                 }
 

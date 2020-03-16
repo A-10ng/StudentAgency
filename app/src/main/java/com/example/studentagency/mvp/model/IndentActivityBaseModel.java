@@ -2,10 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.CommentBean;
-import com.example.studentagency.bean.CreditBean;
-import com.example.studentagency.bean.IndentBean;
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.IndentActivityAcceptIndentCallBack;
@@ -14,8 +11,6 @@ import com.example.studentagency.mvp.model.Callback.IndentActivityGetIndentInfoC
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetPublishInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetRatingStarsCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGiveACommentCallBack;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,19 +28,18 @@ public class IndentActivityBaseModel implements IModel {
     private static final String TAG = "IndentActivityBaseModel";
     private ApiService apiService = RetrofitHelper.getInstance().getServer();
 
-    public void getPublishInfo(final IndentActivityGetPublishInfoCallBack callBack) {
-        apiService.getPublishInfoInIndentActivity()
+    public void getPublishInfo(int publishId, final IndentActivityGetPublishInfoCallBack callBack) {
+        apiService.getPublishInfoInIndentActivity(publishId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UserBean>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(UserBean userBean) {
-                        Log.i(TAG, "getPublishInfo: onNext userbean>>>>>" + userBean.toString());
+                    public void onNext(ResponseBean userBean) {
                         callBack.onGetPublishInfoSuccess(userBean);
                     }
 
@@ -67,15 +61,14 @@ public class IndentActivityBaseModel implements IModel {
         apiService.getIndentInfoInIndentActivity(indentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<IndentBean>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(IndentBean indentBean) {
-                        Log.i(TAG, "getIndentInfo: onNext indentBean>>>>>"+indentBean.toString());
+                    public void onNext(ResponseBean indentBean) {
                         callBack.onGetIndentInfoSuccess(indentBean);
                     }
 
@@ -96,15 +89,14 @@ public class IndentActivityBaseModel implements IModel {
         apiService.getCommentInfoInIndentActivity(indentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<CommentBean>>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<CommentBean> commentBeans) {
-                        Log.i(TAG, "onNext");
+                    public void onNext(ResponseBean commentBeans) {
                         callBack.onGetCommentInfoSuccess(commentBeans);
                     }
 
@@ -125,15 +117,14 @@ public class IndentActivityBaseModel implements IModel {
         apiService.acceptIndent(indentId,acceptedTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
-                        Log.i(TAG, "acceptIndent onNext: result>>>>>"+result);
+                    public void onNext(ResponseBean result) {
                         callBack.onAcceptIndentSuccess(result);
                     }
 
@@ -155,15 +146,14 @@ public class IndentActivityBaseModel implements IModel {
         apiService.giveAComment(indentId,userId,content,commentTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
-                        Log.i(TAG, "giveAComment onNext: result>>>>>"+result);
+                    public void onNext(ResponseBean result) {
                         callBack.onGiveACommentSuccess(result);
                     }
 
@@ -184,15 +174,14 @@ public class IndentActivityBaseModel implements IModel {
         apiService.getRatingStarsInfo(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<CreditBean>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(CreditBean creditBean) {
-                        Log.i(TAG, "onNext: creditBean>>>>>"+creditBean.toString());
+                    public void onNext(ResponseBean creditBean) {
                         callBack.getRatingStarsInfoSuccess(creditBean);
                     }
 

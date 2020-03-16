@@ -2,7 +2,7 @@ package com.example.studentagency.mvp.model;
 
 import android.util.Log;
 
-import com.example.studentagency.bean.IndentBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.PublishFragmentCancelIndentHadTakenCallBack;
@@ -13,8 +13,6 @@ import com.example.studentagency.mvp.model.Callback.PublishFragmentEnsureAcceptG
 import com.example.studentagency.mvp.model.Callback.PublishFragmentGetPublishIndentsCallBack;
 import com.example.studentagency.mvp.model.Callback.PublishFragmentGiveRatingCallBack;
 import com.example.studentagency.ui.activity.MyApp;
-
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -36,15 +34,14 @@ public class PublishFragmentBaseModel implements IModel {
         apiService.getPublishIndents(MyApp.userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<IndentBean>>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<IndentBean> indentBeanList) {
-                        Log.i(TAG, "onNext: indentBeanList.size>>>>>"+indentBeanList.size());
+                    public void onNext(ResponseBean indentBeanList) {
                         callBack.getPublishIndentsSuccess(indentBeanList);
                     }
 
@@ -65,14 +62,14 @@ public class PublishFragmentBaseModel implements IModel {
         apiService.cancelIndentNotTaken(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.cancelIndentNotTakenSuccess(result);
                     }
@@ -94,14 +91,14 @@ public class PublishFragmentBaseModel implements IModel {
         apiService.cancelIndentHadTaken(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.cancelIndentHadTakenSuccess(result);
                     }
@@ -123,14 +120,14 @@ public class PublishFragmentBaseModel implements IModel {
         apiService.deleteIndentNotComment(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.deleteIndentNotCommentSuccess(result);
                     }
@@ -152,14 +149,14 @@ public class PublishFragmentBaseModel implements IModel {
         apiService.deleteIndentHadComment(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.deleteIndentHadCommentSuccess(result);
                     }
@@ -181,14 +178,14 @@ public class PublishFragmentBaseModel implements IModel {
         apiService.ensureAcceptGoods(MyApp.userId,indentId,price)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.ensureAcceptGoodsSuccess(result);
                     }
@@ -210,14 +207,14 @@ public class PublishFragmentBaseModel implements IModel {
         apiService.giveRating(MyApp.userId,increasement,happenTime)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Observer<ResponseBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer result) {
+                    public void onNext(ResponseBean result) {
                         Log.i(TAG, "onNext: result>>>>>"+result);
                         callBack.giveRatingSuccess(result);
                     }

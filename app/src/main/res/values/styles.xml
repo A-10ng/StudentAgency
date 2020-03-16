@@ -10,12 +10,13 @@
         <item name="colorControlActivated">@color/themeColor</item>  //点击EditText时竖线和下划线的颜色
     </style>
 
-    <style name="LoadingDialog" parent="android:style/Theme.Dialog">
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="SloganTheme" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowBackground">@drawable/slogan_style</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
-    
+
     <style name="dialog_comment_dialog" parent="android:style/Theme.Dialog">
         <!-- 无标题 -->
         <item name="android:windowNoTitle">true</item>
@@ -31,11 +32,6 @@
     <style name="timeDialogFragment">
         <item name="android:windowEnterAnimation">@anim/dialogfragment_time_in</item>
         <item name="android:windowExitAnimation">@anim/dialogfragment_time_out</item>
-    </style>
-
-    <style name="EditTextNoBaseLine">
-        <item name="colorControlNormal">@color/transparent</item>   //EditText的竖线和下划线没有获取焦点，也就是默认的颜色
-        <item name="colorControlActivated">@color/transparent</item>  //点击EditText时竖线和下划线的颜色
     </style>
 
     <style name="choosePicAnimation" parent="android:Animation">

@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.model.Callback;
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 
 /**
  * author：LongSh1z
@@ -9,6 +9,6 @@ import com.example.studentagency.bean.UserBean;
  * desc:
  */
 public interface IndentActivityGetPublishInfoCallBack {
-    void onGetPublishInfoSuccess(UserBean userBean);
+    void onGetPublishInfoSuccess(ResponseBean responseBean);
     void onGetPublishInfoFail();
 }

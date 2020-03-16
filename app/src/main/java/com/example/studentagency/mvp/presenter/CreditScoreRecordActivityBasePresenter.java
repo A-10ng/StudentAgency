@@ -1,5 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.CreditSRActivityGetCreditScoreCallBack;
 import com.example.studentagency.mvp.model.CreditScoreRecordActivityBaseModel;
 import com.example.studentagency.mvp.view.CreditScoreRecordActivityBaseView;
@@ -23,9 +24,9 @@ public class CreditScoreRecordActivityBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((CreditScoreRecordActivityBaseModel)mIModel).getCreditScore(new CreditSRActivityGetCreditScoreCallBack() {
                 @Override
-                public void getCreditScoreSuccess(Integer score) {
+                public void getCreditScoreSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
-                        ((CreditScoreRecordActivityBaseView)mViewRef.get()).getCreditScoreSuccess(score);
+                        ((CreditScoreRecordActivityBaseView)mViewRef.get()).getCreditScoreSuccess(responseBean);
                     }
                 }
 

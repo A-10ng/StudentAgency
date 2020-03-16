@@ -1,23 +1,9 @@
 <resources>
     <string name="app_name">StudentAgency</string>
-    <string name="title_activity_test_bottom_navigation">TestBottomNavigationActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_login2">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="PersonalInfo_modifyInfo">修改个人信息</string>
     <string name="PersonalInfo_school">学校：</string>
     <string name="PersonalInfo_username">用户名：</string>
     <string name="longsh1z">LongSh1z</string>
-    <string name="PersonalInfo_phoneNum">手机号：</string>
     <string name="jmui_monday">周一</string>
     <string name="jmui_tuesday">周二</string>
     <string name="jmui_wednesday">周三</string>

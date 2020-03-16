@@ -1,6 +1,6 @@
 package com.example.studentagency.mvp.presenter;
 
-import com.example.studentagency.bean.UserBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.PersonFragmentGetPersonFragmentCallBack;
 import com.example.studentagency.mvp.model.Callback.PersonFragmentUploadAvatarCallBack;
 import com.example.studentagency.mvp.model.PersonFragmentBaseModel;
@@ -26,9 +26,9 @@ public class PersonFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PersonFragmentBaseModel)mIModel).getPersonFragmentInfo(userId,new PersonFragmentGetPersonFragmentCallBack() {
                 @Override
-                public void getPersonFragmentSuccess(UserBean userBean) {
+                public void getPersonFragmentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get())
-                    ((PersonFragmentBaseView)mViewRef.get()).getPersonFragmentInfoSuccess(userBean);
+                    ((PersonFragmentBaseView)mViewRef.get()).getPersonFragmentInfoSuccess(responseBean);
                 }
 
                 @Override
@@ -44,9 +44,9 @@ public class PersonFragmentBasePresenter extends IPresenter {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
             ((PersonFragmentBaseModel)mIModel).uploadAvatar(userId,avatarFile,new PersonFragmentUploadAvatarCallBack() {
                 @Override
-                public void uploadAvatarSuccess(Integer result) {
+                public void uploadAvatarSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get())
-                        ((PersonFragmentBaseView)mViewRef.get()).uploadAvatarSuccess(result);
+                        ((PersonFragmentBaseView)mViewRef.get()).uploadAvatarSuccess(responseBean);
                 }
 
                 @Override

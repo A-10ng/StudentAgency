@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 
 import com.example.studentagency.R;
 import com.example.studentagency.bean.CreditBean;
+import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.OutputRecordFragmentBasePresenter;
 import com.example.studentagency.mvp.view.OutputRecordFragmentBaseView;
 import com.example.studentagency.ui.adapter.CreditRecordRecyclerviewAdapter;
 import com.example.studentagency.ui.widget.MyRecyclerView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +65,12 @@ public class OutputRecordFragment extends Fragment implements OutputRecordFragme
     }
 
     @Override
-    public void getCreditOutputRecordSuccess(List<CreditBean> creditBeans) {
+    public void getCreditOutputRecordSuccess(ResponseBean responseBean) {
+        Gson gson = new Gson();
+        List<CreditBean> creditBeans = gson.fromJson(
+                gson.toJson(responseBean.getData()),
+                new TypeToken<List<CreditBean>>() {}.getType());
+
         int number = creditBeans.size();
         Log.i(TAG, "getCreditRecordSuccess: creditBeans.size()>>>>>"+number);
 
