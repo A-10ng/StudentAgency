@@ -28,7 +28,7 @@ public class MyApp extends Application {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         JMessageClient.setDebugMode(true);
-        JMessageClient.init(this);
+        JMessageClient.init(this,true);//开启消息漫游，每个账号的会话会被保存在本地
 
         NotificationClickEventReceiver notificationClickEventReceiver = new NotificationClickEventReceiver(this);
     }

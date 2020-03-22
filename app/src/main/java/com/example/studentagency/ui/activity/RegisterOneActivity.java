@@ -132,12 +132,9 @@ public class RegisterOneActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("password",password);
                 intent.putExtra("school",school);
                 startActivity(intent);
-
-                finish();
                 break;
             case R.id.btn_goToLogin:
                 startActivity(new Intent(this,LoginActivity.class));
-                finish();
         }
     }
 

@@ -92,7 +92,7 @@
         android:layout_marginRight="20dp"
         android:layout_toRightOf="@id/tv_num3"
         android:letterSpacing="0.1"
-        android:text="完成一个增加2分。"
+        android:text="完成一个订单增加2分。"
         android:textSize="18sp"/>
 
     <TextView

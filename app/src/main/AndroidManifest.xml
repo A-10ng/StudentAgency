@@ -2,19 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="com.example.studentagency">
-    <!-- 网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/> <!-- 相机权限 -->
-    <uses-permission android:name="android.permission.CAMERA"/> <!-- 获取SD卡读写权限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 官方定义的权限，允许应用接收 JPush 内部代码发送的广播消息 -->
-    <uses-permission android:name="com.example.studentagency.permission.JPUSH_MESSAGE"/> <!-- 允许应用可以接收点亮屏幕或解锁广播 -->
-    <uses-permission android:name="RECEIVE_USER_PRESENT"/> <!-- 允许应用在手机屏幕关闭后后台进程仍然运行 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/> <!-- 允许应用访问手机状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- 允许应用读取系统设置项 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/> <!-- 允许应用震动 -->
-    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 允许应用挂载/卸载外部文件系统 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/> <!-- 允许应用获取网络信息状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/><!-- 网络权限 -->
+    <uses-permission android:name="android.permission.CAMERA"/> <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/><!-- 获取SD卡读写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.example.studentagency.permission.JPUSH_MESSAGE"/> <!-- 官方定义的权限，允许应用接收 JPush 内部代码发送的广播消息 -->
+    <uses-permission android:name="RECEIVE_USER_PRESENT"/> <!-- 允许应用可以接收点亮屏幕或解锁广播 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/> <!-- 允许应用在手机屏幕关闭后后台进程仍然运行 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- 允许应用访问手机状态 -->
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions"/><!-- 允许应用读取系统设置项 -->
+    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 允许应用震动 -->
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions"/> <!-- 允许应用挂载/卸载外部文件系统 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/><!-- 允许应用获取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/><!-- 允许应用获取WIFI网络信息状态 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
@@ -30,7 +35,8 @@
         tools:replace="android:appComponentFactory">
         <activity android:name=".ui.activity.RechargeActivity">
         </activity>
-        <activity android:name=".ui.activity.SloganActivity"
+        <activity
+            android:name=".ui.activity.SloganActivity"
             android:theme="@style/SloganTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

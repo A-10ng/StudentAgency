@@ -34,7 +34,6 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
     private static final int LISTEN_EDIT = 1;
     private MyHandler myHandler = new MyHandler(this);
     private RegisterActivityBasePresenter presenter = new RegisterActivityBasePresenter(this);
-    private SharedPreferencesUtils preferencesUtils = new SharedPreferencesUtils(this);
 
     //上一步填写的信息
     private String username;
