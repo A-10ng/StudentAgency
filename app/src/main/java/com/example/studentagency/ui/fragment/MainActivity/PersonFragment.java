@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -73,6 +74,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -679,6 +682,20 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                     } else {
                         initAvatarAndBG(takePhotoBitmap);
                     }
+
+                    UserInfo userInfo = JMessageClient.getMyInfo();
+                    Log.i(TAG, "run: avatarPath>>>>>"+ responseBean.getData());
+                    userInfo.setSignature((String) responseBean.getData());
+                    JMessageClient.updateMyInfo(UserInfo.Field.signature, userInfo, new BasicCallback() {
+                        @Override
+                        public void gotResult(int i, String s) {
+                            if (i != 0){
+                                Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
+                                toast.setText("极光IM上传头像失败！");
+                                toast.show();
+                            }
+                        }
+                    });
                 }
             }, 1100);
         } else {

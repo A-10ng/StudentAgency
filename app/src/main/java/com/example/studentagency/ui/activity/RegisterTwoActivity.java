@@ -21,6 +21,7 @@ import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.RegisterActivityBasePresenter;
 import com.example.studentagency.mvp.view.RegisterActivityBaseView;
 import com.example.studentagency.utils.SharedPreferencesUtils;
+import com.example.studentagency.utils.Utils;
 
 import java.lang.ref.WeakReference;
 
@@ -148,6 +149,7 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                 Log.i(TAG, "onClick btn_finishRegis: username >>>>> " + username + "\n" +
                         "genderType >>>>> " + genderType + "\n" +
                         "password >>>>> " + password + "\n" +
+                        "MD5 password >>>>> " + Utils.md5(password) + "\n" +
                         "school >>>>> " + school + "\n" +
                         "phoneNum >>>>> " + phoneNum + "\n" +
                         "verifyCode >>>>> " + verifyCode);
@@ -165,13 +167,13 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                     public void run() {
                         RegisterOptionalUserInfo userInfo = new RegisterOptionalUserInfo();
                         userInfo.setNickname(username);
-                        userInfo.setSignature("http://www.longsh1z.top/resources/avatar.jpg");
+                        userInfo.setSignature("http://www.longsh1z.top/resources/avatar_male.png");
                         JMessageClient.register(phoneNum, phoneNum, userInfo, new BasicCallback() {
                             @Override
                             public void gotResult(int responseCode, String s) {
                                 Log.i(TAG, "JMessageClient.register gotResult: responseCode>>>>>" + responseCode + " s>>>>>" + s);
                                 if (responseCode == 0) {
-                                    presenter.register(username, genderType, password, school, phoneNum);
+                                    presenter.register(username, genderType, Utils.md5(password), school, phoneNum);
                                 } else if (responseCode == 898001){
                                     LemonBubble.showError(RegisterTwoActivity.this,"该手机号已注册过极光IM，请更换手机！",1200);
                                 }

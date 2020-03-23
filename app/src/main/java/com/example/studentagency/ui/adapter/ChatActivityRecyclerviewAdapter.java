@@ -182,15 +182,6 @@ public class ChatActivityRecyclerviewAdapter extends BaseMultiItemQuickAdapter<C
                 .apply(requestOptions)
                 .into((ImageView) helper.getView(R.id.iv_head));
 
-//        item.message.getFromUser().getAvatarBitmap(new GetAvatarBitmapCallback() {
-//
-//            @Override
-//            public void gotResult(int i, String s, Bitmap bitmap) {
-//                if (i == 0)
-//                    ((ImageView) helper.getView(R.id.iv_head)).setImageBitmap(bitmap);
-//            }
-//        });
-
         if (item.upload) {
             helper.getView(R.id.pb).setVisibility(View.INVISIBLE);
         } else {
