@@ -45,22 +45,43 @@
             android:background="@color/page_gray_cccc"/>
 
         <TextView
-            android:id="@+id/tv_type_hint"
+            android:id="@+id/tv_publishTime_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
+            android:text="发布时间"/>
+
+        <TextView
+            android:id="@+id/tv_publishTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/themeColor"
+            android:text="2020-3-23 10:26"/>
+
+        <TextView
+            android:id="@+id/tv_type_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_publishTime_hint"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:text="代办类型"/>
 
         <TextView
             android:id="@+id/tv_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/divider"
+            android:layout_below="@+id/tv_publishTime_hint"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:text="代购"/>
 
@@ -150,6 +171,27 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:text="尽快送达"/>
+
+        <TextView
+        android:id="@+id/tv_acceptTime_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_planTime_hint"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="接单时间"/>
+
+        <TextView
+            android:id="@+id/tv_acceptTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_planTime_hint"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:text="2020-03-23 10:44"
+            android:textColor="@color/themeColor"/>
 
     </RelativeLayout>
 

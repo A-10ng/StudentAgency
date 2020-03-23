@@ -13,6 +13,7 @@ public class IndentBean {
     private int addressId;
     private int state;
     private String publishTime;
+    private String acceptTime;
     private String planTime;
     private String finishTime;
     private int isCancel;
@@ -24,6 +25,14 @@ public class IndentBean {
     private String description;
     private String price;
     private String address;
+
+    public String getAcceptTime() {
+        return acceptTime;
+    }
+
+    public void setAcceptTime(String acceptTime) {
+        this.acceptTime = acceptTime;
+    }
 
     public String getPhoneNum() {
         return phoneNum;

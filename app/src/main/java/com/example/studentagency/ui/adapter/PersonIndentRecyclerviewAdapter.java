@@ -88,33 +88,50 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
             }
 
             /**
-             * 代办状态和设置按钮文字
+             * 发布、接单时间，代办状态,设置按钮文字
              */
+            itemViewHolder.tv_publishTime.setText(indentBean.getPublishTime());
             itemViewHolder.btn_num1.setVisibility(View.VISIBLE);
             itemViewHolder.btn_num2.setVisibility(View.VISIBLE);
             if (indentType == INDENT_PUBLISH) {
                 if (indentBean.getState() == 0) {
                     itemViewHolder.tv_state.setText("未接单");
 
+                    itemViewHolder.tv_acceptTime_hint.setVisibility(View.GONE);
+                    itemViewHolder.tv_acceptTime.setVisibility(View.GONE);
+
                     itemViewHolder.btn_num1.setText("取消");
                     itemViewHolder.btn_num2.setVisibility(View.GONE);
                 } else if (indentBean.getState() == 1) {
                     itemViewHolder.tv_state.setText("进行中");
+
+                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                    itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
+                    itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
 
                     itemViewHolder.btn_num1.setText("取消");
                     itemViewHolder.btn_num2.setText("确认送达");
                 } else if (indentBean.getState() == 2) {
                     itemViewHolder.tv_state.setText("已完成未评价");
 
+                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                    itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
+                    itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
+
                     itemViewHolder.btn_num1.setText("评价");
                     itemViewHolder.btn_num2.setText("删除");
                 } else {
                     itemViewHolder.tv_state.setText("已完成已评价");
 
+                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                    itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
+                    itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
+
                     itemViewHolder.btn_num1.setText("删除");
                     itemViewHolder.btn_num2.setVisibility(View.GONE);
                 }
             } else {
+
                 if (indentBean.getState() == 0) {
                     itemViewHolder.tv_state.setText("进行中");
 
@@ -131,6 +148,10 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                     itemViewHolder.btn_num1.setText("删除");
                     itemViewHolder.btn_num2.setVisibility(View.GONE);
                 }
+
+                itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
+                itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
             }
 
             /**

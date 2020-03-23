@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.studentagency.R;
 import com.example.studentagency.bean.IndentBean;
 import com.example.studentagency.viewholder.ClassifyActivity.IndentLoadErrorViewHolder;
@@ -44,7 +45,7 @@ public class ClassifyActivityRecyclerviewAdapter extends RecyclerView.Adapter<Re
         View view;
         RecyclerView.ViewHolder viewHolder;
         if (viewType == ITEM_INDENT) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_home_indent_item, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_classify_indent_item, parent, false);
             viewHolder = new IndentViewHolder(view);
         } else if (viewType == ITEM_ERROR) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_classify_indent_loaderror, parent, false);
@@ -66,18 +67,25 @@ public class ClassifyActivityRecyclerviewAdapter extends RecyclerView.Adapter<Re
 
     private void bindIndentViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final IndentBean bean = (IndentBean) mDataList.get(position);
+
+        RequestOptions options = RequestOptions.circleCropTransform();
         Glide.with(((IndentViewHolder) holder).getView())
                 .load(bean.getAvatar())
                 .placeholder(R.drawable.placeholder_pic)
+                .apply(options)
                 .into(((IndentViewHolder) holder).iv_avatar);
+
         ((IndentViewHolder) holder).tv_username.setText(bean.getUsername());
+
         if (3 == bean.getVerifyState()) {
             ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.verified);
         } else {
             ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.unverified);
         }
+
         ((IndentViewHolder) holder).tv_description.setText(bean.getDescription());
         ((IndentViewHolder) holder).tv_price.setText(bean.getPrice());
+        ((IndentViewHolder) holder).tv_plantime.setText(bean.getPlanTime());
         ((IndentViewHolder) holder).tv_address.setText(bean.getAddress());
 
         ((IndentViewHolder) holder).item_root.setOnClickListener(new View.OnClickListener() {

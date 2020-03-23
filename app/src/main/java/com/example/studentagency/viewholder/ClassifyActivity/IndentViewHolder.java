@@ -24,6 +24,7 @@ public class IndentViewHolder extends RecyclerView.ViewHolder {
     public ImageView iv_verifyState;
     public ImageView iv_state;
     public TextView tv_description;
+    public TextView tv_plantime;
     public TextView tv_price;
     public TextView tv_address;
     private View itemView;
@@ -36,6 +37,7 @@ public class IndentViewHolder extends RecyclerView.ViewHolder {
         tv_username = itemView.findViewById(R.id.tv_username);
         iv_verifyState = itemView.findViewById(R.id.iv_verifyState);
         iv_state = itemView.findViewById(R.id.iv_state);
+        tv_plantime = itemView.findViewById(R.id.tv_plantime);
         tv_description = itemView.findViewById(R.id.tv_description);
         tv_price = itemView.findViewById(R.id.tv_price);
         tv_address = itemView.findViewById(R.id.tv_address);

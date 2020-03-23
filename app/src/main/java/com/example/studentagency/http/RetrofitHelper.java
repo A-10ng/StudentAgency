@@ -27,10 +27,10 @@ public class RetrofitHelper {
 
 //    public static String BASE_URL = "http://120.78.219.119:8080/StudentAgency/";
 //    public static String BASE_URL = "http://192.168.1.116:8080/LongSh1z/";
-//    public static String BASE_URL = "http://192.168.43.73:8080/LongSh1z/";
+    public static String BASE_URL = "http://192.168.43.73:8080/LongSh1z/";
 //    public static String BASE_URL = "http://39.106.86.42:8086/";
 //    public static String BASE_URL = "http://192.168.1.107:8080/LongSh1z/";
-    public static String BASE_URL = "http://120.78.219.119:8080/LongSh1z/";
+//    public static String BASE_URL = "http://120.78.219.119:8080/LongSh1z/";
 
     private static final String TAG = "RetrofitHelper";
     private long CONNECT_TIMEOUT = 3L;
