@@ -28,8 +28,10 @@ import com.example.studentagency.utils.ActivityCollector;
 import com.example.studentagency.utils.SharedPreferencesUtils;
 import com.example.studentagency.utils.Utils;
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.lang.ref.WeakReference;
+import java.util.LinkedHashMap;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
@@ -148,8 +150,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     @Override
     public void loginByPasswordSuccess(Response<ResponseBean> response) {
         Gson gson = new Gson();
-        int userId = gson.fromJson(gson.toJson(response.body()), UserBean.class).getUserId();
-        Log.i(TAG, "loginByPasswordSuccess: result>>>>>" + response.body().toString()+" \n" +
+        int userId = (int) Math.round(Double.parseDouble(response.body().getData().toString()));
+        Log.i(TAG, "loginByPasswordSuccess: result>>>>>" + response.body().getMsg()+" \n" +
                 "token>>>>>"+response.headers().get("token")+"\n" +
                 "userId>>>>>"+userId);
 
@@ -188,7 +190,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
     @Override
     public void loginByVerifyCodeSuccess(Response<ResponseBean> response) {
         Gson gson = new Gson();
-        int userId = gson.fromJson(gson.toJson(response.body()), UserBean.class).getUserId();
+//        int userId = gson.fromJson(gson.toJson(response.body()), UserBean.class).getUserId();
+        int userId = (int) Math.round(Double.parseDouble(response.body().getData().toString()));
 
         Log.i(TAG, "loginByVerifyCodeSuccess: token>>>>>" + response.headers().get("token")+"\n" +
                 "userId>>>>>"+userId);

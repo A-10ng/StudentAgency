@@ -33,7 +33,7 @@ public class RegisterOneActivity extends BaseActivity implements View.OnClickLis
 
     //性别
     private RadioGroup rg_gender;
-    private int genderType;
+    private int genderType = 1;
 
     //用户名
     private EditText et_username;

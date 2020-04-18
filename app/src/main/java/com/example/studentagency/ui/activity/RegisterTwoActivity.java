@@ -189,6 +189,8 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.tv_getVerifyCode:
+                Log.i(TAG, "onClick: tv_getVerifyCode-----phoneNum---"+phoneNum);
+
                 hasGetCode = true;
 
                 LemonBubble.getRoundProgressBubbleInfo()

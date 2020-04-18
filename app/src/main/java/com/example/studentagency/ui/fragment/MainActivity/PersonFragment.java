@@ -588,7 +588,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
 
         preferencesUtils.putInt("userId",userBean.getUserId());
 
-        initAvatarAndBG(userBean.getAvatar());
+        if (userBean.getAvatar() == null){
+            initAvatarAndBG(R.drawable.avatar_male);
+        }else {
+            initAvatarAndBG(userBean.getAvatar());
+        }
 
         if (userBean.getVerifyState() == 3) {
             INT_STUDENT_VERVIFY = 3;
