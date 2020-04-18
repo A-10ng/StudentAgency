@@ -112,7 +112,7 @@ public class AddressActivityBaseModel implements IModel {
     }
 
     public void deleteAddress(int addressId, AddressActivityDeleteAddressCallBack callBack) {
-        apiService.deleteAddress(MyApp.userId,addressId)
+        apiService.deleteAddress(addressId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

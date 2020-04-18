@@ -64,7 +64,8 @@ public class RechargeActivity extends BaseActivity implements RechargeActivityBa
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        presenter.recharge(str_recharge);
+                        float money = Float.parseFloat(str_recharge);
+                        presenter.recharge(money);
                     }
                 }, 1500);
             }

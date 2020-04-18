@@ -59,7 +59,7 @@ public class PublishFragmentBaseModel implements IModel {
     }
 
     public void cancelIndentNotTaken(int indentId, String price, PublishFragmentCancelIndentNotTakenCallBack callBack) {
-        apiService.cancelIndentNotTaken(MyApp.userId,indentId,price)
+        apiService.cancelIndentNotTaken(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -88,7 +88,7 @@ public class PublishFragmentBaseModel implements IModel {
     }
 
     public void cancelIndentHadTaken(int indentId, String price, PublishFragmentCancelIndentHadTakenCallBack callBack) {
-        apiService.cancelIndentHadTaken(MyApp.userId,indentId,price)
+        apiService.cancelIndentHadTaken(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -117,7 +117,7 @@ public class PublishFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentNotComment(int indentId, String price, PublishFragmentDeleteIndentNotCommentCallBack callBack) {
-        apiService.deleteIndentNotComment(MyApp.userId,indentId,price)
+        apiService.deleteIndentNotComment(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -146,7 +146,7 @@ public class PublishFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentHadComment(int indentId, String price, PublishFragmentDeleteIndentHadCommentCallBack callBack) {
-        apiService.deleteIndentHadComment(MyApp.userId,indentId,price)
+        apiService.deleteIndentHadComment(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -175,7 +175,7 @@ public class PublishFragmentBaseModel implements IModel {
     }
 
     public void ensureAcceptGoods(int indentId, String price, PublishFragmentEnsureAcceptGoodsCallBack callBack) {
-        apiService.ensureAcceptGoods(MyApp.userId,indentId,price)
+        apiService.ensureAcceptGoods(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -203,8 +203,8 @@ public class PublishFragmentBaseModel implements IModel {
                 });
     }
 
-    public void giveRating(int increasement, String happenTime, PublishFragmentGiveRatingCallBack callBack) {
-        apiService.giveRating(MyApp.userId,increasement,happenTime)
+    public void giveRating(int indentId,int increasement, String happenTime, PublishFragmentGiveRatingCallBack callBack) {
+        apiService.giveRating(indentId,MyApp.userId,increasement,happenTime)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

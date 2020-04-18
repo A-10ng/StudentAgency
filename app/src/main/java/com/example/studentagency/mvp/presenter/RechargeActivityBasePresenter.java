@@ -20,7 +20,7 @@ public class RechargeActivityBasePresenter extends IPresenter {
         this.mViewRef = new WeakReference<>(view);
     }
 
-    public void recharge(String recharge){
+    public void recharge(float recharge){
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((RechargeActivityBaseModel)mIModel).recharge(recharge,new RechargeActivityRechargeCallBack() {
                 @Override

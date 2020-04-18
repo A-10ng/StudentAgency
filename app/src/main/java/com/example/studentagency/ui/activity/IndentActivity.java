@@ -197,7 +197,7 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
                             public void run() {
                                 String acceptedTime = getAcceptedTime();
                                 Log.i(TAG, "acceptedTime>>>>>" + acceptedTime);
-                                presenter.acceptIndent(indentId, acceptedTime);
+                                presenter.acceptIndent(userId,indentId, acceptedTime);
                             }
                         }, 1500);
                     }

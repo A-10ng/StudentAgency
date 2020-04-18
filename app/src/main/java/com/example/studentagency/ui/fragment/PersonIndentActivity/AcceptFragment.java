@@ -24,6 +24,7 @@ import com.example.studentagency.mvp.presenter.AcceptFragmentBasePresenter;
 import com.example.studentagency.mvp.view.AcceptFragmentBaseView;
 import com.example.studentagency.ui.activity.IndentActivity;
 import com.example.studentagency.ui.adapter.PersonIndentRecyclerviewAdapter;
+import com.example.studentagency.utils.DateUtils;
 import com.example.studentagency.utils.VariableName;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -234,7 +235,8 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
                         presenter.cancelIndentHadTaken(indentId, price);
                         break;
                     case 107:
-                        presenter.ensureAcceptGoods(indentId, price);
+                        String deliveryTime = getDeliveryTime();
+                        presenter.ensureAcceptGoods(deliveryTime,indentId, price);
                         break;
                     case 108:
                         presenter.deleteIndentNotComment(indentId, price);
@@ -246,6 +248,11 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
 
             }
         }, 1500);
+    }
+
+    private String getDeliveryTime() {
+        String result = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
+        return result;
     }
 
     @Override

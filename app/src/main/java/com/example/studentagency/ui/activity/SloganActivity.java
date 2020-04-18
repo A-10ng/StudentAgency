@@ -66,12 +66,7 @@ public class SloganActivity extends BaseActivity implements SloganActivityBaseVi
                     .start();
 
         } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    tokenVerify();
-                }
-            }, 1000);
+            tokenVerify();
         }
     }
 

@@ -189,7 +189,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     case 103:
                         Log.i(TAG, "clickItem: 点击了已发布-->已完成未评价-->评价，indentBean>>>>>" + indentBean.toString() + " state>>>>>" + state + " position>>>>>" + position);
 
-                        showCommentPopupWindow(btn_num1);
+                        showCommentPopupWindow(indentBean.getIndentId(),btn_num1);
 
                         break;
                     case 104:
@@ -238,7 +238,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                 .show(getActivity());
     }
 
-    private void showCommentPopupWindow(Button btn_num1) {
+    private void showCommentPopupWindow(int indentId, Button btn_num1) {
         RatingBarPopupWindow popupWindow = new RatingBarPopupWindow(getActivity());
         popupWindow.setClickItemListener(new RatingBarPopupWindow.ClickItemListener() {
             @Override
@@ -258,7 +258,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     public void run() {
                         String happenTime = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
                         Log.i(TAG, "clickItem: increasement>>>>>"+increasement+" happenTime>>>>>"+happenTime);
-                        presenter.giveRating(increasement,happenTime);
+                        presenter.giveRating(indentId,increasement,happenTime);
                     }
                 }, 1500);
             }

@@ -85,9 +85,9 @@ public class IndentActivityBasePresenter extends IPresenter {
         }
     }
 
-    public void acceptIndent(int indentId,String acceptedTime){
+    public void acceptIndent(int acceptId,int indentId,String acceptedTime){
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
-            ((IndentActivityBaseModel)mIModel).acceptIndent(indentId, acceptedTime, new IndentActivityAcceptIndentCallBack() {
+            ((IndentActivityBaseModel)mIModel).acceptIndent(acceptId,indentId, acceptedTime, new IndentActivityAcceptIndentCallBack() {
                 @Override
                 public void onAcceptIndentSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){

@@ -146,9 +146,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         }
     }
 
-    public void giveRating(int increasement,String happenTime) {
+    public void giveRating(int indentId,int increasement,String happenTime) {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
-            ((PublishFragmentBaseModel)mIModel).giveRating(increasement, happenTime,new PublishFragmentGiveRatingCallBack() {
+            ((PublishFragmentBaseModel)mIModel).giveRating(indentId,increasement, happenTime,new PublishFragmentGiveRatingCallBack() {
                 @Override
                 public void giveRatingSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){

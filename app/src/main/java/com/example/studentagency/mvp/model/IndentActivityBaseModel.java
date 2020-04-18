@@ -11,6 +11,7 @@ import com.example.studentagency.mvp.model.Callback.IndentActivityGetIndentInfoC
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetPublishInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGetRatingStarsCallBack;
 import com.example.studentagency.mvp.model.Callback.IndentActivityGiveACommentCallBack;
+import com.example.studentagency.ui.activity.MyApp;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -113,8 +114,8 @@ public class IndentActivityBaseModel implements IModel {
                 });
     }
 
-    public void acceptIndent(int indentId, String acceptedTime, final IndentActivityAcceptIndentCallBack callBack){
-        apiService.acceptIndent(indentId,acceptedTime)
+    public void acceptIndent(int acceptId,int indentId, String acceptedTime, final IndentActivityAcceptIndentCallBack callBack){
+        apiService.acceptIndent(acceptId,indentId,acceptedTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseBean>() {
@@ -171,7 +172,7 @@ public class IndentActivityBaseModel implements IModel {
     }
 
     public void getRatingStarsInfo(int indentId, IndentActivityGetRatingStarsCallBack callBack) {
-        apiService.getRatingStarsInfo(indentId)
+        apiService.getRatingStarsInfo(MyApp.userId,indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

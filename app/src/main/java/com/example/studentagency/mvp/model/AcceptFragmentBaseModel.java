@@ -57,7 +57,7 @@ public class AcceptFragmentBaseModel implements IModel {
     }
 
     public void cancelIndentHadTaken(int indentId, String price, AcceptFragmentCancelIndentHadTakenCallBack callBack) {
-        apiService.cancelIndentHadTakenInAcpFragment(MyApp.userId,indentId,price)
+        apiService.cancelIndentHadTakenInAcpFragment(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -85,7 +85,7 @@ public class AcceptFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentNotComment(int indentId, String price, AcceptFragmentDeleteIndentNotCommentCallBack callBack) {
-        apiService.deleteIndentNotCommentInAcpFragment(MyApp.userId,indentId,price)
+        apiService.deleteIndentNotCommentInAcpFragment(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -114,7 +114,7 @@ public class AcceptFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentHadComment(int indentId, String price, AcceptFragmentDeleteIndentHadCommentCallBack callBack) {
-        apiService.deleteIndentHadCommentInAcpFragment(MyApp.userId,indentId,price)
+        apiService.deleteIndentHadCommentInAcpFragment(indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -142,8 +142,8 @@ public class AcceptFragmentBaseModel implements IModel {
                 });
     }
 
-    public void ensureAcceptGoods(int indentId, String price, AcceptFragmentEnsureAcceptGoodsCallBack callBack) {
-        apiService.ensureAcceptGoodsInAcpFragment(MyApp.userId,indentId,price)
+    public void ensureAcceptGoods(String deliveryTime,int indentId, String price, AcceptFragmentEnsureAcceptGoodsCallBack callBack) {
+        apiService.ensureAcceptGoodsInAcpFragment(deliveryTime,indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

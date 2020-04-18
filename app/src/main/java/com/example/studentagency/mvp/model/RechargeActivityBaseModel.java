@@ -23,7 +23,7 @@ public class RechargeActivityBaseModel implements IModel {
     private static final String TAG = "OutputRecordFragmentBas";
     private ApiService apiService = RetrofitHelper.getInstance().getServer();
 
-    public void recharge(String recharge,RechargeActivityRechargeCallBack callBack){
+    public void recharge(float recharge,RechargeActivityRechargeCallBack callBack){
         apiService.recharge(MyApp.userId,recharge)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

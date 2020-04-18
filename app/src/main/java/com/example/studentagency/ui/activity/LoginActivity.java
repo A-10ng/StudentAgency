@@ -26,6 +26,7 @@ import com.example.studentagency.mvp.presenter.LoginActivityBasePresenter;
 import com.example.studentagency.mvp.view.LoginActivityBaseView;
 import com.example.studentagency.utils.ActivityCollector;
 import com.example.studentagency.utils.SharedPreferencesUtils;
+import com.example.studentagency.utils.Utils;
 import com.google.gson.Gson;
 
 import java.lang.ref.WeakReference;
@@ -292,6 +293,7 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
             case R.id.btn_login:
                 Log.i(TAG, "onClick: phoneNum>>>>>" + phoneNum + "\n" +
                         "password>>>>>" + password + "\n" +
+                        "MD5(password)>>>>>" + Utils.md5(password) + "\n" +
                         "verifyCode>>>>>" + verifyCode);
 
                 LemonBubble.getRoundProgressBubbleInfo()
@@ -311,7 +313,7 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
                                 Log.i(TAG, "JMessageClient.login gotResult: resonpseCode>>>>>"+resonpseCode+" s>>>>>"+s);
                                 if (resonpseCode == 0){
                                     if (isPasswordMode) {
-                                        presenter.loginByPassword(phoneNum, password);
+                                        presenter.loginByPassword(phoneNum, Utils.md5(password));
                                     } else {
                                         presenter.loginByVerifyCode(phoneNum, verifyCode);
                                     }

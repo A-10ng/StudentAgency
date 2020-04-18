@@ -107,9 +107,9 @@ public class AcceptFragmentBasePresenter extends IPresenter {
         }
     }
 
-    public void ensureAcceptGoods(int indentId, String price) {
+    public void ensureAcceptGoods(String deliveryTime,int indentId, String price) {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
-            ((AcceptFragmentBaseModel)mIModel).ensureAcceptGoods(indentId, price,new AcceptFragmentEnsureAcceptGoodsCallBack() {
+            ((AcceptFragmentBaseModel)mIModel).ensureAcceptGoods(deliveryTime,indentId, price,new AcceptFragmentEnsureAcceptGoodsCallBack() {
                 @Override
                 public void ensureAcceptGoodsSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
