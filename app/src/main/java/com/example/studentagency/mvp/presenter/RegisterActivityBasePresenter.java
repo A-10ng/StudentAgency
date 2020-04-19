@@ -1,5 +1,7 @@
 package com.example.studentagency.mvp.presenter;
 
+import android.util.Log;
+
 import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.RegisterTwoActivityGetVerifyCodeCallBack;
 import com.example.studentagency.mvp.model.Callback.RegisterTwoActivityRegisterCallBack;
@@ -15,6 +17,8 @@ import java.lang.ref.WeakReference;
  * desc:
  */
 public class RegisterActivityBasePresenter extends IPresenter {
+
+    private static final String TAG = "RegisterActivityBasePre";
 
     public RegisterActivityBasePresenter(RegisterActivityBaseView view) {
         this.mViewRef = new WeakReference<>(view);
@@ -44,6 +48,7 @@ public class RegisterActivityBasePresenter extends IPresenter {
     public void register(String username,int gender,String password,
                          String school,String phoneNum){
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
+            Log.i(TAG, "register into  RegisterActivityBasePre--------------------");
             ((RegisterActivityBaseModel)mIModel).register(username, gender, password, school, phoneNum,
                     new RegisterTwoActivityRegisterCallBack() {
                         @Override

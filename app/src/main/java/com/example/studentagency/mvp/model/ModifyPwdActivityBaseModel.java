@@ -41,7 +41,7 @@ public class ModifyPwdActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "changePwd onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "changePwd onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.changePwdFail();
                     }
 

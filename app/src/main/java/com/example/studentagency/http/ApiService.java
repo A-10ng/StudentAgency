@@ -71,16 +71,14 @@ public interface ApiService {
                                       @Field("phoneNum") String phoneNum);
 
     //上传头像
-    @FormUrlEncoded
     @Multipart
     @POST("api-user/user/uploadAvatar")
-    Observable<ResponseBean> uploadAvatar(@Part MultipartBody.Part avatar, @Field("userId") int userId);
+    Observable<ResponseBean> uploadAvatar(@Part MultipartBody.Part avatar, @Query("userId") int userId);
 
     //上传认证照片
-    @FormUrlEncoded
     @Multipart
     @POST("api-user/user/uploadVerifyPic")
-    Observable<ResponseBean> uploadVerifyPic(@Part MultipartBody.Part verifyPic, @Field("userId") int userId);
+    Observable<ResponseBean> uploadVerifyPic(@Part MultipartBody.Part verifyPic, @Query("userId") int userId);
 
     //修改密码
     @FormUrlEncoded

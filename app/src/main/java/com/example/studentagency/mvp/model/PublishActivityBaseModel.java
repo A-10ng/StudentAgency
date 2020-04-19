@@ -43,7 +43,7 @@ public class PublishActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "publishIndent onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "publishIndent onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.publishIndentFail();
                     }
 

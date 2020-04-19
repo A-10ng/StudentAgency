@@ -42,7 +42,7 @@ public class PersonalInfoActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getPersonalInfo onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "getPersonalInfo onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.getPersonalInfoFail();
                     }
 
@@ -71,7 +71,7 @@ public class PersonalInfoActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "changePersonalInfo onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "changePersonalInfo onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.changePersonalInfoFail();
                     }
 

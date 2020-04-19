@@ -47,7 +47,7 @@ public class PersonFragmentBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.getPersonFragmentFail();
                     }
 
@@ -78,7 +78,7 @@ public class PersonFragmentBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "uploadAvatar onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "uploadAvatar onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.uploadAvatarFail();
                     }
 

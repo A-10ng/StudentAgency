@@ -149,13 +149,11 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
 
     @Override
     public void loginByPasswordSuccess(Response<ResponseBean> response) {
-        Gson gson = new Gson();
-        int userId = (int) Math.round(Double.parseDouble(response.body().getData().toString()));
-        Log.i(TAG, "loginByPasswordSuccess: result>>>>>" + response.body().getMsg()+" \n" +
-                "token>>>>>"+response.headers().get("token")+"\n" +
-                "userId>>>>>"+userId);
-
         if (response.body().getCode() == 200) {
+            int userId = (int) Math.round(Double.parseDouble(response.body().getData().toString()));
+            Log.i(TAG, "loginByPasswordSuccess: result>>>>>" + response.body().getMsg()+" \n" +
+                    "token>>>>>"+response.headers().get("token")+"\n" +
+                    "userId>>>>>"+userId);
 
             preferencesUtils.putString("token",response.headers().get("token"));
             preferencesUtils.putString("phoneNum",phoneNum);
@@ -189,13 +187,11 @@ public class LoginActivity extends BaseActivity implements LoginActivityBaseView
 
     @Override
     public void loginByVerifyCodeSuccess(Response<ResponseBean> response) {
-        Gson gson = new Gson();
-//        int userId = gson.fromJson(gson.toJson(response.body()), UserBean.class).getUserId();
-        int userId = (int) Math.round(Double.parseDouble(response.body().getData().toString()));
-
-        Log.i(TAG, "loginByVerifyCodeSuccess: token>>>>>" + response.headers().get("token")+"\n" +
-                "userId>>>>>"+userId);
         if (response.body().getCode() == 200) {
+            //        int userId = gson.fromJson(gson.toJson(response.body()), UserBean.class).getUserId();
+            int userId = (int) Math.round(Double.parseDouble(response.body().getData().toString()));
+            Log.i(TAG, "loginByVerifyCodeSuccess: token>>>>>" + response.headers().get("token")+"\n" +
+                    "userId>>>>>"+userId);
 
             preferencesUtils.putString("token",response.headers().get("token"));
             preferencesUtils.putString("phoneNum",phoneNum);

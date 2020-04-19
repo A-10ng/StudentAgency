@@ -42,7 +42,7 @@ public class RegisterActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getVerifyCode onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "getVerifyCode onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.getVerifyCodeFail();
                     }
 
@@ -55,6 +55,12 @@ public class RegisterActivityBaseModel implements IModel {
 
     public void register(String username, int gender, String password,
                          String school, String phoneNum, RegisterTwoActivityRegisterCallBack callBack){
+        Log.i(TAG, "register into  RegisterActivityBaseModel--------------------\n" +
+                "username-----------"+username+"\n"+
+                "gender-----------"+gender+"\n"+
+                "password-----------"+password+"\n"+
+                "school-----------"+school+"\n"+
+                "phoneNum-----------"+phoneNum);
         apiService.register(username,gender,password, school, phoneNum)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -72,7 +78,7 @@ public class RegisterActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "register onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "register onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.registerFail();
                     }
 

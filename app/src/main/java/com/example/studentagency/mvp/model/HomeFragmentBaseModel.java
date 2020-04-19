@@ -42,7 +42,7 @@ public class HomeFragmentBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getBannerData: onError e: "+e.getMessage());
+                        Log.i(TAG, "getBannerData: onError e: "+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.onGetBannerDataFail();
                     }
 
@@ -70,7 +70,7 @@ public class HomeFragmentBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getIndentData: onError e: "+e.getMessage());
+                        Log.i(TAG, "getIndentData: onError e: "+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.onGetIndentDataFail();
                     }
 

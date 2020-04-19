@@ -1,6 +1,8 @@
 package com.example.studentagency.mvp.presenter;
 
 
+import android.util.Log;
+
 import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.model.Callback.LoginActivityGetVerifyCodeCallBack;
 import com.example.studentagency.mvp.model.Callback.LoginActivityLoginByPasswordCallBack;
@@ -20,6 +22,8 @@ import retrofit2.Response;
  */
 public class LoginActivityBasePresenter extends IPresenter {
 
+    private static final String TAG = "LoginActivityBasePresen";
+
     public LoginActivityBasePresenter(LoginActivityBaseView view) {
         this.mIModel = new LoginActivityBaseModel();
         this.mViewRef = new WeakReference<>(view);
@@ -27,6 +31,7 @@ public class LoginActivityBasePresenter extends IPresenter {
 
     public void loginByPassword(String phoneNum,String password) {
         if (mIModel != null && mViewRef != null && mViewRef.get() != null) {
+            Log.i(TAG, "BasePresenter--------------------------loginByPassword----------------------------");
             ((LoginActivityBaseModel) mIModel).loginByPassword(phoneNum, password, new LoginActivityLoginByPasswordCallBack() {
                 @Override
                 public void loginByPasswordSuccess(Response<ResponseBean> response) {

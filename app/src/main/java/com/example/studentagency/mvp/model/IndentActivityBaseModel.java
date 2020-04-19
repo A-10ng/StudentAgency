@@ -46,7 +46,7 @@ public class IndentActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getPublishInfo: onError e>>>>>" + e.getMessage());
+                        Log.i(TAG, "getPublishInfo: onError e>>>>>" + e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.onGetPublishInfoFail();
                     }
 
@@ -75,7 +75,7 @@ public class IndentActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getIndentInfo: onError e>>>>>"+e.getMessage());
+                        Log.i(TAG, "getIndentInfo: onError e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.onGetIndentInfoFail();
                     }
 
@@ -103,7 +103,7 @@ public class IndentActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.onGetCommentInfoFail();
                     }
 
@@ -131,7 +131,7 @@ public class IndentActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "acceptIndent onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "acceptIndent onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.onAcceptIndentFail();
                     }
 
@@ -160,7 +160,7 @@ public class IndentActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "giveAComment onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "giveAComment onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.onGiveACommentFail();
                     }
 

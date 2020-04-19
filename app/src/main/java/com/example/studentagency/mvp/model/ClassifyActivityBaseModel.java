@@ -41,7 +41,7 @@ public class ClassifyActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getIndentByType onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "getIndentByType onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.getIndentByTypeFail();
                     }
 

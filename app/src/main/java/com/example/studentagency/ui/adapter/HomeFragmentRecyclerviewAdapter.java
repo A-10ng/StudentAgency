@@ -174,6 +174,7 @@ public class HomeFragmentRecyclerviewAdapter extends RecyclerView.Adapter<Recycl
                     imageView.setScaleType(ImageView.ScaleType.CENTER);
                     Glide.with(view)
                             .load(bean.getNewsPic())
+                            .centerCrop()
                             .placeholder(R.drawable.placeholder_pic)
                             .into(imageView);
                     TextView textView = view.findViewById(R.id.loop_title);

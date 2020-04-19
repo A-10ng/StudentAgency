@@ -27,6 +27,7 @@ public class LoginActivityBaseModel implements IModel {
     ApiService apiService = RetrofitHelper.getInstance().getServer();
 
     public void loginByPassword(String phoneNum, String password, final LoginActivityLoginByPasswordCallBack callBack) {
+        Log.i(TAG, "BaseModel--------------------------loginByPassword----------------------------");
         apiService.loginByPassword(phoneNum, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -38,12 +39,13 @@ public class LoginActivityBaseModel implements IModel {
 
                     @Override
                     public void onNext(Response<ResponseBean> response) {
+                        Log.i(TAG, "BaseModel--------------------------loginByPassword-----------------onNext-----------");
                         callBack.loginByPasswordSuccess(response);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "loginByPassword onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "loginByPassword onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.loginByPasswordFail();
                     }
 
@@ -71,7 +73,7 @@ public class LoginActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "loginByVerifyCode onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "loginByVerifyCode onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.loginByVerifyCodeFail();
                     }
 
@@ -100,7 +102,7 @@ public class LoginActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getVerifyCode onError: e>>>>>"+e.getMessage());
+                        Log.i(TAG, "getVerifyCode onError: e>>>>>"+e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.getVerifyCodeFail();
                     }
 

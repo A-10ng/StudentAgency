@@ -32,6 +32,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -199,13 +200,13 @@ public class RetrofitHelper {
                 .readTimeout(READ_TIMEOUT,TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT,TimeUnit.SECONDS)
                 .addInterceptor(new RqInterceptor())
-                .addInterceptor(new LogInterceptor())
+//                .addInterceptor(new LogInterceptor())
                 .build();
         return okHttpClient;
     }
 
     /**
-     * 请求拦截器
+     * 请求拦截器,注意：不能调用两次chain.proceed，因为这样会同时发送两次请求
      */
     private class RqInterceptor implements Interceptor{
 
@@ -216,7 +217,20 @@ public class RetrofitHelper {
                     .addHeader("X-APP-TYPE","android")
                     .build();
             Response response = chain.proceed(request);
-            return response;
+
+            //打印请求的具体信息
+            String url = request.url().toString();
+            String params = requestBodyToString(request.body());
+            String responseString = response.body().string();//JsonHandleUtils.jsonHandle(response)
+            String time = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
+            String log =
+                    "\n\n**************************请求时间**************************:\n" + time +
+                            "\n****************************路径****************************:\n" + url +
+                            "\n****************************参数****************************:\n" + params +
+                            "\n****************************报文****************************:\n" + responseString+"\n \n";
+            Log.d(TAG, log);
+
+            return response.newBuilder().body(ResponseBody.create(response.body().contentType(), responseString)).build();
         }
     }
 
@@ -236,13 +250,13 @@ public class RetrofitHelper {
             String responseString = response.body().string();//JsonHandleUtils.jsonHandle(response)
             String time = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
             String log =
-                    "\n\n*****请求时间*****:\n" + time +
-                    "\n*******路径*******:\n" + url +
-                    "\n*******参数*******:\n" + params +
-                    "\n*******报文*******:\n" + responseString+"\n \n";
+                    "\n\n**************************请求时间**************************:\n" + time +
+                    "\n**************************路径**************************:\n" + url +
+                    "\n**************************参数**************************:\n" + params +
+                    "\n**************************报文**************************:\n" + responseString+"\n \n";
             Log.d(TAG, log);
 
-            return chain.proceed(request);
+            return response.newBuilder().body(ResponseBody.create(response.body().contentType(), responseString)).build();
         }
     }
 

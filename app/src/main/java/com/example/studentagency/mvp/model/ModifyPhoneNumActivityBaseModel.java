@@ -43,7 +43,7 @@ public class ModifyPhoneNumActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "getVerifyCode onError: e>>>>>" + e.getMessage());
+                        Log.i(TAG, "getVerifyCode onError: e>>>>>" + e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.getVerifyCodeFail();
                     }
 
@@ -72,7 +72,7 @@ public class ModifyPhoneNumActivityBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "modifyPhoneNum onError: e>>>>>" + e.getMessage());
+                        Log.i(TAG, "modifyPhoneNum onError: e>>>>>" + e.getMessage() + "---localMessage---"+ e.getLocalizedMessage());
                         callBack.modifyPhoneNumFail();
                     }
 

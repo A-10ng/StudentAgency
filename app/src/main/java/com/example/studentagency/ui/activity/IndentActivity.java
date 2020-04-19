@@ -479,7 +479,6 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
         //接单成功
         if (responseBean.getCode() == 200) {
-            phoneNum = "18218643171";
             Conversation.createSingleConversation(phoneNum);
 
             Message message = JMessageClient.createSingleTextMessage(phoneNum,
