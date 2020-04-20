@@ -417,7 +417,7 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
         Log.i(TAG, "publishIndentSuccess: result>>>>>"+responseBean.getCode());
 
         //发布成功
-        if (responseBean.getCode() == 1) {
+        if (responseBean.getCode() == 200) {
             LemonBubble.showRight(this, "发布成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {

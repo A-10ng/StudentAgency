@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.studentagency.R;
 import com.example.studentagency.bean.CommentBean;
 import com.example.studentagency.bean.CreditBean;
@@ -126,9 +127,11 @@ public class IndentActivityRecyclerViewAdapter extends RecyclerView.Adapter<Recy
         PublishAIndentViewHolder publishAIndentViewHolder = (PublishAIndentViewHolder) holder;
 
         //发布方头像
+        RequestOptions requestOptions = RequestOptions.circleCropTransform();
         Glide.with(publishAIndentViewHolder.getView())
                 .load(bean.getAvatar())
                 .placeholder(R.drawable.placeholder_pic)
+                .apply(requestOptions)
                 .into(publishAIndentViewHolder.iv_avatar);
         publishAIndentViewHolder.iv_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,9 +194,11 @@ public class IndentActivityRecyclerViewAdapter extends RecyclerView.Adapter<Recy
         CommentBean bean = (CommentBean) mDataList.get(position);
         CommentViewHolder commentViewHolder = (CommentViewHolder) holder;
 
+        RequestOptions requestOptions = RequestOptions.circleCropTransform();
         Glide.with(commentViewHolder.getView())
                 .load(bean.getAvatar())
                 .placeholder(R.drawable.placeholder_pic)
+                .apply(requestOptions)
                 .into(commentViewHolder.iv_comment_avatar);
 
         commentViewHolder.tv_comment_username.setText(bean.getUsername());

@@ -105,7 +105,7 @@ public class HomeFragmentRecyclerviewAdapter extends RecyclerView.Adapter<Recycl
 
 
             ((IndentViewHolder) holder).tv_description.setText(bean.getDescription());
-            ((IndentViewHolder) holder).tv_price.setText(bean.getPrice() + "");
+            ((IndentViewHolder) holder).tv_price.setText("￥ "+bean.getPrice());
             ((IndentViewHolder) holder).tv_address.setText("广外南苑12栋");
 //            ((IndentViewHolder) holder).tv_address.setText(bean.getAddress());
 

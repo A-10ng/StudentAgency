@@ -96,7 +96,7 @@ public interface ApiService {
 
     //订单详情页面返回发布方信息
     @GET("api-user/user/getUserData/{userId}")
-    Observable<ResponseBean> getPublishInfoInIndentActivity(@Path("publishId") int publishId);
+    Observable<ResponseBean> getPublishInfoInIndentActivity(@Path("userId") int publishId);
 
     //个人页面返回用户数据
     @GET("api-user/user/getUserData/{userId}")
