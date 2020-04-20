@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
         //添加分类的数据
         ClassifyBean classifyBean = new ClassifyBean();
         classifyBean.setShoppingPic(R.drawable.shopping);
-        classifyBean.setShoppingTxt("代购");
+        classifyBean.setShoppingTxt("代      购");
         classifyBean.setDeliveryPic(R.drawable.deliverly);
         classifyBean.setDeliveryTxt("代拿快递");
         classifyBean.setOthersPic(R.drawable.others);
