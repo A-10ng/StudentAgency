@@ -154,13 +154,14 @@
                     android:layout_marginRight="15dp"
                     android:src="@drawable/address"/>
 
-                <EditText
-                    android:id="@+id/et_address"
+                <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_no_line"
                     android:gravity="top"
+                    android:textSize="18sp"
                     android:hint="请输入收货地点"
                     android:maxLines="2"
                     android:minLines="2"/>

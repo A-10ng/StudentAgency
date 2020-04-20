@@ -56,9 +56,9 @@ public class RetrofitHelper {
     public static String BASE_URL = "http://299s738j54.wicp.vip/";
 
     private static final String TAG = "RetrofitHelper";
-    private long CONNECT_TIMEOUT = 2L;
-    private long READ_TIMEOUT = 2L;
-    private long WRITE_TIMEOUT = 2L;
+    private long CONNECT_TIMEOUT = 3L;
+    private long READ_TIMEOUT = 3L;
+    private long WRITE_TIMEOUT = 3L;
     private static volatile RetrofitHelper mInstance = null;
     private Retrofit mRetrofit = null;
 

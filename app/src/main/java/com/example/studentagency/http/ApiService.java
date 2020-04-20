@@ -73,12 +73,12 @@ public interface ApiService {
     //上传头像
     @Multipart
     @POST("api-user/user/uploadAvatar")
-    Observable<ResponseBean> uploadAvatar(@Part MultipartBody.Part avatar, @Query("userId") int userId);
+    Observable<ResponseBean> uploadAvatar(@Part MultipartBody.Part avatar, @Part("userId") int userId);
 
     //上传认证照片
     @Multipart
     @POST("api-user/user/uploadVerifyPic")
-    Observable<ResponseBean> uploadVerifyPic(@Part MultipartBody.Part verifyPic, @Query("userId") int userId);
+    Observable<ResponseBean> uploadVerifyPic(@Part MultipartBody.Part verifyPic, @Part("userId") int userId);
 
     //修改密码
     @FormUrlEncoded
@@ -171,7 +171,7 @@ public interface ApiService {
                                            @Field("type") int type,
                                            @Field("price") float price,
                                            @Field("description") String description,
-                                           @Field("address") String address,
+                                           @Field("addressId") int address,
                                            @Field("publishTime") String publishTime,
                                            @Field("planTime") String planTime);
 

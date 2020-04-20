@@ -107,6 +107,7 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
                 if (type == 101) {
                     Intent intent = new Intent();
                     intent.putExtra("pickedAddress", addressBean.getAddress());
+                    intent.putExtra("pickedAddressId", addressBean.getAddressId());
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {

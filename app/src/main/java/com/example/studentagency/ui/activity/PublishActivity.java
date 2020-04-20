@@ -59,8 +59,9 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
     private String str_description;
 
     //收货地点
-    private EditText et_address;
+    private TextView tv_address;
     private String str_address;
+    private int int_addressId;
     private ImageView iv_pickAddress;
 
     //支付费用
@@ -104,7 +105,14 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
         et_description = findViewById(R.id.et_description);
 
         //收货地点
-        et_address = findViewById(R.id.et_address);
+        tv_address = findViewById(R.id.tv_address);
+        tv_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PublishActivity.this,AddressActivity.class);
+                startActivityForResult(intent,REQUEST_PICK_ADDRESS);
+            }
+        });
         iv_pickAddress = findViewById(R.id.iv_pickAddress);
         iv_pickAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +149,12 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
         if (requestCode == REQUEST_PICK_ADDRESS){
             if (resultCode == RESULT_OK){
                 String pickedAddress = data.getStringExtra("pickedAddress");
+                int pickedAddressId = data.getIntExtra("pickedAddressId",0);
                 Log.i(TAG, "onActivityResult: pickedAddress>>>>>"+pickedAddress);
 
-                et_address.setText(pickedAddress);
+                tv_address.setText(pickedAddress);
                 str_address = pickedAddress;
+                int_addressId = pickedAddressId;
             }
         }
     }
@@ -183,9 +193,10 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
                                         "publishTime>>>>>" + publishTime + "\n" +
                                         "description>>>>>" + str_description + "\n" +
                                         "address>>>>>" + str_address + "\n" +
+                                        "addressId>>>>>" + int_addressId + "\n" +
                                         "price>>>>>" + price + "\n" +
                                         "planTime>>>>>" + finalTime + "\n");
-                                presenter.publishIndent(userId,agencyType,price,str_description,str_address,
+                                presenter.publishIndent(userId,agencyType,price,str_description,int_addressId,
                                         publishTime,finalTime);
 
                             }
@@ -448,7 +459,7 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
                     case LISTEN_EDIT:
                         //获取输入框的内容
                         str_description = et_description.getText().toString().trim();
-                        str_address = et_address.getText().toString().trim();
+                        str_address = tv_address.getText().toString().trim();
                         str_price = et_price.getText().toString();
 
                         //如果全部都符合条件了，发布按钮就处于可按状态，否则就不可按

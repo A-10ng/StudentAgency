@@ -60,7 +60,7 @@ public class PersonFragmentBaseModel implements IModel {
 
     public void uploadAvatar(int userId, File avatarFile, PersonFragmentUploadAvatarCallBack callBack){
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),avatarFile);
-        MultipartBody.Part avatar = MultipartBody.Part.createFormData("UserAvatar",avatarFile.getName(),requestBody);
+        MultipartBody.Part avatar = MultipartBody.Part.createFormData("avatar",avatarFile.getName(),requestBody);
         apiService.uploadAvatar(avatar,userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

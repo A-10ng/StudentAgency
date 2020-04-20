@@ -23,7 +23,7 @@ public class PublishActivityBaseModel implements IModel {
     private ApiService apiService = RetrofitHelper.getInstance().getServer();
 
     public void publishIndent(int publishId, int type, float price,
-                              String description, String address,
+                              String description, int address,
                               String publishTime, String planTime,
                               PublishActivityPublishIndentCallBack callBack) {
         apiService.publishIndent(publishId,type,price,description,address,publishTime,planTime)

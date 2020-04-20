@@ -21,7 +21,7 @@ public class PublishActivityBasePresenter extends IPresenter {
     }
 
     public void publishIndent(int publishId, int type, float price,
-                              String description, String address,
+                              String description, int address,
                               String publishTime, String planTime){
         if (null != mIModel && null != mViewRef && null != mViewRef.get()){
             ((PublishActivityBaseModel)mIModel).publishIndent(
