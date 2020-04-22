@@ -5,12 +5,15 @@ import com.example.studentagency.bean.UserBean;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -83,12 +86,15 @@ public interface ApiService {
     //修改密码
     @FormUrlEncoded
     @PUT("api-user/user/")
-    Observable<ResponseBean> changePwd(@Field("userId") int userId, @Field("newPwd") String newPwd);
+    Observable<ResponseBean> changePwd(@Field("userId") int userId, @Field("password") String newPwd);
 
     //修改个人信息
     @FormUrlEncoded
     @PUT("api-user/user/")
-    Observable<ResponseBean> changePersonalInfo(@Field("userBean") UserBean userBean);
+    Observable<ResponseBean> changePersonalInfo(@Field("userId") int userId,
+                                                @Field("username") String username,
+                                                @Field("gender") int gender,
+                                                @Field("school") String school);
 
     //学生认证页面返回已上传图片
     @GET("api-user/user/getVerifyPic/{userId}")
@@ -117,7 +123,7 @@ public interface ApiService {
     //充值金额
     @FormUrlEncoded
     @PUT("api-user/user/")
-    Observable<ResponseBean> recharge(@Query("userId") int userId, @Field("recharge") float recharge);
+    Observable<ResponseBean> recharge(@Field("userId") int userId, @Field("balance") float recharge);
 
     //地址管理页面返回地址数据
     @GET("api-user/address/getAddress/{userId}")
@@ -216,51 +222,51 @@ public interface ApiService {
 
     //接单
     @FormUrlEncoded
-    @POST("api-indent/accept/")
+    @POST("api-accept/accept/")
     Observable<ResponseBean> acceptIndent(@Field("acceptId") int acceptId,
                                           @Field("indentId") int indentId,
                                           @Field("acceptedTime") String acceptedTime);
 
     //接收方取消已接订单
     @FormUrlEncoded
-    @PUT("api-indent/accept/cancelAccept")
+    @PUT("api-accept/accept/cancelAccept")
     Observable<ResponseBean> cancelIndentHadTakenInAcpFragment(@Field("indentId") int indentId);
 
     //接收方删除未评价订单
     @FormUrlEncoded
-    @PUT("api-indent/accept/deleteAccept")
+    @PUT("api-accept/accept/deleteAccept")
     Observable<ResponseBean> deleteIndentNotCommentInAcpFragment(@Field("indentId") int indentId);
 
     //接收方删除已评价订单
     @FormUrlEncoded
-    @PUT("api-indent/accept/deleteAccept")
+    @PUT("api-accept/accept/deleteAccept")
     Observable<ResponseBean> deleteIndentHadCommentInAcpFragment(@Field("indentId") int indentId);
 
     //接收方确认送达
     @FormUrlEncoded
-    @PUT("api-indent/accept/finishedAccept")
+    @PUT("api-accept/accept/finishedAccept")
     Observable<ResponseBean> ensureAcceptGoodsInAcpFragment(@Field("deliveryTime") String deliveryTime,
                                                             @Field("indentId") int indentId);
 
     //订单详情页面返回评价数据
-    @GET("api-indent/credit/getRatingStarsByIndent")
+    @GET("api-accept/credit/getRatingStarsByIndent")
     Observable<ResponseBean> getRatingStarsInfo(@Query("userId") int userId, @Query("indentId") int indentId);
 
     //信誉积分页面返回信誉积分所有记录
-    @GET("api-indent/credit/getCreditAllRecord/{userId}")
+    @GET("api-accept/credit/getCreditAllRecord/{userId}")
     Observable<ResponseBean> getCreditAllRecord(@Path("userId") int userId);
 
     //信誉积分页面返回信誉积分收入记录
-    @GET("api-indent/credit/ getCreditInputRecord/{userId}")
+    @GET("api-accept/credit/getCreditInputRecord/{userId}")
     Observable<ResponseBean> getCreditInputRecord(@Path("userId") int userId);
 
     //信誉积分页面返回信誉积分支出记录
-    @GET("api-indent/credit/getCreditOutputRecord/{userId}")
+    @GET("api-accept/credit/getCreditOutputRecord/{userId}")
     Observable<ResponseBean> getCreditOutputRecord(@Path("userId") int userId);
 
     //发布方发布评价
     @FormUrlEncoded
-    @POST("api-indent/credit/star/")
+    @POST("api-accept/credit/star/")
     Observable<ResponseBean> giveRating(@Field("indentId") int indentId,
                                         @Field("userId") int userId,
                                         @Field("increasement") int increasement,

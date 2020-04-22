@@ -306,22 +306,29 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
 
     @Override
     public void getPublishIndentsSuccess(ResponseBean responseBean) {
-        Gson gson = new Gson();
-        List<IndentBean> indentBeanList = gson.fromJson(
-                gson.toJson(responseBean.getData()),
-                new TypeToken<List<IndentBean>>() {}.getType());
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            List<IndentBean> indentBeanList = gson.fromJson(
+                    gson.toJson(responseBean.getData()),
+                    new TypeToken<List<IndentBean>>() {}.getType());
 
-        int dataSize = indentBeanList.size();
-        Log.i(TAG, "getPublishIndentsSuccess: indentBeanList.size>>>>>" + dataSize);
+            int dataSize = indentBeanList.size();
+            Log.i(TAG, "getPublishIndentsSuccess: indentBeanList.size>>>>>" + dataSize);
 
-        if (dataSize == 0) {
+            if (dataSize == 0) {
+                List<Object> dataList = new ArrayList<>();
+                dataList.add("暂无数据");
+                adapter.update(dataList);
+            } else {
+                AllIndentDataList.addAll(indentBeanList);
+                adapter.update(getRuledNumIndent());
+            }
+        }else {
             List<Object> dataList = new ArrayList<>();
-            dataList.add("暂无数据");
+            dataList.add("获取失败");
             adapter.update(dataList);
-        } else {
-            AllIndentDataList.addAll(indentBeanList);
-            adapter.update(getRuledNumIndent());
         }
+
         smartRefreshLayout.finishRefresh();
     }
 
@@ -352,9 +359,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     public void cancelIndentNotTakenSuccess(ResponseBean responseBean) {
         Log.i(TAG, "cancelIndentNotTakenSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "取消失败，请重试！", 1500);
-        } else {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "取消成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {
@@ -363,6 +368,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     adapter.removeIndent(clickedPosition);
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "取消失败，请重试！", 1500);
         }
     }
 
@@ -396,10 +403,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     public void cancelIndentHadTakenSuccess(ResponseBean responseBean) {
         Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "取消失败，请重试！", 1500);
-        } else {
-//            sendMessageToPublish(phoneNum,"临时有事该订单已取消，请见谅！");
+        if (200 == responseBean.getCode()) {
+            //            sendMessageToPublish(phoneNum,"临时有事该订单已取消，请见谅！");
             sendMessageToPublish("18218643171","临时有事该订单已取消，请见谅！");
 
             LemonBubble.showRight(this, "取消成功！", 1500);
@@ -410,6 +415,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     adapter.removeIndent(clickedPosition);
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "取消失败，请重试！", 1500);
         }
     }
 
@@ -424,9 +431,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     public void deleteIndentNotCommentSuccess(ResponseBean responseBean) {
         Log.i(TAG, "deleteIndentNotCommentSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "删除失败，请重试！", 1500);
-        } else {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "删除成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {
@@ -435,6 +440,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     adapter.removeIndent(clickedPosition);
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "删除失败，请重试！", 1500);
         }
     }
 
@@ -449,9 +456,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     public void deleteIndentHadCommentSuccess(ResponseBean responseBean) {
         Log.i(TAG, "deleteIndentHadCommentSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "删除失败，请重试！", 1500);
-        } else {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "删除成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {
@@ -460,6 +465,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     adapter.removeIndent(clickedPosition);
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "删除失败，请重试！", 1500);
         }
     }
 
@@ -474,10 +481,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     public void ensureAcceptGoodsSuccess(ResponseBean responseBean) {
         Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "确认失败，请重试！", 1500);
-        } else {
-//            sendMessageToPublish(phoneNum,"东西我已收到，辛苦了！");
+        if (200 == responseBean.getCode()) {
+            //            sendMessageToPublish(phoneNum,"东西我已收到，辛苦了！");
             sendMessageToPublish("18218643171","东西我已收到，辛苦了！");
 
             LemonBubble.showRight(this, "确认成功！", 1500);
@@ -488,6 +493,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     adapter.ensureAcceptGoods(clickedPosition);
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "确认失败，请重试！", 1500);
         }
     }
 
@@ -502,10 +509,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     public void giveRatingSuccess(ResponseBean responseBean) {
         Log.i(TAG, "giveRatingSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "评价失败，请重试！", 1500);
-        } else {
-//            sendMessageToPublish(phoneNum,"我已评价你的服务，请前往查看！");
+        if (200 == responseBean.getCode()) {
+            //            sendMessageToPublish(phoneNum,"我已评价你的服务，请前往查看！");
             sendMessageToPublish("18218643171","我已评价你的服务，请前往查看！");
 
             LemonBubble.showRight(this, "评价成功！", 1500);
@@ -516,6 +521,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     adapter.comment(clickedPosition);
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "评价失败，请重试！", 1500);
         }
     }
 

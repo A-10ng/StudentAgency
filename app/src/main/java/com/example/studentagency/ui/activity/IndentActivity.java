@@ -338,23 +338,29 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
     @Override
     public void getPublishInfoSuccess(ResponseBean responseBean) {
-        Gson gson = new Gson();
-        UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
 
-        Log.i(TAG, "getPublishInfoSuccess: userBean" + userBean.toString());
+            Log.i(TAG, "getPublishInfoSuccess: userBean" + userBean.toString());
 
-        phoneNum = userBean.getPhoneNum();
+            phoneNum = userBean.getPhoneNum();
 
-        setButtonClickable();
+            setButtonClickable();
 
-        defaultPAIBean.setAvatar(userBean.getAvatar());
-        defaultPAIBean.setCreditScore(userBean.getCreditScore());
-        defaultPAIBean.setUserId(userBean.getUserId());
-        defaultPAIBean.setGender(userBean.getGender());
-        defaultPAIBean.setVerifyState(userBean.getVerifyState());
-        defaultPAIBean.setUsername(userBean.getUsername());
+            defaultPAIBean.setPhoneNum(userBean.getPhoneNum());
+            defaultPAIBean.setAvatar(userBean.getAvatar());
+            defaultPAIBean.setCreditScore(userBean.getCreditScore());
+            defaultPAIBean.setUserId(userBean.getUserId());
+            defaultPAIBean.setGender(userBean.getGender());
+            defaultPAIBean.setVerifyState(userBean.getVerifyState());
+            defaultPAIBean.setUsername(userBean.getUsername());
 
-        mAdapter.setPublishOrIndentData(defaultPAIBean);
+            mAdapter.setPublishOrIndentData(defaultPAIBean);
+        }else {
+            phoneNum = "";
+            setButtonUnClickable();
+        }
     }
 
     private void setButtonClickable() {
@@ -430,19 +436,31 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
 
     @Override
     public void getIndentInfoSuccess(ResponseBean responseBean) {
-        Gson gson = new Gson();
-        IndentBean indentBean = gson.fromJson(gson.toJson(responseBean.getData()),IndentBean.class);
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            IndentBean indentBean = gson.fromJson(gson.toJson(responseBean.getData()),IndentBean.class);
 
-        Log.i(TAG, "getIndentInfoSuccess: indentBean>>>>>" + indentBean.toString());
-        setButtonClickable();
+            Log.i(TAG, "getIndentInfoSuccess: indentBean>>>>>" + indentBean.toString());
+            setButtonClickable();
 
-        defaultPAIBean.setIndentId(indentBean.getIndentId());
-        defaultPAIBean.setAddress(indentBean.getAddress());
-        defaultPAIBean.setDescription(indentBean.getDescription());
-        defaultPAIBean.setPlanTime(indentBean.getPlanTime());
-        defaultPAIBean.setPrice(indentBean.getPrice());
-        defaultPAIBean.setType(indentBean.getType());
-        defaultPAIBean.setPublishTime(indentBean.getPublishTime());
+            defaultPAIBean.setIndentId(indentBean.getIndentId());
+            defaultPAIBean.setAddress(indentBean.getAddress());
+            defaultPAIBean.setDescription(indentBean.getDescription());
+            defaultPAIBean.setPlanTime(indentBean.getPlanTime());
+            defaultPAIBean.setPrice(indentBean.getPrice());
+            defaultPAIBean.setType(indentBean.getType());
+            defaultPAIBean.setPublishTime(indentBean.getPublishTime());
+        }else {
+            setButtonUnClickable();
+
+            defaultPAIBean.setIndentId(0);
+            defaultPAIBean.setAddress("");
+            defaultPAIBean.setDescription("加载失败");
+            defaultPAIBean.setPlanTime("");
+            defaultPAIBean.setPrice("");
+            defaultPAIBean.setType(0);
+            defaultPAIBean.setPublishTime("");
+        }
 
         mAdapter.setPublishOrIndentData(defaultPAIBean);
     }
@@ -450,27 +468,38 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
     @Override
     public void getCommentInfoSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getCommentInfoSuccess");
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            List<CommentBean> commentBeans = gson.fromJson(
+                    gson.toJson(responseBean.getData()),
+                    new TypeToken<List<CommentBean>>() {}.getType());
 
-        Gson gson = new Gson();
-        List<CommentBean> commentBeans = gson.fromJson(
-                gson.toJson(responseBean.getData()),
-                new TypeToken<List<CommentBean>>() {}.getType());
+            setButtonClickable();
 
-        setButtonClickable();
+            if (state == 203 || state == 206) mAdapter.setCommentData(commentBeans, true);
+            else mAdapter.setCommentData(commentBeans, false);
+        }else {
+            setButtonUnClickable();
 
-        if (state == 203 || state == 206) mAdapter.setCommentData(commentBeans, true);
-        else mAdapter.setCommentData(commentBeans, false);
+            if (state == 203 || state == 206)
+                mAdapter.setCommentData(new ArrayList<CommentBean>(), true);
+            else
+                mAdapter.setCommentData(new ArrayList<CommentBean>(), false);
+        }
     }
 
     @Override
     public void getRatingStarsInfoSuccess(ResponseBean responseBean) {
 
-        Gson gson = new Gson();
-        CreditBean creditBean = gson.fromJson(gson.toJson(responseBean.getData()),CreditBean.class);
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            CreditBean creditBean = gson.fromJson(gson.toJson(responseBean.getData()),CreditBean.class);
 
-        Log.i(TAG, "getRatingStarsInfoSuccess: creditBean>>>>>" + creditBean.toString());
-
-        mAdapter.setRatingStarsData(creditBean);
+            Log.i(TAG, "getRatingStarsInfoSuccess: creditBean>>>>>" + creditBean.toString());
+            mAdapter.setRatingStarsData(creditBean);
+        }else {
+            mAdapter.setRatingStarsData(new CreditBean());
+        }
     }
 
     @Override
@@ -524,10 +553,10 @@ public class IndentActivity extends BaseActivity implements IndentActivityBaseVi
                 @Override
                 public void run() {
                     CommentBean commentBean = new CommentBean();
-                    commentBean.setAvatar("blank");
+                    commentBean.setAvatar(MyApp.userAvatar);
                     commentBean.setCommentTime(commentTime);
                     commentBean.setContent(content);
-                    commentBean.setUsername("LongSh1z");
+                    commentBean.setUsername(MyApp.userNameInMyApp);
                     mAdapter.addComment(commentBean);
                 }
             }, 2000);

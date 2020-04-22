@@ -52,7 +52,8 @@ public class StudentVerifyActivity extends BaseActivity implements StudentVerify
         initSmartRefreshLayout();
 
         //获取personFragment传过来的INT_STUDENT_VERVIFY
-        getVerifyState();
+//        getVerifyState();
+        presenter.getVerifyState(MyApp.userId);
     }
 
     private void initAllViews() {
@@ -94,10 +95,13 @@ public class StudentVerifyActivity extends BaseActivity implements StudentVerify
 
     @Override
     public void getVerifyStateSuccess(ResponseBean responseBean) {
-        Log.i(TAG, "getVerifyStateSuccess: result>>>>>" + responseBean.getCode());
+        Log.i(TAG, "getVerifyStateSuccess: code>>>>>" + responseBean.getCode()+"-----data-----"+responseBean.getData());
 
-        INT_STUDENT_VERVIFY = responseBean.getCode();
-
+        if (responseBean.getCode() == 200){
+            INT_STUDENT_VERVIFY = (int) Math.round(Double.parseDouble(responseBean.getData().toString()));
+        }else {
+            INT_STUDENT_VERVIFY = 0;
+        }
         setMatchingFragment(INT_STUDENT_VERVIFY);
 
         smartRefreshLayout.finishRefresh();

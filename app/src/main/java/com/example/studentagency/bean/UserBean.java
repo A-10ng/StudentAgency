@@ -12,7 +12,7 @@ public class UserBean {
     private int userId;
     private String username;
     private String password;
-    private int studentId;
+    private String studentId;
     private String phoneNum;
     private String avatar;
     private int gender;
@@ -21,15 +21,15 @@ public class UserBean {
     private String school;
     private Float balance;
     private int creditScore;
-    private String address;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+//    private String address;
+//
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
 
     public int getUserId() {
         return userId;
@@ -55,11 +55,11 @@ public class UserBean {
         this.password = password;
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

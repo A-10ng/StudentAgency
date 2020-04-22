@@ -138,6 +138,7 @@ public class IndentActivityRecyclerViewAdapter extends RecyclerView.Adapter<Recy
             public void onClick(View v) {
                 Intent intent = new Intent(context, OtherPersonActivity.class);
                 intent.putExtra("currentUserId",bean.getUserId());
+                intent.putExtra("phoneNum",bean.getPhoneNum());
                 context.startActivity(intent);
             }
         });

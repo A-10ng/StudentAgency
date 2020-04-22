@@ -146,7 +146,7 @@ public class ModifyPhoneNumActivity extends BaseActivity implements View.OnClick
     public void modifyPhoneNumSuccess(ResponseBean responseBean) {
         Log.i(TAG, "modifyPhoneNumSuccess: result>>>>>" + responseBean.getCode());
 
-        if (responseBean.getCode() == 2) {
+        if (responseBean.getCode() == 200) {
             LemonBubble.showRight(this, "保存成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {
@@ -158,9 +158,7 @@ public class ModifyPhoneNumActivity extends BaseActivity implements View.OnClick
                     finish();
                 }
             }, 1100);
-        } else if (responseBean.getCode() == 1) {
-            LemonBubble.showError(this, "请使用新手机号！", 1200);
-        } else {
+        }  else {
             LemonBubble.showError(this, "保存失败，请重试！", 1200);
         }
     }
@@ -176,7 +174,7 @@ public class ModifyPhoneNumActivity extends BaseActivity implements View.OnClick
     public void getVerifyCodeSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getVerifyCodeSuccess: result>>>>>" + responseBean.getCode());
 
-        if (responseBean.getCode() == 1) {
+        if (responseBean.getCode() == 200) {
             LemonBubble.showRight(this, "发送成功！", 1000);
 
             timeOut.start();

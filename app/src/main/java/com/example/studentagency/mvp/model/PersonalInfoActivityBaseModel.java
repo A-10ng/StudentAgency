@@ -8,11 +8,19 @@ import com.example.studentagency.http.ApiService;
 import com.example.studentagency.http.RetrofitHelper;
 import com.example.studentagency.mvp.model.Callback.PersonalInfoActivityChangePersonalInfoCallBack;
 import com.example.studentagency.mvp.model.Callback.PersonalInfoActivityGetPersonalInfoCallBack;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
+import org.json.JSONObject;
+
+import cn.jmessage.support.qiniu.android.utils.Json;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * author：LongSh1z
@@ -54,7 +62,14 @@ public class PersonalInfoActivityBaseModel implements IModel {
     }
 
     public void changePersonalInfo(UserBean userBean, PersonalInfoActivityChangePersonalInfoCallBack callBack){
-        apiService.changePersonalInfo(userBean)
+//        String jsonStr = new Gson().toJson(userBean);
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),jsonStr);
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),jsonStr);
+        apiService.changePersonalInfo(
+                userBean.getUserId(),
+                userBean.getUsername(),
+                userBean.getGender(),
+                userBean.getSchool())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

@@ -281,7 +281,7 @@ public class UnverifyFragment extends Fragment implements UnverifyFragmentBaseVi
                         public void run() {
                             File VerifyPicFile = null;
                             try {
-                                VerifyPicFile = FileUtils.bitmapToFile(currentBitmap, DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss"));
+                                VerifyPicFile = FileUtils.bitmapToFile(currentBitmap, DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss")+ ".jpg");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

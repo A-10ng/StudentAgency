@@ -19,6 +19,8 @@ public class MyApp extends Application {
     public static final String PLACEHOLDER_PIC = "http://www.longsh1z.top/resources/placeholder_pic.png";
     public static int userId = 20160001;
     public static String userPhoneNum;
+    public static String userAvatar;
+    public static String userNameInMyApp;
 
     @Override
     public void onCreate() {

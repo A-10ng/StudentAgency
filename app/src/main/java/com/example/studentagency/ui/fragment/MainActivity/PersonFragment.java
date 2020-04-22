@@ -581,30 +581,39 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
     @Override
     public void getPersonFragmentInfoSuccess(ResponseBean responseBean) {
 
-        Gson gson = new Gson();
-        UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
 
-        Log.i(TAG, "getPersonInfoSuccess: userBean>>>>>" + userBean.toString());
+            Log.i(TAG, "getPersonInfoSuccess: userBean>>>>>" + userBean.toString());
 
-        preferencesUtils.putInt("userId",userBean.getUserId());
+            preferencesUtils.putInt("userId",userBean.getUserId());
 
-        if (userBean.getAvatar() == null){
-            initAvatarAndBG(R.drawable.avatar_male);
+            if (userBean.getAvatar() == null){
+                initAvatarAndBG(R.drawable.avatar_male);
+            }else {
+                initAvatarAndBG(userBean.getAvatar());
+            }
+
+            if (userBean.getVerifyState() == 3) {
+                INT_STUDENT_VERVIFY = 3;
+                iv_verifyState.setImageResource(R.drawable.verified);
+            } else {
+                INT_STUDENT_VERVIFY = userBean.getVerifyState();
+                iv_verifyState.setImageResource(R.drawable.unverified);
+            }
+
+            tv_username.setText(userBean.getUsername());
+            tv_balance.setText("余额：" + userBean.getBalance());
+            tv_creditScore.setText("信誉积分：" + userBean.getCreditScore());
+
+            MyApp.userAvatar = userBean.getAvatar();
+            MyApp.userNameInMyApp = userBean.getUsername();
         }else {
-            initAvatarAndBG(userBean.getAvatar());
+            tv_username.setText("");
+            tv_balance.setText("余额：");
+            tv_creditScore.setText("信誉积分：");
         }
-
-        if (userBean.getVerifyState() == 3) {
-            INT_STUDENT_VERVIFY = 3;
-            iv_verifyState.setImageResource(R.drawable.verified);
-        } else {
-            INT_STUDENT_VERVIFY = userBean.getVerifyState();
-            iv_verifyState.setImageResource(R.drawable.unverified);
-        }
-
-        tv_username.setText(userBean.getUsername());
-        tv_balance.setText("余额：" + userBean.getBalance());
-        tv_creditScore.setText("信誉积分：" + userBean.getCreditScore());
 
         smartRefreshLayout.finishRefresh();
     }

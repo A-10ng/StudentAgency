@@ -117,8 +117,10 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
                     public void run() {
                         Log.i(TAG, "run: changedSchool>>>>>" + changedSchool + "\n" +
                                 "changedUsername>>>>>" + changedUsername + "\n" +
+                                "userId>>>>>" + originalUserbean.getUserId() + "\n" +
                                 "changedGender>>>>>" + changedGender);
 
+//                        originalUserbean.setUserId(Integer.parseInt(tv_userId.getText().toString()));
                         originalUserbean.setSchool(changedSchool);
                         originalUserbean.setUsername(changedUsername);
                         originalUserbean.setGender(changedGender);
@@ -163,12 +165,17 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
 
     @Override
     public void getPersonalInfoSuccess(ResponseBean responseBean) {
-        Gson gson = new Gson();
-        UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            UserBean userBean = gson.fromJson(gson.toJson(responseBean.getData()),UserBean.class);
 
-        Log.i(TAG, "getPersonalInfoSuccess: userBean>>>>>" + userBean.toString());
+            Log.i(TAG, "getPersonalInfoSuccess: userBean>>>>>" + userBean.toString());
 
-        setPageInfo(userBean);
+            setPageInfo(userBean);
+        }else {
+            setPageInfo(null);
+        }
+
     }
 
     private void setPageInfo(UserBean userBean) {
@@ -229,7 +236,7 @@ public class PersonalInfoActivity extends BaseActivity implements PersonalInfoAc
     public void changeUserInfoSuccess(ResponseBean responseBean) {
         Log.i(TAG, "changeUserInfoSuccess: result>>>>>" + responseBean.getCode());
 
-        if (1 == responseBean.getCode()) {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "保存成功！", 1000);
 
             new Handler().postDelayed(new Runnable() {

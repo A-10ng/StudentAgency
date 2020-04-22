@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -20,6 +22,7 @@ import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.OtherPersonActivityBasePresenter;
 import com.example.studentagency.mvp.view.OtherPersonActivityBaseView;
 import com.example.studentagency.utils.BlurUtils;
+import com.example.studentagency.utils.VariableName;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -30,12 +33,17 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.api.BasicCallback;
 
 public class OtherPersonActivity extends BaseActivity implements OtherPersonActivityBaseView {
 
     private static final String TAG = "OtherPersonActivity";
     private OtherPersonActivityBasePresenter presenter = new OtherPersonActivityBasePresenter(this);
     private String phoneNum;
+    private String username = "";
 
     //下拉刷新
     private SmartRefreshLayout smartRefreshLayout;
@@ -117,8 +125,19 @@ public class OtherPersonActivity extends BaseActivity implements OtherPersonActi
         layout_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转至聊天界面
+                if (!TextUtils.isEmpty(phoneNum) && !TextUtils.isEmpty(username)){
+                    //跳转至聊天界面
+                    Conversation.createSingleConversation(phoneNum);
 
+                    Intent intent = new Intent(OtherPersonActivity.this, ChatActivity.class);
+                    intent.putExtra("nickname", username);
+                    intent.putExtra("username", phoneNum);
+                    startActivity(intent);
+                }else {
+                    Toast toast = Toast.makeText(OtherPersonActivity.this, "", Toast.LENGTH_SHORT);
+                    toast.setText("网络异常，请重试！");
+                    toast.show();
+                }
             }
         });
     }
@@ -142,10 +161,16 @@ public class OtherPersonActivity extends BaseActivity implements OtherPersonActi
     public void getCurrentUserInfoSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getCurrentUserInfoSuccess: ");
 
-        Gson gson = new Gson();
-        OtherPersonBean otherPersonBean = gson.fromJson(gson.toJson(responseBean.getData()),OtherPersonBean.class);
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            OtherPersonBean otherPersonBean = gson.fromJson(gson.toJson(responseBean.getData()),OtherPersonBean.class);
 
-        setCurrentUserInfo(otherPersonBean);
+            username = otherPersonBean.getUsername();
+
+            setCurrentUserInfo(otherPersonBean);
+        }else {
+            setCurrentUserInfo(null);
+        }
 
         smartRefreshLayout.finishRefresh();
     }

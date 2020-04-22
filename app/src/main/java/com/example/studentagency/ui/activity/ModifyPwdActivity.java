@@ -17,6 +17,7 @@ import com.example.studentagency.R;
 import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.ModifyPwdActivityBasePresenter;
 import com.example.studentagency.mvp.view.ModifyPwdActivityBaseView;
+import com.example.studentagency.utils.Utils;
 
 import java.lang.ref.WeakReference;
 
@@ -67,8 +68,8 @@ public class ModifyPwdActivity extends BaseActivity implements ModifyPwdActivity
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i(TAG, "run: newPwd>>>>>"+newPwd);
-                        presenter.changePwd(MyApp.userId,newPwd);
+                        Log.i(TAG, "run: newPwd>>>>>"+ Utils.md5(newPwd));
+                        presenter.changePwd(MyApp.userId,Utils.md5(newPwd));
                     }
                 }, 1500);
             }

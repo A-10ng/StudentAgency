@@ -31,7 +31,7 @@ public class UnverifyFragmentBaseModel implements IModel {
 
     public void uploadVerifyPic(File verifyPicFile, UnverifyFragmentUploadVerifyPicCallBack callBack) {
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),verifyPicFile);
-        MultipartBody.Part verifyPic = MultipartBody.Part.createFormData("VerifyPic",verifyPicFile.getName(),requestBody);
+        MultipartBody.Part verifyPic = MultipartBody.Part.createFormData("verifyPic",verifyPicFile.getName(),requestBody);
         apiService.uploadVerifyPic(verifyPic, MyApp.userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -49,7 +49,7 @@ public class UnverifyFragmentBaseModel implements IModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: ");
+                        Log.i(TAG, "onError: e-----"+e.getMessage());
                         callBack.uploadVerifyPicFail();
                     }
 

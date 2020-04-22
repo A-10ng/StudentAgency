@@ -190,13 +190,17 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
     public void getAddressSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getAddressSuccess: ");
 
-        Gson gson = new Gson();
-        List<AddressBean> addressBeans = gson.fromJson(
-                gson.toJson(responseBean.getData()),
-                new TypeToken<List<AddressBean>>() {}.getType());
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            List<AddressBean> addressBeans = gson.fromJson(
+                    gson.toJson(responseBean.getData()),
+                    new TypeToken<List<AddressBean>>() {}.getType());
 
-        if (!addressBeans.isEmpty()) {
-            adapter.updateAddress(addressBeans);
+            if (!addressBeans.isEmpty()) {
+                adapter.updateAddress(addressBeans);
+            }
+        }else {
+            adapter.updateFail();
         }
     }
 
@@ -209,23 +213,27 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
 
     @Override
     public void addAddressSuccess(ResponseBean responseBean) {
-        Gson gson = new Gson();
-        AddressBean addressBean = gson.fromJson(gson.toJson(responseBean.getData()),AddressBean.class);
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            AddressBean addressBean = gson.fromJson(gson.toJson(responseBean.getData()),AddressBean.class);
 
-        Log.i(TAG, "addAddressSuccess: addressBean>>>>>" + addressBean.toString());
+            Log.i(TAG, "addAddressSuccess: addressBean>>>>>" + addressBean.toString());
 
-        LemonBubble.showRight(this, "新建成功！", 1500);
+            LemonBubble.showRight(this, "新建成功！", 1500);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (addressBean.getTag().equals("默认")) {
-                    adapter.addAddress(addressBean, true);
-                } else {
-                    adapter.addAddress(addressBean, false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (addressBean.getTag().equals("默认")) {
+                        adapter.addAddress(addressBean, true);
+                    } else {
+                        adapter.addAddress(addressBean, false);
+                    }
                 }
-            }
-        }, 1600);
+            }, 1600);
+        }else {
+            LemonBubble.showError(this, "网络异常，请重试！", 1500);
+        }
     }
 
     @Override
@@ -239,9 +247,7 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
     public void editAddressSuccess(ResponseBean responseBean) {
         Log.i(TAG, "editAddressSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "保存失败，请重试！", 1500);
-        } else {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "保存成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {
@@ -255,6 +261,8 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
                     }
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "保存失败，请重试！", 1500);
         }
     }
 
@@ -267,9 +275,7 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
         public void deleteAddressSuccess(ResponseBean responseBean) {
         Log.i(TAG, "deleteAddressSuccess: result>>>>>" + responseBean.getCode());
 
-        if (0 == responseBean.getCode()) {
-            LemonBubble.showError(this, "删除失败，请重试！", 1500);
-        } else {
+        if (200 == responseBean.getCode()) {
             LemonBubble.showRight(this, "删除成功！", 1500);
 
             new Handler().postDelayed(new Runnable() {
@@ -278,6 +284,8 @@ public class AddressActivity extends BaseActivity implements AddressActivityBase
                     adapter.deleteAddress(clickedPosition);
                 }
             }, 1600);
+        } else {
+            LemonBubble.showError(this, "删除失败，请重试！", 1500);
         }
     }
 

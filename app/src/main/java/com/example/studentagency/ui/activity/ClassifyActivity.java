@@ -99,10 +99,11 @@ public class ClassifyActivity extends BaseActivity implements ClassifyActivityBa
         mAdapter = new ClassifyActivityRecyclerviewAdapter(new ArrayList<Object>());
         mAdapter.setIndentItemClickListener(new ClassifyActivityRecyclerviewAdapter.IndentItemClickListenr() {
             @Override
-            public void onIndentItemClick(int indentId, int position) {
+            public void onIndentItemClick(int publishId,int indentId, int position) {
                 Log.i(TAG, "onIndentItemClick: indentId>>>>>" + indentId + " position>>>>>" + position);
                 Intent intent = new Intent(ClassifyActivity.this, IndentActivity.class);
                 intent.putExtra("indentId", indentId);
+                intent.putExtra("publishId", publishId);
                 startActivity(intent);
             }
         });
@@ -165,18 +166,24 @@ public class ClassifyActivity extends BaseActivity implements ClassifyActivityBa
     public void getIndentByTypeSuccess(ResponseBean responseBean) {
         Log.i(TAG, "getIndentByTypeSuccess");
 
-        Gson gson = new Gson();
-        List<IndentBean> indentBeanList = gson.fromJson(
-                gson.toJson(responseBean.getData()),
-                new TypeToken<List<IndentBean>>() {}.getType());
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            List<IndentBean> indentBeanList = gson.fromJson(
+                    gson.toJson(responseBean.getData()),
+                    new TypeToken<List<IndentBean>>() {}.getType());
 
-        layout_loading.setVisibility(View.GONE);
+            layout_loading.setVisibility(View.GONE);
 
-        if (indentBeanList.isEmpty()) {
-            mAdapter.setIndentData("暂无更多订单");
-        } else {
-            allIndentDataList = indentBeanList;
-            mAdapter.setIndentData(getRuledNumIndent());
+            if (indentBeanList.isEmpty()) {
+                mAdapter.setIndentData("暂无更多订单");
+            } else {
+                allIndentDataList = indentBeanList;
+                mAdapter.setIndentData(getRuledNumIndent());
+            }
+        }else {
+            layout_loading.setVisibility(View.GONE);
+
+            mAdapter.setIndentData("加载失败");
         }
 
         mSmartRefreshLayout.finishRefresh();

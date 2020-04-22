@@ -66,21 +66,27 @@ public class OutputRecordFragment extends Fragment implements OutputRecordFragme
 
     @Override
     public void getCreditOutputRecordSuccess(ResponseBean responseBean) {
-        Gson gson = new Gson();
-        List<CreditBean> creditBeans = gson.fromJson(
-                gson.toJson(responseBean.getData()),
-                new TypeToken<List<CreditBean>>() {}.getType());
+        if (responseBean.getCode() == 200){
+            Gson gson = new Gson();
+            List<CreditBean> creditBeans = gson.fromJson(
+                    gson.toJson(responseBean.getData()),
+                    new TypeToken<List<CreditBean>>() {}.getType());
 
-        int number = creditBeans.size();
-        Log.i(TAG, "getCreditRecordSuccess: creditBeans.size()>>>>>"+number);
+            int number = creditBeans.size();
+            Log.i(TAG, "getCreditRecordSuccess: creditBeans.size()>>>>>"+number);
 
-        List<Object> dataList = new ArrayList<>();
-        if (number == 0){
-            dataList.add("暂无数据");
-            adapter.update(dataList);
-        }
-        else {
-            dataList.addAll(creditBeans);
+            List<Object> dataList = new ArrayList<>();
+            if (number == 0){
+                dataList.add("暂无数据");
+                adapter.update(dataList);
+            }
+            else {
+                dataList.addAll(creditBeans);
+                adapter.update(dataList);
+            }
+        }else {
+            List<Object> dataList = new ArrayList<>();
+            dataList.add("获取失败");
             adapter.update(dataList);
         }
     }

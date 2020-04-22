@@ -20,6 +20,15 @@ public class PublishAndIndentBean {
     private String planTime;
     private String description;
     private String price;
+    private String phoneNum;
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 
     public int getUserId() {
         return userId;

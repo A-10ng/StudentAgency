@@ -84,7 +84,7 @@ public class ClassifyActivityRecyclerviewAdapter extends RecyclerView.Adapter<Re
         }
 
         ((IndentViewHolder) holder).tv_description.setText(bean.getDescription());
-        ((IndentViewHolder) holder).tv_price.setText(bean.getPrice());
+        ((IndentViewHolder) holder).tv_price.setText("￥ "+bean.getPrice());
         ((IndentViewHolder) holder).tv_plantime.setText(bean.getPlanTime());
         ((IndentViewHolder) holder).tv_address.setText(bean.getAddress());
 
@@ -92,7 +92,7 @@ public class ClassifyActivityRecyclerviewAdapter extends RecyclerView.Adapter<Re
             @Override
             public void onClick(View v) {
                 if (indentItemClickListener != null) {
-                    indentItemClickListener.onIndentItemClick(bean.getIndentId(), position);
+                    indentItemClickListener.onIndentItemClick(bean.getPublishId(),bean.getIndentId(), position);
                 }
             }
         });
@@ -132,6 +132,6 @@ public class ClassifyActivityRecyclerviewAdapter extends RecyclerView.Adapter<Re
     }
 
     public interface IndentItemClickListenr {
-        void onIndentItemClick(int indentId, int position);
+        void onIndentItemClick(int publishId,int indentId, int position);
     }
 }
