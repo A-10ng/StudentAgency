@@ -165,23 +165,23 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        RegisterOptionalUserInfo userInfo = new RegisterOptionalUserInfo();
-//                        userInfo.setNickname(username);
-//                        userInfo.setSignature("http://www.longsh1z.top/resources/avatar_male.png");
-//                        JMessageClient.register(phoneNum, phoneNum, userInfo, new BasicCallback() {
-//                            @Override
-//                            public void gotResult(int responseCode, String s) {
-//                                Log.i(TAG, "JMessageClient.register gotResult: responseCode>>>>>" + responseCode + " s>>>>>" + s);
-//                                if (responseCode == 0) {
-//                                    presenter.register(username, genderType, Utils.md5(password), school, phoneNum);
-//                                } else if (responseCode == 898001){
-//                                    LemonBubble.showError(RegisterTwoActivity.this,"该手机号已注册过极光IM，请更换手机！",1200);
-//                                }
-//                                else {
-//                                    LemonBubble.showError(RegisterTwoActivity.this,"极光服务出现差错，请重试！",1200);
-//                                }
-//                            }
-//                        });
+                        RegisterOptionalUserInfo userInfo = new RegisterOptionalUserInfo();
+                        userInfo.setNickname(username);
+                        userInfo.setSignature("http://www.longsh1z.top/resources/avatar_male.png");
+                        JMessageClient.register(phoneNum, phoneNum, userInfo, new BasicCallback() {
+                            @Override
+                            public void gotResult(int responseCode, String s) {
+                                Log.i(TAG, "JMessageClient.register gotResult: responseCode>>>>>" + responseCode + " s>>>>>" + s);
+                                if (responseCode == 0) {
+                                    presenter.register(username, genderType, Utils.md5(password), school, phoneNum);
+                                } else if (responseCode == 898001){
+                                    LemonBubble.showError(RegisterTwoActivity.this,"该手机号已注册过极光IM，请更换手机！",1200);
+                                }
+                                else {
+                                    LemonBubble.showError(RegisterTwoActivity.this,"极光服务出现差错，请重试！",1200);
+                                }
+                            }
+                        });
                         presenter.register(username, genderType, Utils.md5(password), school, phoneNum);
                     }
                 }, 1500);

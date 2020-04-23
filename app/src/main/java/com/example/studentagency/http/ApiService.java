@@ -230,7 +230,8 @@ public interface ApiService {
     //接收方取消已接订单
     @FormUrlEncoded
     @PUT("api-accept/accept/cancelAccept")
-    Observable<ResponseBean> cancelIndentHadTakenInAcpFragment(@Field("indentId") int indentId);
+    Observable<ResponseBean> cancelIndentHadTakenInAcpFragment(@Field("indentId") int indentId,
+                                                               @Field("acceptId") int acceptId);
 
     //接收方删除未评价订单
     @FormUrlEncoded

@@ -706,6 +706,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener, Pe
                                 Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
                                 toast.setText("极光IM上传头像失败！");
                                 toast.show();
+                            }else {
+                                Toast toast = Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT);
+                                toast.setText("极光IM上传头像成功！");
+                                toast.show();
                             }
                         }
                     });

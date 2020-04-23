@@ -13,7 +13,7 @@ public class OtherPersonBean {
     private int userId;
     private String username;
     private String password;
-    private int studentId;
+    private String studentId;
     private String phoneNum;
     private String avatar;
     private int gender;
@@ -74,11 +74,11 @@ public class OtherPersonBean {
         this.password = password;
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

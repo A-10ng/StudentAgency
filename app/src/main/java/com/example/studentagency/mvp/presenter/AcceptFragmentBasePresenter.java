@@ -45,9 +45,9 @@ public class AcceptFragmentBasePresenter extends IPresenter {
         }
     }
 
-    public void cancelIndentHadTaken(int indentId, String price) {
+    public void cancelIndentHadTaken(int acceptId,int indentId, String price) {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
-            ((AcceptFragmentBaseModel)mIModel).cancelIndentHadTaken(indentId, price,new AcceptFragmentCancelIndentHadTakenCallBack() {
+            ((AcceptFragmentBaseModel)mIModel).cancelIndentHadTaken(acceptId,indentId, price,new AcceptFragmentCancelIndentHadTakenCallBack() {
                 @Override
 //                public void cancelIndentHadTakenSuccess(Integer result) {
                 public void cancelIndentHadTakenSuccess(ResponseBean responseBean) {

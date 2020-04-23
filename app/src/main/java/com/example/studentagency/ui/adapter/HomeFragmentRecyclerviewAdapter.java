@@ -101,8 +101,15 @@ public class HomeFragmentRecyclerviewAdapter extends RecyclerView.Adapter<Recycl
             } else {
                 ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.unverified);
             }
-                ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.unverified);
+//                ((IndentViewHolder) holder).iv_verifyState.setImageResource(R.drawable.unverified);
 
+            if (bean.getType() == 0){
+                ((IndentViewHolder) holder).iv_state.setImageResource(R.drawable.shopping);
+            }else if (bean.getType() == 1){
+                ((IndentViewHolder) holder).iv_state.setImageResource(R.drawable.deliverly);
+            }else {
+                ((IndentViewHolder) holder).iv_state.setImageResource(R.drawable.others);
+            }
 
             ((IndentViewHolder) holder).tv_description.setText(bean.getDescription());
             ((IndentViewHolder) holder).tv_price.setText("￥ "+bean.getPrice());

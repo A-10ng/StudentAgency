@@ -56,8 +56,8 @@ public class AcceptFragmentBaseModel implements IModel {
                 });
     }
 
-    public void cancelIndentHadTaken(int indentId, String price, AcceptFragmentCancelIndentHadTakenCallBack callBack) {
-        apiService.cancelIndentHadTakenInAcpFragment(indentId)
+    public void cancelIndentHadTaken(int acceptId,int indentId, String price, AcceptFragmentCancelIndentHadTakenCallBack callBack) {
+        apiService.cancelIndentHadTakenInAcpFragment(acceptId,indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

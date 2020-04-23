@@ -23,6 +23,7 @@ import com.example.studentagency.bean.ResponseBean;
 import com.example.studentagency.mvp.presenter.AcceptFragmentBasePresenter;
 import com.example.studentagency.mvp.view.AcceptFragmentBaseView;
 import com.example.studentagency.ui.activity.IndentActivity;
+import com.example.studentagency.ui.activity.MyApp;
 import com.example.studentagency.ui.adapter.PersonIndentRecyclerviewAdapter;
 import com.example.studentagency.utils.DateUtils;
 import com.example.studentagency.utils.VariableName;
@@ -185,6 +186,7 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
                         Intent intent = new Intent(getActivity(), IndentActivity.class);
                         intent.putExtra("indentId",indentBean.getIndentId());
                         intent.putExtra("state",state);
+                        intent.putExtra("publishId",indentBean.getPublishId());
                         startActivity(intent);
 
                         break;
@@ -232,7 +234,7 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
 
                 switch (code) {
                     case 106:
-                        presenter.cancelIndentHadTaken(indentId, price);
+                        presenter.cancelIndentHadTaken(MyApp.userId,indentId, price);
                         break;
                     case 107:
                         String deliveryTime = getDeliveryTime();
@@ -312,8 +314,8 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
         Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-            //            sendMessageToPublish(phoneNum,"取消您的订单实在不好意思，请见谅！");
-            sendMessageToPublish("18218643171","取消您的订单实在不好意思，请见谅！");
+                        sendMessageToPublish(phoneNum,"取消您的订单实在不好意思，请见谅！");
+//            sendMessageToPublish("18218643171","取消您的订单实在不好意思，请见谅！");
 
             LemonBubble.showRight(this, "取消成功！", 1500);
 
@@ -409,8 +411,8 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
         Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-            //            sendMessageToPublish(phoneNum,"您的东西已送达，请尽快确认！");
-            sendMessageToPublish("18218643171","您的东西已送达，请尽快确认！");
+                        sendMessageToPublish(phoneNum,"您的东西已送达，请尽快确认！");
+//            sendMessageToPublish("18218643171","您的东西已送达，请尽快确认！");
 
             LemonBubble.showRight(this, "确认成功！", 1500);
 

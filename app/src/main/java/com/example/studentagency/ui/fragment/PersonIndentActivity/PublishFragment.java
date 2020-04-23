@@ -210,6 +210,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                         Intent intent = new Intent(getActivity(), IndentActivity.class);
                         intent.putExtra("indentId",indentBean.getIndentId());
                         intent.putExtra("state",state);
+                        intent.putExtra("publishId",indentBean.getPublishId());
                         startActivity(intent);
                         break;
                 }
@@ -404,8 +405,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
         Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-            //            sendMessageToPublish(phoneNum,"临时有事该订单已取消，请见谅！");
-            sendMessageToPublish("18218643171","临时有事该订单已取消，请见谅！");
+                        sendMessageToPublish(phoneNum,"临时有事该订单已取消，请见谅！");
+//            sendMessageToPublish("18218643171","临时有事该订单已取消，请见谅！");
 
             LemonBubble.showRight(this, "取消成功！", 1500);
 
@@ -482,8 +483,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
         Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-            //            sendMessageToPublish(phoneNum,"东西我已收到，辛苦了！");
-            sendMessageToPublish("18218643171","东西我已收到，辛苦了！");
+                        sendMessageToPublish(phoneNum,"东西我已收到，辛苦了！");
+//            sendMessageToPublish("18218643171","东西我已收到，辛苦了！");
 
             LemonBubble.showRight(this, "确认成功！", 1500);
 
@@ -510,8 +511,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
         Log.i(TAG, "giveRatingSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-            //            sendMessageToPublish(phoneNum,"我已评价你的服务，请前往查看！");
-            sendMessageToPublish("18218643171","我已评价你的服务，请前往查看！");
+                        sendMessageToPublish(phoneNum,"我已评价你的服务，请前往查看！");
+//            sendMessageToPublish("18218643171","我已评价你的服务，请前往查看！");
 
             LemonBubble.showRight(this, "评价成功！", 1500);
 
