@@ -320,10 +320,19 @@ public class IndentActivityRecyclerViewAdapter extends RecyclerView.Adapter<Recy
 
     public void addComment(CommentBean commentBean) {
         if (mDataList.get(mDataList.size() - 2) == "点击展开更多留言") {
-            allCommentDataList.add(commentBean);
-        } else {
-            mDataList.subList(mDataList.size() - 1, mDataList.size()).clear();
+            allCommentDataList.add(0,commentBean);
+            mDataList.add(1,commentBean);
+            commentDataList_position += 1;
+        }
+        else if (mDataList.get(mDataList.size() - 2) == "暂无留言"){
+            mDataList.subList(mDataList.size() - 2, mDataList.size()).clear();
             mDataList.add(commentBean);
+            mDataList.add("空白处");
+            commentDataList_position = mDataList.size();
+        }
+        else {
+            mDataList.subList(mDataList.size() - 1, mDataList.size()).clear();
+            mDataList.add(1,commentBean);
             mDataList.add("空白处");
             commentDataList_position = mDataList.size();
         }

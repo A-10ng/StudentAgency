@@ -9,11 +9,12 @@ package com.example.studentagency.bean;
 public class IndentBean {
     private int indentId;
     private int publishId;
+    private int acceptId;
     private int type;
     private int addressId;
     private int state;
     private String publishTime;
-    private String acceptTime;
+    private String acceptedTime;
     private String planTime;
     private String finishTime;
     private int isCancel;
@@ -26,12 +27,20 @@ public class IndentBean {
     private String price;
     private String address;
 
-    public String getAcceptTime() {
-        return acceptTime;
+    public int getAcceptId() {
+        return acceptId;
     }
 
-    public void setAcceptTime(String acceptTime) {
-        this.acceptTime = acceptTime;
+    public void setAcceptId(int acceptId) {
+        this.acceptId = acceptId;
+    }
+
+    public String getAcceptedTime() {
+        return acceptedTime;
+    }
+
+    public void setAcceptedTime(String acceptedTime) {
+        this.acceptedTime = acceptedTime;
     }
 
     public String getPhoneNum() {

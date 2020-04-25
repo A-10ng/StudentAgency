@@ -85,7 +85,7 @@ public class AcceptFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentNotComment(int indentId, String price, AcceptFragmentDeleteIndentNotCommentCallBack callBack) {
-        apiService.deleteIndentNotCommentInAcpFragment(indentId)
+        apiService.deleteIndentNotCommentInAcpFragment(indentId,1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -114,7 +114,7 @@ public class AcceptFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentHadComment(int indentId, String price, AcceptFragmentDeleteIndentHadCommentCallBack callBack) {
-        apiService.deleteIndentHadCommentInAcpFragment(indentId)
+        apiService.deleteIndentHadCommentInAcpFragment(indentId,1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

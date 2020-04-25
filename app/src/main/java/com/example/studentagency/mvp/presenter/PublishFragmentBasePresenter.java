@@ -126,9 +126,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         }
     }
 
-    public void ensureAcceptGoods(int indentId, String price) {
+    public void ensureAcceptGoods(String finishTime,int indentId, String price) {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
-            ((PublishFragmentBaseModel)mIModel).ensureAcceptGoods(indentId, price,new PublishFragmentEnsureAcceptGoodsCallBack() {
+            ((PublishFragmentBaseModel)mIModel).ensureAcceptGoods(finishTime,indentId, price,new PublishFragmentEnsureAcceptGoodsCallBack() {
                 @Override
                 public void ensureAcceptGoodsSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){
@@ -146,9 +146,9 @@ public class PublishFragmentBasePresenter extends IPresenter {
         }
     }
 
-    public void giveRating(int indentId,int increasement,String happenTime) {
+    public void giveRating(int acceptId,int indentId,int increasement,String happenTime) {
         if (null != mViewRef && null != mViewRef.get() && null != mIModel){
-            ((PublishFragmentBaseModel)mIModel).giveRating(indentId,increasement, happenTime,new PublishFragmentGiveRatingCallBack() {
+            ((PublishFragmentBaseModel)mIModel).giveRating(acceptId,indentId,increasement, happenTime,new PublishFragmentGiveRatingCallBack() {
                 @Override
                 public void giveRatingSuccess(ResponseBean responseBean) {
                     if (null != mViewRef.get()){

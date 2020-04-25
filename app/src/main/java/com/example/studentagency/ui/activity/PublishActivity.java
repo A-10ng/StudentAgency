@@ -185,7 +185,7 @@ public class PublishActivity extends BaseActivity implements PublishActivityBase
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                String publishTime = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm");
+                                String publishTime = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
                                 float price = Float.parseFloat(str_price);
                                 Log.i(TAG, "onClick: " +
                                         "agencyType>>>>>" + agencyType + "\n" +

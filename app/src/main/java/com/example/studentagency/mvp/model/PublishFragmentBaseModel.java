@@ -117,7 +117,7 @@ public class PublishFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentNotComment(int indentId, String price, PublishFragmentDeleteIndentNotCommentCallBack callBack) {
-        apiService.deleteIndentNotComment(indentId)
+        apiService.deleteIndentNotComment(indentId,1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -146,7 +146,7 @@ public class PublishFragmentBaseModel implements IModel {
     }
 
     public void deleteIndentHadComment(int indentId, String price, PublishFragmentDeleteIndentHadCommentCallBack callBack) {
-        apiService.deleteIndentHadComment(indentId)
+        apiService.deleteIndentHadComment(indentId,1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -174,8 +174,8 @@ public class PublishFragmentBaseModel implements IModel {
                 });
     }
 
-    public void ensureAcceptGoods(int indentId, String price, PublishFragmentEnsureAcceptGoodsCallBack callBack) {
-        apiService.ensureAcceptGoods(indentId)
+    public void ensureAcceptGoods(String finishTime,int indentId, String price, PublishFragmentEnsureAcceptGoodsCallBack callBack) {
+        apiService.ensureAcceptGoods(finishTime,indentId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {
@@ -203,8 +203,8 @@ public class PublishFragmentBaseModel implements IModel {
                 });
     }
 
-    public void giveRating(int indentId,int increasement, String happenTime, PublishFragmentGiveRatingCallBack callBack) {
-        apiService.giveRating(indentId,MyApp.userId,increasement,happenTime)
+    public void giveRating(int acceptId,int indentId,int increasement, String happenTime, PublishFragmentGiveRatingCallBack callBack) {
+        apiService.giveRating(indentId,acceptId,increasement,happenTime)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBean>() {

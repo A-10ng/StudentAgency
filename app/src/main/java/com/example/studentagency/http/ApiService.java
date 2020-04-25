@@ -194,17 +194,18 @@ public interface ApiService {
     //发布方删除未评价订单
     @FormUrlEncoded
     @PUT("api-indent/indent/")
-    Observable<ResponseBean> deleteIndentNotComment(@Field("indentId") int indentId);
+    Observable<ResponseBean> deleteIndentNotComment(@Field("indentId") int indentId,@Field("isDeleted") int isDeleted);
 
     //发布方删除已评价订单
     @FormUrlEncoded
     @PUT("api-indent/indent/")
-    Observable<ResponseBean> deleteIndentHadComment(@Field("indentId") int indentId);
+    Observable<ResponseBean> deleteIndentHadComment(@Field("indentId") int indentId,@Field("isDeleted") int isDeleted);
 
     //发布方确认送达
     @FormUrlEncoded
     @PUT("api-indent/indent/finishIndent/")
-    Observable<ResponseBean> ensureAcceptGoods(@Field("indentId") int indentId);
+    Observable<ResponseBean> ensureAcceptGoods(@Field("finishTime") String finishTime,
+                                               @Field("indentId") int indentId);
 
     //订单详情页面返回留言数据
     @GET("api-indent/comment/getCommentInfo/{indentId}")
@@ -230,18 +231,18 @@ public interface ApiService {
     //接收方取消已接订单
     @FormUrlEncoded
     @PUT("api-accept/accept/cancelAccept")
-    Observable<ResponseBean> cancelIndentHadTakenInAcpFragment(@Field("indentId") int indentId,
-                                                               @Field("acceptId") int acceptId);
+    Observable<ResponseBean> cancelIndentHadTakenInAcpFragment(@Field("acceptId") int acceptId,
+                                                               @Field("indentId") int indentId);
 
     //接收方删除未评价订单
     @FormUrlEncoded
-    @PUT("api-accept/accept/deleteAccept")
-    Observable<ResponseBean> deleteIndentNotCommentInAcpFragment(@Field("indentId") int indentId);
+    @PUT("api-accept/accept/deleteAccept/")
+    Observable<ResponseBean> deleteIndentNotCommentInAcpFragment(@Field("indentId") int indentId,@Field("isDeleted") int isDeleted);
 
     //接收方删除已评价订单
     @FormUrlEncoded
-    @PUT("api-accept/accept/deleteAccept")
-    Observable<ResponseBean> deleteIndentHadCommentInAcpFragment(@Field("indentId") int indentId);
+    @PUT("api-accept/accept/deleteAccept/")
+    Observable<ResponseBean> deleteIndentHadCommentInAcpFragment(@Field("indentId") int indentId,@Field("isDeleted") int isDeleted);
 
     //接收方确认送达
     @FormUrlEncoded

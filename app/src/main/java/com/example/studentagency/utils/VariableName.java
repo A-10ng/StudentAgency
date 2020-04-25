@@ -11,7 +11,7 @@ public class VariableName {
     public static boolean DEBUG=false;
 
 //    public final static String JIGUANG_APP_KEY = "be139d53989762b510f79201";
-    public final static String JIGUANG_APP_KEY = "6d182e1ab48ee064dd4167d4";
+    public final static String JIGUANG_APP_KEY = "17a9fce6184959d327ca46eb";
     public final static String USERNAME = "USERNAME";
     public final static String PASSWORD = "PASSWORD";
     public final static String PHONE = "PHONE";

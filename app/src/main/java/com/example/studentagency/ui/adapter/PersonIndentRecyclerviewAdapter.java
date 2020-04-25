@@ -105,7 +105,7 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                 } else if (indentBean.getState() == 1) {
                     itemViewHolder.tv_state.setText("进行中");
 
-                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptedTime());
                     itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
                     itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
 
@@ -114,7 +114,7 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                 } else if (indentBean.getState() == 2) {
                     itemViewHolder.tv_state.setText("已完成未评价");
 
-                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptedTime());
                     itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
                     itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
 
@@ -123,7 +123,7 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                 } else {
                     itemViewHolder.tv_state.setText("已完成已评价");
 
-                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                    itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptedTime());
                     itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
                     itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
 
@@ -149,7 +149,7 @@ public class PersonIndentRecyclerviewAdapter extends RecyclerView.Adapter {
                     itemViewHolder.btn_num2.setVisibility(View.GONE);
                 }
 
-                itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptTime());
+                itemViewHolder.tv_acceptTime.setText(indentBean.getAcceptedTime());
                 itemViewHolder.tv_acceptTime_hint.setVisibility(View.VISIBLE);
                 itemViewHolder.tv_acceptTime.setVisibility(View.VISIBLE);
             }

@@ -132,6 +132,12 @@ public class HomeFragment extends Fragment implements HomeFragmentBaseView {
         setRecyclerViewAdapter();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
     private void initSmartRefreshLayout() {
         smartRefreshLayout = root.findViewById(R.id.smartRefreshLayout);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {

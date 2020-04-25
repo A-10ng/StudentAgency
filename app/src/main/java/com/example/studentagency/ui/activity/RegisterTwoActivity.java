@@ -182,7 +182,6 @@ public class RegisterTwoActivity extends BaseActivity implements View.OnClickLis
                                 }
                             }
                         });
-                        presenter.register(username, genderType, Utils.md5(password), school, phoneNum);
                     }
                 }, 1500);
                 break;

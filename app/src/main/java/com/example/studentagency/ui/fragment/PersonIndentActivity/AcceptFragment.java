@@ -230,6 +230,7 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
             public void run() {
                 Log.i(TAG, "onClick: " +
                         "indentId>>>>>" + indentId + "\n" +
+                        "acceptId>>>>>" + MyApp.userId + "\n" +
                         "price>>>>>" + price);
 
                 switch (code) {
@@ -313,8 +314,11 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
     public void cancelIndentHadTakenSuccess(ResponseBean responseBean) {
         Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
+
         if (200 == responseBean.getCode()) {
-                        sendMessageToPublish(phoneNum,"取消您的订单实在不好意思，请见谅！");
+            String publishPhoneNum = responseBean.getData().toString();
+            Log.i(TAG, "cancelIndentHadTakenSuccess: 发布方的手机号是---"+publishPhoneNum);
+            sendMessageToPublish(publishPhoneNum,"取消您的订单实在不好意思，请见谅！");
 //            sendMessageToPublish("18218643171","取消您的订单实在不好意思，请见谅！");
 
             LemonBubble.showRight(this, "取消成功！", 1500);
@@ -411,7 +415,9 @@ public class AcceptFragment extends Fragment implements AcceptFragmentBaseView {
         Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-                        sendMessageToPublish(phoneNum,"您的东西已送达，请尽快确认！");
+            String publishPhoneNum = responseBean.getData().toString();
+            Log.i(TAG, "ensureAcceptGoodsSuccess: 发布方的手机号是---"+publishPhoneNum);
+            sendMessageToPublish(publishPhoneNum,"您的东西已送达，请尽快确认！");
 //            sendMessageToPublish("18218643171","您的东西已送达，请尽快确认！");
 
             LemonBubble.showRight(this, "确认成功！", 1500);

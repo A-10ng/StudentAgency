@@ -72,6 +72,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
     private PublishFragmentBasePresenter presenter = new PublishFragmentBasePresenter(this);
     private View viewRoot;
     private String phoneNum;
+    private int acceptId;
 
     //recyclerview
     private RecyclerView mRecyclerView;
@@ -166,6 +167,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
             public void clickItem(int what, int state, int position, Button btn_num1, Button btn_num2,IndentBean indentBean) {
                 clickedPosition = position;
                 phoneNum = indentBean.getPhoneNum();
+                acceptId = indentBean.getAcceptId();
 
                 switch (what) {
                     case 100:
@@ -189,7 +191,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     case 103:
                         Log.i(TAG, "clickItem: 点击了已发布-->已完成未评价-->评价，indentBean>>>>>" + indentBean.toString() + " state>>>>>" + state + " position>>>>>" + position);
 
-                        showCommentPopupWindow(indentBean.getIndentId(),btn_num1);
+                        showCommentPopupWindow(acceptId,indentBean.getIndentId(),btn_num1);
 
                         break;
                     case 104:
@@ -239,7 +241,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                 .show(getActivity());
     }
 
-    private void showCommentPopupWindow(int indentId, Button btn_num1) {
+    private void showCommentPopupWindow(int acceptId,int indentId, Button btn_num1) {
         RatingBarPopupWindow popupWindow = new RatingBarPopupWindow(getActivity());
         popupWindow.setClickItemListener(new RatingBarPopupWindow.ClickItemListener() {
             @Override
@@ -259,7 +261,7 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                     public void run() {
                         String happenTime = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
                         Log.i(TAG, "clickItem: increasement>>>>>"+increasement+" happenTime>>>>>"+happenTime);
-                        presenter.giveRating(indentId,increasement,happenTime);
+                        presenter.giveRating(acceptId,indentId,increasement,happenTime);
                     }
                 }, 1500);
             }
@@ -291,7 +293,8 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
                         presenter.cancelIndentHadTaken(indentId, price);
                         break;
                     case 102:
-                        presenter.ensureAcceptGoods(indentId, price);
+                        String finishTime = DateUtils.getCurrentDateByFormat("yyyy-MM-dd HH:mm:ss");
+                        presenter.ensureAcceptGoods(finishTime,indentId, price);
                         break;
                     case 104:
                         presenter.deleteIndentNotComment(indentId, price);
@@ -405,7 +408,9 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
         Log.i(TAG, "cancelIndentHadTakenSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-                        sendMessageToPublish(phoneNum,"临时有事该订单已取消，请见谅！");
+            String acceptPhoneNum = responseBean.getData().toString();
+            Log.i(TAG, "cancelIndentHadTakenSuccess: 接收方的手机号是---"+acceptPhoneNum);
+            sendMessageToPublish(acceptPhoneNum,"临时有事该订单已取消，请见谅！");
 //            sendMessageToPublish("18218643171","临时有事该订单已取消，请见谅！");
 
             LemonBubble.showRight(this, "取消成功！", 1500);
@@ -483,7 +488,9 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
         Log.i(TAG, "ensureAcceptGoodsSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-                        sendMessageToPublish(phoneNum,"东西我已收到，辛苦了！");
+            String acceptPhoneNum = responseBean.getData().toString();
+            Log.i(TAG, "ensureAcceptGoodsSuccess: 接收方的手机号是---"+acceptPhoneNum);
+            sendMessageToPublish(acceptPhoneNum,"东西我已收到，辛苦了！");
 //            sendMessageToPublish("18218643171","东西我已收到，辛苦了！");
 
             LemonBubble.showRight(this, "确认成功！", 1500);
@@ -511,7 +518,9 @@ public class PublishFragment extends Fragment implements PublishFragmentBaseView
         Log.i(TAG, "giveRatingSuccess: result>>>>>" + responseBean.getCode());
 
         if (200 == responseBean.getCode()) {
-                        sendMessageToPublish(phoneNum,"我已评价你的服务，请前往查看！");
+            String acceptPhoneNum = responseBean.getData().toString();
+            Log.i(TAG, "giveRatingSuccess: 接收方的手机号是---"+acceptPhoneNum);
+            sendMessageToPublish(acceptPhoneNum,"我已评价你的服务，请前往查看！");
 //            sendMessageToPublish("18218643171","我已评价你的服务，请前往查看！");
 
             LemonBubble.showRight(this, "评价成功！", 1500);
